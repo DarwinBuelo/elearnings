@@ -61,12 +61,12 @@
 							</div>
 							<nav class="main_nav_contaner ml-auto">
 								<ul class="main_nav">
-									<li><a href="index.html">Home</a></li>
-									<li><a href="about.html">About</a></li>
-									<li><a href="courses.html">Courses</a></li>
+									<li><a href="index.php">Home</a></li>
+									<li><a href="about.php">About</a></li>
+									<li><a href="courses.php">Courses</a></li>
 									<li><a href="blog.html">Blog</a></li>
 									<li><a href="#">Page</a></li>
-									<li><a href="contact.html">Contact</a></li>
+									<li><a href="contact.php">Contact</a></li>
 								</ul>
 								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
 
@@ -117,12 +117,12 @@
 		</div>
 		<nav class="menu_nav">
 			<ul class="menu_mm">
-				<li class="menu_mm"><a href="index.html">Home</a></li>
+				<li class="menu_mm"><a href="index.php">Home</a></li>
 				<li class="menu_mm"><a href="#">About</a></li>
 				<li class="menu_mm"><a href="#">Courses</a></li>
 				<li class="menu_mm"><a href="#">Blog</a></li>
 				<li class="menu_mm"><a href="#">Page</a></li>
-				<li class="menu_mm"><a href="contact.html">Contact</a></li>
+				<li class="menu_mm"><a href="contact.php">Contact</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -136,7 +136,7 @@
 					<div class="col">
 						<div class="breadcrumbs">
 							<ul>
-								<li><a href="index.html">Home</a></li>
+								<li><a href="index.php">Home</a></li>
 								<li>Blog</li>
 							</ul>
 						</div>
@@ -158,7 +158,7 @@
 						<div class="blog_post trans_200">
 							<div class="blog_post_image"><img src="images/blog_1.jpg" alt=""></div>
 							<div class="blog_post_body">
-								<div class="blog_post_title"><a href="blog_single.html">Here’s What You Need to Know About Online Testing</a></div>
+								<div class="blog_post_title"><a href="blog_single.php">Here’s What You Need to Know About Online Testing</a></div>
 								<div class="blog_post_meta">
 									<ul>
 										<li><a href="#">admin</a></li>
@@ -174,7 +174,7 @@
 						<!-- Blog Post -->
 						<div class="blog_post trans_200">
 							<div class="blog_post_body">
-								<div class="blog_post_title"><a href="blog_single.html">With Changing Students and Times</a></div>
+								<div class="blog_post_title"><a href="blog_single.php">With Changing Students and Times</a></div>
 								<div class="blog_post_meta">
 									<ul>
 										<li><a href="#">admin</a></li>
@@ -197,7 +197,7 @@
 								</video>
 							</div>
 							<div class="blog_post_body">
-								<div class="blog_post_title"><a href="blog_single.html">Building Skills Outside the Classroom With New Ways</a></div>
+								<div class="blog_post_title"><a href="blog_single.php">Building Skills Outside the Classroom With New Ways</a></div>
 								<div class="blog_post_meta">
 									<ul>
 										<li><a href="#">admin</a></li>
@@ -214,7 +214,7 @@
 						<div class="blog_post trans_200">
 							<div class="blog_post_image"><img src="images/blog_3.jpg" alt=""></div>
 							<div class="blog_post_body">
-								<div class="blog_post_title"><a href="blog_single.html">Law Schools Debate a Contentious Testing Alternative</a></div>
+								<div class="blog_post_title"><a href="blog_single.php">Law Schools Debate a Contentious Testing Alternative</a></div>
 								<div class="blog_post_meta">
 									<ul>
 										<li><a href="#">admin</a></li>
@@ -237,7 +237,7 @@
 								</video>
 							</div>
 							<div class="blog_post_body">
-								<div class="blog_post_title"><a href="blog_single.html">Building Skills Outside the Classroom With New Ways</a></div>
+								<div class="blog_post_title"><a href="blog_single.php">Building Skills Outside the Classroom With New Ways</a></div>
 								<div class="blog_post_meta">
 									<ul>
 										<li><a href="#">admin</a></li>
@@ -254,7 +254,7 @@
 						<div class="blog_post trans_200">
 							<div class="blog_post_image"><img src="images/blog_5.jpg" alt=""></div>
 							<div class="blog_post_body">
-								<div class="blog_post_title"><a href="blog_single.html">Here’s What You Need to Know About Online Testing</a></div>
+								<div class="blog_post_title"><a href="blog_single.php">Here’s What You Need to Know About Online Testing</a></div>
 								<div class="blog_post_meta">
 									<ul>
 										<li><a href="#">admin</a></li>
@@ -270,7 +270,7 @@
 						<!-- Blog Post -->
 						<div class="blog_post trans_200">
 							<div class="blog_post_body">
-								<div class="blog_post_title"><a href="blog_single.html">With Changing Students and Times</a></div>
+								<div class="blog_post_title"><a href="blog_single.php">With Changing Students and Times</a></div>
 								<div class="blog_post_meta">
 									<ul>
 										<li><a href="#">admin</a></li>
@@ -380,11 +380,11 @@
 									<div class="footer_title">Contact Us</div>
 									<div class="footer_links_container">
 										<ul>
-											<li><a href="index.html">Home</a></li>
-											<li><a href="about.html">About</a></li>
-											<li><a href="contact.html">Contact</a></li>
+											<li><a href="index.php">Home</a></li>
+											<li><a href="about.php">About</a></li>
+											<li><a href="contact.php">Contact</a></li>
 											<li><a href="#">Features</a></li>
-											<li><a href="courses.html">Courses</a></li>
+											<li><a href="courses.php">Courses</a></li>
 											<li><a href="#">Events</a></li>
 											<li><a href="#">Gallery</a></li>
 											<li><a href="#">FAQs</a></li>

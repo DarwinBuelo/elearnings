@@ -53,101 +53,6 @@ class Layout
      */
     public function footer()
     {
-        echo ' 
-        <!--== SlideshowBg Area End ==-->
-        <!--== Footer Area Start ==-->
-        <!-- <section id="footer-area"> -->
-            <!-- Footer Widget Start -->
-            <!-- <div class="footer-widget-area">
-                <div class="container">
-                    <div class="row"> -->
-                        <!-- Single Footer Widget Start -->
-                        <!-- <div class="col-lg-4 col-md-6">
-                            <div class="single-footer-widget">
-                                <h2>About Us</h2>
-                                <div class="widget-body">
-                                    <img src="assets/img/logo.png" alt="JSOFT">
-                                    <p>Lorem ipsum dolored is a sit ameted consectetur adipisicing elit. Nobis magni assumenda distinctio debitis, eum fuga fugiat error reiciendis.</p>
-    
-                                    <div class="newsletter-area">
-                                        <form action="index.html">
-                                            <input type="email" placeholder="Subscribe Our Newsletter">
-                                            <button type="submit" class="newsletter-btn"><i class="fa fa-send"></i></button>
-                                        </form>
-                                    </div>
-    
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- Single Footer Widget End -->
-    
-                        <!-- Single Footer Widget Start -->
-                        <!-- <div class="col-lg-4 col-md-6">
-                            <div class="single-footer-widget">
-                                <h2>Recent Posts</h2>
-                                <div class="widget-body">
-                                    <ul class="recent-post">
-                                        <li>
-                                            <a href="#">
-                                               Hello Bangladesh! 
-                                               <i class="fa fa-long-arrow-right"></i>
-                                           </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                              Lorem ipsum dolor sit amet
-                                               <i class="fa fa-long-arrow-right"></i>
-                                           </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                               Hello Bangladesh! 
-                                               <i class="fa fa-long-arrow-right"></i>
-                                           </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                consectetur adipisicing elit?
-                                               <i class="fa fa-long-arrow-right"></i>
-                                           </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- Single Footer Widget End -->
-    
-                        <!-- Single Footer Widget Start -->
-                        <!-- <div class="col-lg-4 col-md-6">
-                            <div class="single-footer-widget">
-                                <h2>get touch</h2>
-                                <div class="widget-body">
-                                    <p>Lorem ipsum doloer sited amet, consectetur adipisicing elit. nibh auguea, scelerisque sed</p>
-    
-                                    <ul class="get-touch">
-                                        <li><i class="fa fa-map-marker"></i> 800/8, Kazipara, Dhaka</li>
-                                        <li><i class="fa fa-mobile"></i> +880 01 86 25 72 43</li>
-                                        <li><i class="fa fa-envelope"></i> kazukamdu83@gmail.com</li>
-                                    </ul>
-                                    <a href="https://goo.gl/maps/b5mt45MCaPB2" class="map-show" target="_blank">Show Location</a>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- Single Footer Widget End -->
-                    <!-- </div>
-                </div>
-            </div> -->
-            <!-- Footer Widget End -->
-    
-            <!-- Footer Bottom Start -->
-            <!-- Footer Bottom End -->
-        <!-- </section> -->
-        <!-- == Footer Area End == -->
-        <!--== Scroll Top Area Start ==-->
-        <div class="scroll-top">
-            <img src="assets/img/scroll-top.png" alt="JSOFT">
-        </div>
-        <!--== Scroll Top Area End ==-->';
         if (count($this->js) > 0) {
             foreach ($this->js as $js) {
                 ?><script src="<?= $js ?>"></script><?php
@@ -225,105 +130,89 @@ class Layout
 
     public static function navigationBar()
     {
-        echo '<!--== Preloader Area Start ==-->
-        <div class="preloader">
-            <div class="preloader-spinner">
-                <div class="loader-content">
-                    <-- <img src="assets/img/preloader.gif" alt="JSOFT"> -->
-                </div>
-            </div>
-        </div>
-        <!--== Preloader Area End ==-->
-        <!--== Header Area Start ==-->
-        <header id="header-area" class="fixed-top">
-                <!--== Header Top Start ==-->
-                <div id="header-top" class="d-none d-xl-block">
-                    <div class="container">
-                        <div class="row">
-                            <!--== Single HeaderTop Start ==-->
-                            <div class="col-lg-3 text-left">
-                                <i class="fa fa-map-marker"></i> Legazpi City, Albay
-                            </div>
-                            <!--== Single HeaderTop End ==-->
-        
-                            <!--== Single HeaderTop Start ==-->
-                            <div class="col-lg-3 text-center">
-                                <i class="fa fa-mobile"></i> +480 12 95
-                            </div>
-                            <!--== Single HeaderTop End ==-->
-        
-                            <!--== Single HeaderTop Start ==-->
-                            <div class="col-lg-3 text-center">
-                                <i class="fa fa-clock-o"></i> Mon-Fri 09.00 - 17.00
-                            </div>
-                            <!--== Single HeaderTop End ==-->
-        
-                            <!--== Social Icons Start ==-->
-                            <div class="col-lg-3 text-right">
-                                <div class="header-social-icons">
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                </div>
-                            </div>
-                            <!--== Social Icons End ==-->
-                        </div>
-                    </div>
-                </div>
-                <!--== Header Top End ==-->
-        
-                <!--== Header Bottom Start ==-->
-                <div id="header-bottom">
-                    <div class="container">
-                        <div class="row">
-                            <!--== Logo Start ==-->
-                            <div class="col-lg-4">
-                                <a href="index.html" class="logo">
-                                    <img src="assets/img/busLogo.ico" alt="JSOFT">
-                                </a>
-                            </div>
-                            <!--== Logo End ==-->
-        
-                            <!--== Main Menu Start ==-->
-                            <div class="col-lg-8 d-none d-xl-block">
-                                <nav class="mainmenu alignright">
-                                    <ul>
-                                        <li class="active"><a href="index.php">Home</a></li>
-                                        <!-- <li><a href="about.html">About</a></li> -->
-                                        <li><a href="#">About</a></li>
-                                        <li><a href="services.html">Schedule</a></li>
-                                        <li><a href="#">Bus</a></li>
-                                        <li><a href="#">Go to</a>
-                                            <ul>
-                                                <!-- <li><a href="package.html">Pricing</a></li> -->
-                                                <li><a href="#">Pricing</a></li>
-                                                <!-- <li><a href="driver.html">Driver</a></li> -->
-                                                <li><a href="#">Driver</a></li>
-                                                <!-- <li><a href="faq.html">FAQ</a></li> -->
-                                                <!-- <li><a href="gallery.html">Gallery</a></li> -->
-                                                <!-- <li><a href="help-desk.html">Help Desk</a></li> -->
-                                                <li><a href="login.php">Log In</a></li>
-                                                <li><a href="register.php">Register</a></li>
-                                                <!-- <li><a href="404.html">404</a></li> -->
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Blog</a>
-                                            <ul>
-                                                <!-- <li><a href="article.html">Blog Page</a></li> -->
-                                                <!-- <li><a href="article-details.html">Blog Details</a></li> -->
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Contact</a></li> 
-                                        <!-- <li><a href="contact.html">Contact</a></li> -->
-                                    </ul>
-                                </nav>
-                            </div>
-                            <!--== Main Menu End ==-->
-                        </div>
-                    </div>
-                </div>
-                <!--== Header Bottom End ==-->
-            </header>
-            <!--== Header Area End ==-->';
+        echo '<header class="header">
+			
+		<!-- Top Bar -->
+		<div class="top_bar">
+			<div class="top_bar_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="top_bar_content d-flex flex-row align-items-center justify-content-start">
+								<ul class="top_bar_contact_list">
+									<li><div class="question">Have any questions?</div></li>
+									<li>
+										<i class="fa fa-phone" aria-hidden="true"></i>
+										<div>480 12 95</div>
+									</li>
+									<li>
+										<i class="fa fa-envelope-o" aria-hidden="true"></i>
+										<div>emailAddress@gmail.com</div>
+									</li>
+								</ul>
+								<div class="top_bar_login ml-auto">
+									<div class="login_button"><a href="#">Register or Login</a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>				
+		</div>
+
+		<!-- Header Content -->
+		<div class="header_container">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="header_content d-flex flex-row align-items-center justify-content-start">
+							<div class="logo_container">
+								<a href="#">
+									<div class="logo_text">STI<span>Legazpi</span></div>
+								</a>
+							</div>
+							<nav class="main_nav_contaner ml-auto">
+								<ul class="main_nav">
+									<li class="active"><a href="#">Home</a></li>
+									<li><a href="about.php">About</a></li>
+									<li><a href="courses.php">Courses</a></li>
+									<li><a href="blog.php">Blog</a></li>
+									<li><a href="#">Page</a></li>
+									<li><a href="contact.php">Contact</a></li>
+								</ul>
+								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
+
+								<!-- Hamburger -->
+
+								<div class="shopping_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
+								<div class="hamburger menu_mm">
+									<i class="fa fa-bars menu_mm" aria-hidden="true"></i>
+								</div>
+							</nav>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Header Search Panel -->
+		<div class="header_search_container">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="header_search_content d-flex flex-row align-items-center justify-content-end">
+							<form action="#" class="header_search_form">
+								<input type="search" class="search_input" placeholder="Search" required="required">
+								<button class="header_search_button d-flex flex-column align-items-center justify-content-center">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>			
+	</header>';
     }
 }

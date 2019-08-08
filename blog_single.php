@@ -61,12 +61,12 @@
 							</div>
 							<nav class="main_nav_contaner ml-auto">
 								<ul class="main_nav">
-									<li><a href="index.html">Home</a></li>
-									<li><a href="about.html">About</a></li>
-									<li><a href="courses.html">Courses</a></li>
-									<li><a href="blog.html">Blog</a></li>
+									<li><a href="index.php">Home</a></li>
+									<li><a href="about.php">About</a></li>
+									<li><a href="courses.php">Courses</a></li>
+									<li><a href="blog.php">Blog</a></li>
 									<li><a href="#">Page</a></li>
-									<li><a href="contact.html">Contact</a></li>
+									<li><a href="contact.php">Contact</a></li>
 								</ul>
 								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
 
@@ -117,12 +117,12 @@
 		</div>
 		<nav class="menu_nav">
 			<ul class="menu_mm">
-				<li class="menu_mm"><a href="index.html">Home</a></li>
+				<li class="menu_mm"><a href="index.php">Home</a></li>
 				<li class="menu_mm"><a href="#">About</a></li>
 				<li class="menu_mm"><a href="#">Courses</a></li>
 				<li class="menu_mm"><a href="#">Blog</a></li>
 				<li class="menu_mm"><a href="#">Page</a></li>
-				<li class="menu_mm"><a href="contact.html">Contact</a></li>
+				<li class="menu_mm"><a href="contact.php">Contact</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -136,8 +136,8 @@
 					<div class="col">
 						<div class="breadcrumbs">
 							<ul>
-								<li><a href="index.html">Home</a></li>
-								<li><a href="blog.html">Blog</a></li>
+								<li><a href="index.php">Home</a></li>
+								<li><a href="blog.php">Blog</a></li>
 								<li>Blog Single</li>
 							</ul>
 						</div>
@@ -325,7 +325,7 @@
 								<div class="latest d-flex flex-row align-items-start justify-content-start">
 									<div class="latest_image"><div><img src="images/latest_1.jpg" alt=""></div></div>
 									<div class="latest_content">
-										<div class="latest_title"><a href="course.html">How to Design a Logo a Beginners Course</a></div>
+										<div class="latest_title"><a href="course.php">How to Design a Logo a Beginners Course</a></div>
 										<div class="latest_date">november 11, 2017</div>
 									</div>
 								</div>
@@ -334,7 +334,7 @@
 								<div class="latest d-flex flex-row align-items-start justify-content-start">
 									<div class="latest_image"><div><img src="images/latest_2.jpg" alt=""></div></div>
 									<div class="latest_content">
-										<div class="latest_title"><a href="course.html">Photography for Beginners Masterclass</a></div>
+										<div class="latest_title"><a href="course.php">Photography for Beginners Masterclass</a></div>
 										<div class="latest_date">november 11, 2017</div>
 									</div>
 								</div>
@@ -343,7 +343,7 @@
 								<div class="latest d-flex flex-row align-items-start justify-content-start">
 									<div class="latest_image"><div><img src="images/latest_3.jpg" alt=""></div></div>
 									<div class="latest_content">
-										<div class="latest_title"><a href="course.html">The Secrets of Body Language</a></div>
+										<div class="latest_title"><a href="course.php">The Secrets of Body Language</a></div>
 										<div class="latest_date">november 11, 2017</div>
 									</div>
 								</div>
@@ -515,11 +515,11 @@
 									<div class="footer_title">Contact Us</div>
 									<div class="footer_links_container">
 										<ul>
-											<li><a href="index.html">Home</a></li>
-											<li><a href="about.html">About</a></li>
-											<li><a href="contact.html">Contact</a></li>
+											<li><a href="index.php">Home</a></li>
+											<li><a href="about.php">About</a></li>
+											<li><a href="contact.php">Contact</a></li>
 											<li><a href="#">Features</a></li>
-											<li><a href="courses.html">Courses</a></li>
+											<li><a href="courses.php">Courses</a></li>
 											<li><a href="#">Events</a></li>
 											<li><a href="#">Gallery</a></li>
 											<li><a href="#">FAQs</a></li>
