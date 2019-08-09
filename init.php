@@ -10,33 +10,28 @@ $companydesc = '';
 $Outline = new Layout($companyname, $companydesc);
 
 $css = [
-    'assets/css/bootstrap.min.css', 
-    'assets/css/plugins/slicknav.min.css',
-    'assets/css/plugins/magnific-popup.css',
-    'assets/css/plugins/owl.carousel.min.css',
-    'assets/css/plugins/gijgo.css',
-    'assets/css/font-awesome.css',
-    'assets/css/reset.css',
-    'style.css',
-    'assets/css/responsive.css'
+    'styles/bootstrap4/bootstrap.min.css',
+    'plugins/font-awesome-4.7.0/css/font-awesome.min.css',
+    'plugins/OwlCarousel2-2.2.1/owl.carousel.css',
+    'plugins/OwlCarousel2-2.2.1/owl.theme.default.css',
+    'plugins/OwlCarousel2-2.2.1/animate.css',
+    'styles/main_styles.css',
+    'styles/responsive.css'
 ];
 $js = [
-    'assets/js/jquery-3.2.1.min.js',
-    'assets/js/jquery-migrate.min.js',
-    'assets/js/popper.min.js',
-    'assets/js/bootstrap.min.js',
-    'assets/js/plugins/gijgo.js',
-    'assets/js/plugins/vegas.min.js',
-    'assets/js/plugins/isotope.min.js',
-    'assets/js/plugins/owl.carousel.min.js',
-    'assets/js/plugins/waypoints.min.js',
-    'assets/js/plugins/counterup.min.js',
-    'assets/js/plugins/mb.YTPlayer.js',
-    'assets/js/plugins/magnific-popup.min.js',
-    'assets/js/plugins/slicknav.min.js',
-    'assets/js/main.js'
+    'js/jquery-3.2.1.min.js',
+    'styles/bootstrap4/popper.js',
+    'styles/bootstrap4/bootstrap.min.js',
+    'plugins/greensock/TweenMax.min.js',
+    'plugins/greensock/TimelineMax.min.js',
+    'plugins/scrollmagic/ScrollMagic.min.js',
+    'plugins/greensock/animation.gsap.min.js',
+    'plugins/greensock/ScrollToPlugin.min.js',
+    'plugins/OwlCarousel2-2.2.1/owl.carousel.js',
+    'plugins/easing/easing.js',
+    'plugins/parallax-js-master/parallax.min.js',
+    'js/custom.js'
 ];
-
 $Outline->addCSS($css);
 $Outline->addJS($js);
 $Outline->navigationBar();

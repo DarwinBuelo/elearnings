@@ -64,12 +64,12 @@
 							</div>
 							<nav class="main_nav_contaner ml-auto">
 								<ul class="main_nav">
-									<li><a href="index.html">Home</a></li>
-									<li><a href="about.html">About</a></li>
-									<li class="active"><a href="courses.html">Courses</a></li>
-									<li><a href="blog.html">Blog</a></li>
+									<li><a href="index.php">Home</a></li>
+									<li><a href="about.php">About</a></li>
+									<li class="active"><a href="courses.php">Courses</a></li>
+									<li><a href="blog.php">Blog</a></li>
 									<li><a href="#">Page</a></li>
-									<li><a href="contact.html">Contact</a></li>
+									<li><a href="contact.php">Contact</a></li>
 								</ul>
 								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
 
@@ -120,12 +120,12 @@
 		</div>
 		<nav class="menu_nav">
 			<ul class="menu_mm">
-				<li class="menu_mm"><a href="index.html">Home</a></li>
+				<li class="menu_mm"><a href="index.php">Home</a></li>
 				<li class="menu_mm"><a href="#">About</a></li>
 				<li class="menu_mm"><a href="#">Courses</a></li>
 				<li class="menu_mm"><a href="#">Blog</a></li>
 				<li class="menu_mm"><a href="#">Page</a></li>
-				<li class="menu_mm"><a href="contact.html">Contact</a></li>
+				<li class="menu_mm"><a href="contact.php">Contact</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -139,7 +139,7 @@
 					<div class="col">
 						<div class="breadcrumbs">
 							<ul>
-								<li><a href="index.html">Home</a></li>
+								<li><a href="index.php">Home</a></li>
 								<li>Courses</li>
 							</ul>
 						</div>
@@ -177,7 +177,7 @@
 								<div class="course">
 									<div class="course_image"><img src="images/course_4.jpg" alt=""></div>
 									<div class="course_body">
-										<h3 class="course_title"><a href="course.html">Software Training</a></h3>
+										<h3 class="course_title"><a href="course.php">Software Training</a></h3>
 										<div class="course_teacher">Mr. John Taylor</div>
 										<div class="course_text">
 											<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
@@ -204,7 +204,7 @@
 								<div class="course">
 									<div class="course_image"><img src="images/course_5.jpg" alt=""></div>
 									<div class="course_body">
-										<h3 class="course_title"><a href="course.html">Developing Mobile Apps</a></h3>
+										<h3 class="course_title"><a href="course.php">Developing Mobile Apps</a></h3>
 										<div class="course_teacher">Ms. Lucius</div>
 										<div class="course_text">
 											<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
@@ -231,7 +231,7 @@
 								<div class="course">
 									<div class="course_image"><img src="images/course_6.jpg" alt=""></div>
 									<div class="course_body">
-										<h3 class="course_title"><a href="course.html">Starting a Startup</a></h3>
+										<h3 class="course_title"><a href="course.php">Starting a Startup</a></h3>
 										<div class="course_teacher">Mr. Charles</div>
 										<div class="course_text">
 											<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
@@ -258,7 +258,7 @@
 								<div class="course">
 									<div class="course_image"><img src="images/course_7.jpg" alt=""></div>
 									<div class="course_body">
-										<h3 class="course_title"><a href="course.html">Learn Basic German Fast</a></h3>
+										<h3 class="course_title"><a href="course.php">Learn Basic German Fast</a></h3>
 										<div class="course_teacher">Mr. John Taylor</div>
 										<div class="course_text">
 											<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
@@ -285,7 +285,7 @@
 								<div class="course">
 									<div class="course_image"><img src="images/course_8.jpg" alt=""></div>
 									<div class="course_body">
-										<h3 class="course_title"><a href="course.html">Business Groud Up</a></h3>
+										<h3 class="course_title"><a href="course.php">Business Groud Up</a></h3>
 										<div class="course_teacher">Ms. Lucius</div>
 										<div class="course_text">
 											<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
@@ -312,7 +312,7 @@
 								<div class="course">
 									<div class="course_image"><img src="images/course_9.jpg" alt=""></div>
 									<div class="course_body">
-										<h3 class="course_title"><a href="course.html">Java Technology</a></h3>
+										<h3 class="course_title"><a href="course.php">Java Technology</a></h3>
 										<div class="course_teacher">Mr. Charles</div>
 										<div class="course_text">
 											<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
@@ -389,7 +389,7 @@
 								<div class="latest d-flex flex-row align-items-start justify-content-start">
 									<div class="latest_image"><div><img src="images/latest_1.jpg" alt=""></div></div>
 									<div class="latest_content">
-										<div class="latest_title"><a href="course.html">How to Design a Logo a Beginners Course</a></div>
+										<div class="latest_title"><a href="course.php">How to Design a Logo a Beginners Course</a></div>
 										<div class="latest_price">Free</div>
 									</div>
 								</div>
@@ -398,7 +398,7 @@
 								<div class="latest d-flex flex-row align-items-start justify-content-start">
 									<div class="latest_image"><div><img src="images/latest_2.jpg" alt=""></div></div>
 									<div class="latest_content">
-										<div class="latest_title"><a href="course.html">Photography for Beginners Masterclass</a></div>
+										<div class="latest_title"><a href="course.php">Photography for Beginners Masterclass</a></div>
 										<div class="latest_price">$170</div>
 									</div>
 								</div>
@@ -407,7 +407,7 @@
 								<div class="latest d-flex flex-row align-items-start justify-content-start">
 									<div class="latest_image"><div><img src="images/latest_3.jpg" alt=""></div></div>
 									<div class="latest_content">
-										<div class="latest_title"><a href="course.html">The Secrets of Body Language</a></div>
+										<div class="latest_title"><a href="course.php">The Secrets of Body Language</a></div>
 										<div class="latest_price">$220</div>
 									</div>
 								</div>
@@ -578,11 +578,11 @@
 									<div class="footer_title">Contact Us</div>
 									<div class="footer_links_container">
 										<ul>
-											<li><a href="index.html">Home</a></li>
-											<li><a href="about.html">About</a></li>
-											<li><a href="contact.html">Contact</a></li>
+											<li><a href="index.php">Home</a></li>
+											<li><a href="about.php">About</a></li>
+											<li><a href="contact.php">Contact</a></li>
 											<li><a href="#">Features</a></li>
-											<li><a href="courses.html">Courses</a></li>
+											<li><a href="courses.php">Courses</a></li>
 											<li><a href="#">Events</a></li>
 											<li><a href="#">Gallery</a></li>
 											<li><a href="#">FAQs</a></li>
