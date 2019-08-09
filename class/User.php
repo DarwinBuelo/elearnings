@@ -2,21 +2,106 @@
 
 class User
 {
-    public $id;
-    public $name;
-    public $lastname;
-    public $username;
-    public $role; // 0 for normal user and 1 for admin
+    private $id;
+    private $username;
+    private $name;
+    private $surname;
+    private $middlename;
+    private $email;
+    private $phone;
+    private $roleID; 
+    private $roleName;
 
-
-    function addUser($name, $lastname, $username, $role)
+    public static function addUser($name, $surname, $username,$middlename, $email, $password, $role = 1)
     {
-        //sql to add user
+        $data = [
+            'username' => $username,
+            'name'=> $name ,
+            'surname' => $surname,
+            'middlename' => $middlename,
+            'email' => $email,
+            'password'=>hash('sha256',$password),
+            'role'=>$role
+        ];
+        $result =Dbcon::insert('users', $data);
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function login($username, $password)
+    {
+        $username = Dbcon::clean($username);
+        $password = Dbcon::clean($password);
+        $password = hash('sha256',$password);
+        if (!strpos($username, '@')) {
+            $sql = "
+                SELECT 
+                    u.id,
+                    u.username,
+                    u.name,
+                    u.surname,
+                    u.middlename,
+                    u.email,
+                    u.phone,
+                    r.id as role_id,
+                    r.role_name
+                FROM
+                    users as u
+                LEFT JOIN
+                    roles as r
+                ON 
+                    r.id = u.role
+                WHERE
+                    username = '{$username}'
+                AND 
+                    password = ('{$password}')
+            ";
+        } else {
+            $sql = "
+                SELECT 
+                    u.id,
+                    u.username,
+                    u.name,
+                    u.surname,
+                    u.middlename,
+                    u.email,
+                    u.phone,
+                    r.id as role_id,
+                    r.role_name
+                FROM
+                    users as u
+                LEFT JOIN
+                    roles as r
+                ON 
+                    r.id = u.role
+                WHERE
+                    email = '{$username}'
+                AND 
+                    password = MD5('{$password}')
+            ";
+        }
+        $data = Dbcon::execute($sql);
+        $result = DBcon::fetch_assoc($data);
+        if (!empty($result)) {
+            $this->setID($result['id']);
+            $this->setUsername($result['username']);
+            $this->setName($result['name']);
+            $this->setSurname($result['surname']);
+            $this->setMiddlename($result['middlename']);
+            $this->setEmail($result['email']);
+            $this->setPhone($result['phone']);
+            $this->setRoleID($result['role_id']);
+            $this->setRoleName($result['role_name']);
+            return true;
+        }
     }
 
     public function getID()
     {
-        return $this->$id;
+        return $this->id;
     }
 
     public function setID($id)
@@ -24,33 +109,85 @@ class User
         $this->$id = $id;
     }
 
+
+    public function getUsername()
+    {
+        return $this->name;
+    }
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
     public function getName()
     {
-        return $this->$name;
+        return $this->name;
     }
 
     public function setName($name)
     {
-        $this->$name = $name;
+        $this->name = $name;
     }
 
-    public function getName()
+
+    public function getSurname()
     {
-        return $this->$name;
+        return $this->surname;
     }
 
-    public function setName($name)
+    public function setSurname($surname)
     {
-        $this->$name = $name;
+        $this->surname = $surname;
     }
 
-    public function getLastName()
+    public function getMiddlename()
     {
-        return $this->$lastName;
+        return $this->middlename;
     }
 
-    public function setLastname($lastname)
+    public function setMiddlename($middlename)
     {
-        $this->$lastname = $lastname;
+        $this->middlename = $middlename;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function getPhone()
+    {
+        return $this->email;
+    }
+
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    public function getRoleID()
+    {
+        return $this->roleID;
+    }
+
+    public function setRoleID($id)
+    {
+        $this->roleID = $id;
+    }
+
+    public function getRoleName()
+    {
+        return $this->roleName;
+    }
+
+    public function setRoleName($roleName)
+    {
+        $this->roleName = $roleName;
     }
 }
