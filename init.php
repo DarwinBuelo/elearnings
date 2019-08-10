@@ -35,8 +35,7 @@ $css = [
     'plugins/OwlCarousel2-2.2.1/owl.carousel.css',
     'plugins/OwlCarousel2-2.2.1/owl.theme.default.css',
     'plugins/OwlCarousel2-2.2.1/animate.css',
-    'styles/main_styles.css',
-    'styles/responsive.css'
+    'styles/main_styles.css'
 ];
 $js = [
     'js/jquery-3.2.1.min.js',
@@ -54,7 +53,6 @@ $js = [
 ];
 $Outline->addCSS($css);
 $Outline->addJS($js);
-$Outline->navigationBar();
 
 // set the current user
 if (isset($_SESSION['user'])) {
