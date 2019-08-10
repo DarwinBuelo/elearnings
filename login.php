@@ -28,5 +28,6 @@ if (isset($_SESSION['user'])) {
 }
 
 require 'segments/login.form.php';
+require 'segments/footer.php';
 $Outline->footer();
 
