@@ -97,8 +97,8 @@ class Layout
                                         <div class="footer_title">Contact Us</div>
                                         <div class="footer_contact_info">
                                             <ul>
-                                                <li>Email: Info.deercreative@gmail.com</li>
-                                                <li>Phone:  +(88) 111 555 666</li>
+                                                <li>Email: emailAddress@gmail.com</li>
+                                                <li>Phone:  480 12 95</li>
                                                 <li>Casa Erin bldg 2, Rizal St. Cabangan, Legazpi City</li>
                                             </ul>
                                         </div>
