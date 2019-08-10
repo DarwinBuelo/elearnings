@@ -72,7 +72,7 @@
 
 								<!-- Hamburger -->
 
-								<div class="shopping_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
+<!--								<div class="shopping_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>-->
 								<div class="hamburger menu_mm">
 									<i class="fa fa-bars menu_mm" aria-hidden="true"></i>
 								</div>

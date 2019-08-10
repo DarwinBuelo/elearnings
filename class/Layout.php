@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Layout
  * this will hold everything about the layout
@@ -38,14 +37,19 @@ class Layout
             <html lang="en">
             <head>
                 <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="description" content="Unicat project">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
                 <?php
                 foreach ($this->css as $css) {
-                    ?><link rel="stylesheet" href="<?= $css ?>"><?php
+                    ?><link rel="stylesheet" type="text/css" href="<?= $css ?>"><?php
                 }
                 ?>
                 <title><?=  (isset($page) ? $page : null) ?><?= !empty($this->companyName) ? '-'.$this->companyName : null?></title>
-            </head><?php
+            </head>
+        <body>
+        <?php
+        $this->navigationBar($page);
     }
 
     /**
@@ -53,6 +57,82 @@ class Layout
      */
     public function footer()
     {
+        echo '<!-- Footer -->
+        <footer class="footer">
+            <div class="footer_background" style="background-image:url(images/footer_background.png)"></div>
+            <div style="padding-left: 15vw;"  class="container">
+                <div class="row footer_row">
+                    <div class="col">
+                        <div class="footer_content">
+                            <div class="row">
+
+                                <div class="col-lg-3 footer_col">
+
+                                    <!-- Footer About -->
+                                    <div class="footer_section footer_about">
+                                        <div class="footer_logo_container">
+                                            <a href="#">
+                                                <div class="footer_logo_text">Pia<span>Gotsky</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="footer_about_text">
+                                            <p>Piagotsky Tutorial and Development Center.</p>
+                                        </div>
+                                        <div class="footer_social">
+                                            <ul>
+                                                <li><a href="https://www.facebook.com/pg/Piagotsky-Tutorial-and-Development-Center-711856805676639/posts/"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                             <!--   <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li> -->
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-3 footer_col">
+
+                                    <!-- Footer Contact -->
+                                    <div class="footer_section footer_contact">
+                                        <div class="footer_title">Contact Us</div>
+                                        <div class="footer_contact_info">
+                                            <ul>
+                                                <li>Email: Info.deercreative@gmail.com</li>
+                                                <li>Phone:  +(88) 111 555 666</li>
+                                                <li>Casa Erin bldg 2, Rizal St. Cabangan, Legazpi City</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-6 footer_col">
+
+                                    <!-- Footer links -->
+                                    <div class="footer_section footer_links">
+                                        <div class="footer_title">About</div>
+                                            <div class="footer_about_text">
+                                                <p>About First of its kind in the province. Combining the power of technology and knowledge to bring about a 21st century learning experience.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row copyright_row">
+                    <div class="col">
+                        <div class="copyright d-flex flex-lg-row flex-column align-items-center justify-content-start">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        </div>';
         if (count($this->js) > 0) {
             foreach ($this->js as $js) {
                 ?><script src="<?= $js ?>"></script><?php
@@ -128,9 +208,54 @@ class Layout
         return $this->companyName;
     }
 
-    public static function navigationBar()
+    public function navigationBar($activeNavbar)
     {
-        echo '<header class="header">
+        $navBars = [
+            'index.php' => 'Home',
+            'about.php' => 'About',
+            'courses.php' => 'Courses',
+            'blog.php' => 'Blog',
+            '#' => 'Page',
+            'contact.php' => 'Contact'
+        ];
+        $navigationBar = [];
+        $mobileMenuBar = [];
+        foreach ($navBars as $key => $value) {
+            switch($activeNavbar) {
+                case $value:
+                    $navigationBar[] = '<li class="active"><a href="'.$key.'">'.$value.'</a></li>';
+                    $mobileMenuBar[] = '<li class="menu_mm"><a href="'.$key.'">'.$value.'</a></li>';
+                    break;
+                case 'Login':
+                    $navigationBar[] = '<li><a href="'.$key.'">'.$value.'</a></li>';
+                    $mobileMenuBar[] = '<li class="menu_mm"><a href="'.$key.'">'.$value.'</a></li>';
+                    break;
+                default:
+                    $navigationBar[] = '<li><a href="'.$key.'">'.$value.'</a></li>';
+                    $mobileMenuBar[] = '<li class="menu_mm"><a href="'.$key.'">'.$value.'</a></li>';
+                    break;
+            }
+        }
+        $locationStatus = '<div class="home">
+		<div class="breadcrumbs_container">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="breadcrumbs">
+							<ul>
+								<li><a href="index.php">Home</a></li>
+								<li>'.$activeNavbar.'</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>';
+        $locationStatus = ($activeNavbar === 'Home' || $activeNavbar === 'Login' ? '' : $locationStatus);
+
+        echo '<div class="super_container">
+        <header class="header">
 			
 		<!-- Top Bar -->
 		<div class="top_bar">
@@ -151,7 +276,7 @@ class Layout
 									</li>
 								</ul>
 								<div class="top_bar_login ml-auto">
-									<div class="login_button"><a href="#">Register or Login</a></div>
+									<div class="login_button"><a href="login.php">Login</a></div>
 								</div>
 							</div>
 						</div>
@@ -168,23 +293,14 @@ class Layout
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
 							<div class="logo_container">
 								<a href="#">
-									<div class="logo_text">STI<span>Legazpi</span></div>
+									<div class="logo_text">Pia<span>Gotsky</span></div>
 								</a>
 							</div>
-							<nav class="main_nav_contaner ml-auto">
+                            <nav class="main_nav_contaner ml-auto">
 								<ul class="main_nav">
-									<li class="active"><a href="#">Home</a></li>
-									<li><a href="about.php">About</a></li>
-									<li><a href="courses.php">Courses</a></li>
-									<li><a href="blog.php">Blog</a></li>
-									<li><a href="#">Page</a></li>
-									<li><a href="contact.php">Contact</a></li>
+									'.implode('',$navigationBar).'
 								</ul>
-								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
-
 								<!-- Hamburger -->
-
-								<div class="shopping_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
 								<div class="hamburger menu_mm">
 									<i class="fa fa-bars menu_mm" aria-hidden="true"></i>
 								</div>
@@ -213,6 +329,23 @@ class Layout
 				</div>
 			</div>			
 		</div>			
-	</header>';
+	</header>
+	<div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
+		<div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
+		<div class="search">
+			<form action="#" class="header_search_form menu_mm">
+				<input type="search" class="search_input menu_mm" placeholder="Search" required="required">
+				<button class="header_search_button d-flex flex-column align-items-center justify-content-center menu_mm">
+					<i class="fa fa-search menu_mm" aria-hidden="true"></i>
+				</button>
+			</form>
+		</div>
+		<nav class="menu_nav">
+			<ul class="menu_mm">
+			    '.implode('',$mobileMenuBar).'
+			</ul>
+		</nav>
+	</div>
+	'.$locationStatus;
     }
 }
