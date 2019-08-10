@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Container
  * @author Darwin Buelo dbuelo@gmail.com
@@ -34,7 +33,6 @@ class Layout
                 $html .= PHP_EOL;
             }
         }
-        
         if (count($this->js) > 0) {
             foreach ($this->js as $jsFile) {
                 $html .= sprintf("<script src='%s'></script>\n",$jsFile);

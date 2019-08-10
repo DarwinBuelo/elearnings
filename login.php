@@ -1,7 +1,7 @@
 <?php
 //require pages
 require_once('init.php');
-$Outline->header();
+$Outline->header('Login');
 
 $username = Util::getParam('uname');
 $password = Util::getParam('pswd');
@@ -29,3 +29,4 @@ if (isset($_SESSION['user'])) {
 
 require 'segments/login.form.php';
 $Outline->footer();
+

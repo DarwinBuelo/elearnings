@@ -1,61 +1,22 @@
-<div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-     
-        <div class="card card-signin my-5">
-   <?php
-   if (isset($error)) {
-        ?>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <strong>Error</strong>
-                Username or Password was incorrect.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+<div class="counter">
+    <div class="counter_background" style="background-image:url(images/counter_background.jpg)"></div>
+    <div style="padding-left: 28vw;" class="container">
+        <div class="row">
+            <div class="counter_content">
+<!--                <h2 class="counter_title">Login Now</h2>-->
             </div>
-            <?php
-   } ?>
-          <div class="card-body">
-            
-            
-      
-           <form action="<?= $_SERVER['PHP_SELF']?>" class="needs-validation" method="post" novalidate>
-  <div class="form-group">
-    <label for="uname">Username:</label>
-    <input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname" required>
-    <div class="valid-feedback">Valid.</div>
-    <div class="invalid-feedback">Please fill out this field.</div>
-  </div>
-  <div class="form-group">
-    <label for="pwd">Password:</label>
-    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required>
-    <div class="valid-feedback">Valid.</div>
-    <div class="invalid-feedback">Please fill out this field.</div>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-<script>
-// Disable form submissions if there are invalid fields
-$('.alert').alert();
-
-(function() {
-  'use strict';
-  window.addEventListener('load', function() {
-    // Get the forms we want to add validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-      form.addEventListener('submit', function(event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
-    });
-  }, false);
-})();
-</script>          </div>
         </div>
-      </div>
+        <div class="counter_form">
+            <div class="row fill_height">
+                <div class="col fill_height">
+                    <form class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="#">
+                        <div class="counter_form_title">Login Form</div>
+                        <input type="text" class="counter_input" name="uname" placeholder="Email Address" required="required">
+                        <input type="password" class="counter_input" name="pswd"placeholder="Password" required="required">
+                        <button type="submit" class="counter_form_button">submit now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>

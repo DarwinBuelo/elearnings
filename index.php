@@ -1,6 +1,7 @@
 <?php
 include 'init.php';
-$Outline->header('Dashboard');
+$Outline->addCSS('styles/responsive.css');
+$Outline->header('Home');
 require 'segments/navbar.php';
 
 // Only shows when you are login
@@ -753,7 +754,7 @@ if(isset($user) && !empty($user)){
         </div>
     </footer>
 </div>
-
+</div>
 <?php
 $Outline->footer();
 //EOF

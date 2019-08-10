@@ -807,7 +807,7 @@ section
 .home_slider_subtitle
 {
 	font-size: 24px;
-	color: #76777a;
+	color: #FFFFFF;
 	margin-top: 9px;
 }
 .home_slider_form_container
@@ -1135,8 +1135,8 @@ section
 }
 .counter_content
 {
-	padding-top: 119px;
-	padding-bottom: 125px;
+	padding-top: 30vh;
+	padding-bottom: 5vh;
 }
 .counter_title
 {
@@ -1194,11 +1194,9 @@ section
 }
 .counter_form
 {
-	position: absolute;
-	top: 0;
-	right: 30px;
-	width: 380px;
-	height: 100%;
+	position: relative;
+	width: 40vw;
+	height: 80vh;
 	background: #FFFFFF;
 	padding-left: 40px;
 	padding-right: 40px;
