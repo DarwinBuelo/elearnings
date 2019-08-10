@@ -54,7 +54,6 @@ $js = [
 ];
 $Outline->addCSS($css);
 $Outline->addJS($js);
-$Outline->navigationBar();
 
 // set the current user
 if (isset($_SESSION['user'])) {
