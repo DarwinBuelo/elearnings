@@ -19,6 +19,7 @@ class Layout
      */
     public function header()
     {
+
         $this->setHead();
         $html = $this->head;
         // set logo favicon
