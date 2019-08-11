@@ -12,10 +12,8 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="/admin.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
-                    <a href="/admin.php?page=addUser">
-                        <i class="menu-icon fa fa-user-plus"></i>Add User
-                    </a>
+                    <a href="/teacher.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="/teacher.php?page=addCourse"> <i class="menu-icon fa fa-book"></i>Add Course</a>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->

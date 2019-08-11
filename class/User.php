@@ -56,9 +56,9 @@ class User
                 ON 
                     r.id = u.role
                 WHERE
-                    username = '{$username}'
+                    u.username = '{$username}'
                 AND 
-                    password = ('{$password}')
+                    u.password = ('{$password}')
             ";
         } else {
             $sql = "
@@ -79,9 +79,9 @@ class User
                 ON 
                     r.id = u.role
                 WHERE
-                    email = '{$username}'
+                    u.email = '{$username}'
                 AND 
-                    password = MD5('{$password}')
+                    u.password = '{$password}'
             ";
         }
         $data   = Dbcon::execute($sql);
