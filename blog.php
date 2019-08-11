@@ -21,7 +21,7 @@ $Outline->header('Blog');
                             <div class="blog_post_meta">
                                 <ul>
                                     <li><a href="#">admin</a></li>
-                                    <li><a href="#">november 11, 2017</a></li>
+                                    <li><a href="#">November 11, 2017</a></li>
                                 </ul>
                             </div>
                             <div class="blog_post_text">
@@ -141,7 +141,6 @@ $Outline->header('Blog');
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

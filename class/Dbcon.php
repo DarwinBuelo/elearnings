@@ -97,6 +97,15 @@ class Dbcon
         }
     }
 
+    public function fetch_row($object){
+        if(!empty($object)){
+            $result = mysqli_fetch_row($object);
+            mysqli_free_result($object);
+            self::close();
+            return $result;
+        }
+    }
+
 
     //delete the file from database
     function delete($table, $id)
