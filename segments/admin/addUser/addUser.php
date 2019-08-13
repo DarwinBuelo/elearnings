@@ -18,8 +18,8 @@ if (!empty(Util::getParam('submit')) && Util::getParam('submit') == 'save') {
 ?>
 <?php if (!empty($message) && $message['result'] == 'failed'): ?>
     <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
-        <span class="badge badge-pill badge-danger">Success</span>
-        You successfully read this important alert.
+        <span class="badge badge-pill badge-danger">Failed</span>
+        <?= $message['message']?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
@@ -27,7 +27,7 @@ if (!empty(Util::getParam('submit')) && Util::getParam('submit') == 'save') {
 <?php elseif(!empty($message) && $message['result'] == 'success'):?>
     <div class="sufee-alert alert with-close alert-success  alert-dismissible fade show">
         <span class="badge badge-pill badge-success ">Success</span>
-        You successfully read this important alert.
+        <?= $message['message']?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>

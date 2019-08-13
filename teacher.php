@@ -17,6 +17,9 @@ if ($user) {
                 case 'addCourse':
                     require 'segments/teacher/addCourse/addCourse.php';
                     break;
+                case 'addLesson':
+                    require 'segments/teacher/addLesson/addLesson.php';
+                    break;
                 default:
                     require 'segments/teacher/dashboard/dashboard.php';
                     break;
