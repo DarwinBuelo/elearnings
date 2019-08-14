@@ -9,8 +9,8 @@ class Course
     public $units;
 
     /**
-     * Not tested yet
      * @param array $id
+     * @return array|bool
      */
     public static function LoadArray(array $id){
         if(isset($id)){
@@ -30,6 +30,10 @@ class Course
         return false;
     }
 
+    /**
+     * @param $data
+     * @return bool
+     */
     public static function addCourse($data){
          if(is_array($data) && count($data) > 0){
              DBcon::insert('courses', $data);
