@@ -1,6 +1,15 @@
 <?php
 require 'init.php';
 require 'segments/teacher/adminSettings.php';
+
+
+$sceditorJS = [
+    'lib/minified/sceditor.min.js',
+    'lib/minified/icons/monocons.js',
+    'lib//minified/formats/bbcode.js'
+];
+$adminOutline->addCSS('lib/minified/themes/default.min.css');
+$adminOutline->addJS($sceditorJS);
 $adminOutline->header();
 
 $page = Util::getParam('page');

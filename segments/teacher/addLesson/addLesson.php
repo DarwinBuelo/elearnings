@@ -39,7 +39,7 @@ if (isset($submit) && !empty($submit)) {
     </div>
 <?php endif; ?>
 <form action="teacher.php?page=addCourse" method="post">
-    <div class="col-md-6 offset-md-3">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header"><h4>Lesson</h4></div>
             <div class="card-body">
@@ -51,11 +51,20 @@ if (isset($submit) && !empty($submit)) {
                     <label for="surname">Lesson Overview</label>
                     <input type="text" class="form-control" id="course_desc" name="course_desc">
                 </div>
-              
-                <!--
-                    TODO: add the WYSIWYG BBCode  editor here
-                -->
+                <div class="form-group">
+                    <label for="content">Lesson Content</label>
+                    <textarea id="content" name="content" style="height:50vh;width:100%;"></textarea>
+                </div>
+               
+                <script>
+                var textarea = document.getElementById('content');
+			sceditor.create(textarea, {
+				format: 'bbcode',
+				icons: 'monocons',
+				style: '../minified/themes/content/default.min.css'
+			});
 
+                </script>
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-success float-right" name="submit" value="save">Save</button>
