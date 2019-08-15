@@ -11,10 +11,16 @@ class Lesson
     protected $title;
     protected $overView;
     protected $content;
-    protected $units;
     protected $courseID;
     protected $dateCreated;
 
+
+    public function addLesson(array $data){
+        if(is_array($data) && count($data) > 0 ){
+            DBcon::insert('lessons', $data);
+            return true;
+        }
+    }
     /**
      * @return mixed
      */
@@ -56,16 +62,6 @@ class Lesson
     public function setContent($content)
     {
         $this->content = $content;
-    }
-
-    public function getUnits()
-    {
-        return $this->units;
-    }
-
-    public function setUnits($units)
-    {
-        $this->units = $units;
     }
 
     public function getCourseID()

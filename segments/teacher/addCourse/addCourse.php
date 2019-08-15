@@ -1,10 +1,10 @@
 <?php
 $submit = Util::getParam('submit');
 if (isset($submit) && !empty($submit)) {
-    $courseName        = Util::getParam('course_name');
-    $courseCode        = Util::getParam('course_desc');
-    $courseDescription = Util::getParam('course_code');
-    $units             = Util::getParam('units');
+    $courseName = Util::getParam('course_name');
+    $courseDescription = Util::getParam('course_desc');
+    $courseCode = Util::getParam('course_code');
+    $units = Util::getParam('units');
 
     $data = [
         'course_name' => $courseName,
@@ -13,10 +13,10 @@ if (isset($submit) && !empty($submit)) {
         'units' => $units
     ];
     $result = Course::addCourse($data);
-    if($result){
-        $message = ['result'=>'success','message'=>'Successfuly added a course'];
-    }else{
-                $message = ['result'=>'error','message'=>'Failed added a course'];
+    if ($result) {
+        $message = ['result' => 'success', 'message' => 'Successfuly added a course'];
+    } else {
+        $message = ['result' => 'error', 'message' => 'Failed added a course'];
 
     }
 }
@@ -24,15 +24,15 @@ if (isset($submit) && !empty($submit)) {
 <?php if (!empty($message) && $message['result'] == 'failed'): ?>
     <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
         <span class="badge badge-pill badge-danger">Failed</span>
-        You successfully read this important alert.
+        <?= $message['message'] ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
     </div>
-<?php elseif(!empty($message) && $message['result'] == 'success'):?>
+<?php elseif (!empty($message) && $message['result'] == 'success'): ?>
     <div class="sufee-alert alert with-close alert-success  alert-dismissible fade show">
         <span class="badge badge-pill badge-success ">Success</span>
-        You successfully read this important alert.
+        <?= $message['message'] ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>

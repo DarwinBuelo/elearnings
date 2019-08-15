@@ -7,27 +7,50 @@ class Course
     public $courseDesc;
     public $courseCode;
     public $units;
+    protected $creatorID;
 
-    /**
-     * @param array $id
-     * @return array|bool
-     */
-    public static function LoadArray(array $id){
-        if(isset($id)){
-            $data = [];
-            foreach($id as $item){
-                $sql ="SELECT 
-                            course_id,
-                            course_name
-                            course_desc
-                        WHERE
-                            course_id = '{$item}'";
-                $result = Dbcon::execute($sql);
-                $data[$item] = Dbcon::fetch_assoc($result);
+
+    public static function LoadArray(array $ids = null){
+        if(isset($ids)){
+            $return = [];
+            foreach ($ids as $id){
+                $return[$id] = self::load($id);
             }
-            return $data;
+            return $return;
+        } else{
+            $sql =  "SELECT
+                            course_id as id
+                     FROM
+                        courses";
+            $result = Dbcon::execute($sql);
+            $data =Dbcon::fetch_all_assoc($result);
+            $return = [];
+
+            foreach ($data as $key =>$value){
+                $return[$value['id']] = self::load($value['id']);
+            }
+            return $return;
+
         }
-        return false;
+    }
+
+    public function load($id){
+        $sql =  "SELECT
+                        *
+                 FROM
+                    courses
+                 WHERE
+                    course_id = {$id}";
+        $result = Dbcon::execute($sql);
+        $data =Dbcon::fetch_assoc($result);
+        $new = new self();
+        $new->setCourseID($data['course_id']);
+        $new->setCourseCode($data['course_code']);
+        $new->setCourseName($data['course_name']);
+        $new->setDesc($data['course_desc']);
+        $new->setUnits($data['units']);
+        $new->setCreatorID($data['creator']);
+        return $new;
     }
 
     /**
@@ -87,5 +110,13 @@ class Course
 
     public function setCourseCode($courseCode){
         $this->courseCode =$courseCode;
+    }
+
+    public function setCreatorID($creatorID){
+        $this->creatorID = $creatorID;
+    }
+
+    public function getCreatorID(){
+        return $this->creatorID;
     }
 }

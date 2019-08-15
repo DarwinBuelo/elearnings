@@ -1,10 +1,5 @@
 <?php
-/**
- * Class Container
- * @author Darwin Buelo dbuelo@gmail.com
- * @since 14/07/2019
- * @version 1.0
- */
+
 class Layout
 {
     protected $language = 'en';

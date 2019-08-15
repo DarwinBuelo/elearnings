@@ -6,8 +6,8 @@ require 'segments/teacher/adminSettings.php';
 $sceditorJS = [
     'lib/minified/sceditor.min.js',
     'lib/minified/icons/monocons.js',
-    'lib//minified/formats/bbcode.js'
-];
+    'lib/minified/formats/bbcode.js',
+   ];
 $adminOutline->addCSS('lib/minified/themes/default.min.css');
 $adminOutline->addJS($sceditorJS);
 $adminOutline->header();
@@ -29,6 +29,7 @@ if ($user) {
                 case 'addLesson':
                     require 'segments/teacher/addLesson/addLesson.php';
                     break;
+
                 default:
                     require 'segments/teacher/dashboard/dashboard.php';
                     break;

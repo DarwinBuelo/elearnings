@@ -7,6 +7,7 @@
                     <div class="stat-text">User Count</div>
                     <div class="stat-digit"><?= User::userCount()[0] ?></div>
                 </div>
+                <?php require '/segements/'?>
             </div>
         </div>
     </div>
