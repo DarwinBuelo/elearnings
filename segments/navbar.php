@@ -18,9 +18,15 @@
                                     <div>emailAddress@gmail.com</div>
                                 </li>
                             </ul>
+                            <?php if(!empty($user)): ?>
+                            <div class="top_bar_login ml-auto">
+                                <div class="login_button"><a href="process.php?task=logout">Logout</a></div>
+                            </div>
+                            <?php else: ?>
                             <div class="top_bar_login ml-auto">
                                 <div class="login_button"><a href="login.php">Register or Login</a></div>
                             </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

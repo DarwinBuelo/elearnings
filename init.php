@@ -25,6 +25,7 @@ Dbcon::$dbname = DATABASE_NAME;
 Dbcon::$username = DATABASE_USERNAME;
 Dbcon::$password = DATABASE_PASSWORD;
 
+// Company and Layout Setup
 $companyname = '';
 $companydesc = '';
 $Outline = new Layout($companyname, $companydesc);
@@ -53,6 +54,17 @@ $js = [
 ];
 $Outline->addCSS($css);
 $Outline->addJS($js);
+
+/**
+ *
+ *  @BIG TODO :
+ *      Roles are dynamically added to the database
+ *      role_id might change. we need to capture and handle
+ *      the role_id  so that the page that being access will not depend
+ *      on the role_id, we might need a setup for the user access. admin can Assign
+ *      specific page that the user can access.
+ *
+ */
 
 // set the current user
 if (isset($_SESSION['user'])) {
