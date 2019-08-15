@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 //require pages
 require_once('init.php');
 $Outline->header('Login');
@@ -21,17 +20,14 @@ if ($username && $password) {
 if (isset($_SESSION['user'])) {
     $user = unserialize($_SESSION['user']);
     if($user->getRoleID() == 1){
-      Util::redirect('admin.php');
+        Util::redirect('admin.php');
     }else{
-      Util::redirect('index.php');
+        Util::redirect('index.php');
     }
-    
+
 }
 
 require 'segments/login.form.php';
-require 'segments/footer.php';
-=======
-include 'init.php';
 $Outline->addCSS('styles/contact.css');
 $Outline->addCSS('styles/contact_responsive.css');
 $Outline->header('Login');
@@ -61,6 +57,5 @@ $Outline->header('Login');
 <?php
 $Outline->addJS('plugins/marker_with_label/marker_with_label.js');
 $Outline->addJS('js/contact.js');
->>>>>>> 7b256db5d05427161a267bdbf6d5e4f3a6b0c333
 $Outline->footer();
-
+//EOF
