@@ -364,7 +364,7 @@ class Layout
 			<ul class="menu_mm">
 			    '.implode('',$mobileMenuBar).'
 			</ul>
-		</nav>
+		</nav> 
 	</div>
 	'.$locationStatus;
 >>>>>>> 7b256db5d05427161a267bdbf6d5e4f3a6b0c333
