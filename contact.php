@@ -8,23 +8,6 @@ $Outline->header('Contact');
 <!-- Contact -->
 
 <div class="contact">
-
-    <!-- Contact Map -->
-
-    <div class="contact_map">
-
-        <!-- Google Map -->
-
-        <div class="map">
-            <div id="google_map" class="google_map">
-                <div class="map_container">
-                    <div id="map"></div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
     <!-- Contact Info -->
 
     <div class="contact_info_container">
@@ -63,19 +46,11 @@ $Outline->header('Contact');
                             <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a distribution of letters.</p>
                         </div>
                         <div class="contact_info_location">
-                            <div class="contact_info_location_title">New York Office</div>
+                            <div class="contact_info_location_title">Legazpi City</div>
                             <ul class="location_list">
-                                <li>T8/480 Collins St, Melbourne VIC 3000, New York</li>
-                                <li>1-234-567-89011</li>
-                                <li>info.deercreative@gmail.com</li>
-                            </ul>
-                        </div>
-                        <div class="contact_info_location">
-                            <div class="contact_info_location_title">Australia Office</div>
-                            <ul class="location_list">
-                                <li>Forrest Ray, 191-103 Integer Rd, Corona Australia</li>
-                                <li>1-234-567-89011</li>
-                                <li>info.deercreative@gmail.com</li>
+                                <li>Casa Erin bldg 2, Rizal St. Cabangan, Legazpi City</li>
+                                <li>742-6741</li>
+                                <li>piagotsky2017@gmail.com</li>
                             </ul>
                         </div>
                     </div>
@@ -85,7 +60,6 @@ $Outline->header('Contact');
     </div>
 </div>
 <?php
-$Outline->addJS('https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA');
 $Outline->addJS('plugins/marker_with_label/marker_with_label.js');
 $Outline->addJS('js/contact.js');
 $Outline->footer();

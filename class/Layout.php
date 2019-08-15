@@ -97,8 +97,8 @@ class Layout
                                         <div class="footer_title">Contact Us</div>
                                         <div class="footer_contact_info">
                                             <ul>
-                                                <li>Email: emailAddress@gmail.com</li>
-                                                <li>Phone:  480 12 95</li>
+                                                <li>Email: piagotsky2017@gmail.com</li>
+                                                <li>Phone:  742-6741</li>
                                                 <li>Casa Erin bldg 2, Rizal St. Cabangan, Legazpi City</li>
                                             </ul>
                                         </div>
@@ -268,11 +268,11 @@ class Layout
 									<li><div class="question">Have any questions?</div></li>
 									<li>
 										<i class="fa fa-phone" aria-hidden="true"></i>
-										<div>480 12 95</div>
+										<div>742-6741</div>
 									</li>
 									<li>
 										<i class="fa fa-envelope-o" aria-hidden="true"></i>
-										<div>emailAddress@gmail.com</div>
+										<div>piagotsky2017@gmail.com</div>
 									</li>
 								</ul>
 								<div class="top_bar_login ml-auto">
