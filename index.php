@@ -2,10 +2,6 @@
 include 'init.php';
 $Outline->addCSS('styles/responsive.css');
 $Outline->header('Home');
-<<<<<<< HEAD
-=======
-require 'segments/navbar.php';
->>>>>>> 75a368a66a1554dcdf5fab292487483b6e2851ee
 // Only shows when you are login
 if(isset($user) && !empty($user)){
     if($user->getRoleID() == 1){

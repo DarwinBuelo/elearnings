@@ -1,5 +1,6 @@
 <?php
-include 'init.php';
+//require pages
+require_once('init.php');
 $Outline->addCSS('styles/contact.css');
 $Outline->addCSS('styles/contact_responsive.css');
 $Outline->header('Login');
