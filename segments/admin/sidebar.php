@@ -13,9 +13,7 @@
             <ul class="nav navbar-nav">
                 <li class="active">
                     <a href="/admin.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
-                    <a href="/admin.php?page=addUser">
-                        <i class="menu-icon fa fa-user-plus"></i>Add User
-                    </a>
+                    <a href="/admin.php?page=addUser"> <i class="menu-icon fa fa-dashboard"></i>Add User</a>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->

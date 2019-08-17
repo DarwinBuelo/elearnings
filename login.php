@@ -1,12 +1,15 @@
 <?php
 //require pages
 require_once('init.php');
+$Outline->addCSS('styles/contact.css');
+$Outline->addCSS('styles/contact_responsive.css');
 $Outline->header('Login');
+
 
 $username = Util::getParam('uname');
 $password = Util::getParam('pswd');
 
-if ($username && $password) {
+if ($username !== null && $password !== null) {
     // authenticate
     $user     = new User();
     $isLogged = $user->login($username, $password);
@@ -20,6 +23,7 @@ if ($username && $password) {
 if (isset($_SESSION['user'])) {
     $user = unserialize($_SESSION['user']);
     if ($user->getRoleID() == 1) {
+        Dbcon::debug($user);
         Util::redirect('admin.php');
     } elseif ($user->getRoleID() == 2) {
         Util::redirect('teacher.php');
@@ -28,7 +32,9 @@ if (isset($_SESSION['user'])) {
     }
 }
 
+$Outline->navigationBar('Login');
 require 'segments/login.form.php';
-require 'segments/footer.php';
+$Outline->addJS('plugins/marker_with_label/marker_with_label.js');
+$Outline->addJS('js/contact.js');
 $Outline->footer();
-
+//EOF
