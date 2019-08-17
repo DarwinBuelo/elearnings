@@ -25,4 +25,3 @@ $js = [
 
 $adminOutline->addCss($css);
 $adminOutline->addJS($js);
-//$adminOutline->setFavIcon('assets/images/logo.png');

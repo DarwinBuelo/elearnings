@@ -38,7 +38,7 @@ class Layout
                 <meta name="description" content="Unicat project">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <?php
-                foreach ($this->css as $css) {
+                foreach ($this->css as $css){
                     ?><link rel="stylesheet" type="text/css" href="<?= $css ?>"><?php
                 }
                 ?>
@@ -146,8 +146,9 @@ class Layout
             foreach ($path as $file) {
                 $this->css[] = $file;
             }
+        }else{
+            $this->css[] = $path;
         }
-        $this->css[] = $path;
     }
 
     /**
@@ -161,6 +162,15 @@ class Layout
             }
         } else {
             $this->js[] = $path;
+        }
+    }
+
+    public function loadJS(){
+        if(count($this->js)>0){
+            foreach ($this->js as $js){
+                $html = "<script src='{$js}'></script>";
+                print $html;
+            }
         }
     }
 
