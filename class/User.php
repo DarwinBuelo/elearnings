@@ -9,21 +9,22 @@ class User
     private $middlename;
     private $email;
     private $phone;
-    private $roleID; 
+    private $roleID;
     private $roleName;
 
-    public static function addUser($name, $surname, $username,$middlename, $email, $password, $role = 1)
+    public static function addUser($name, $surname, $username, $middlename,
+                                   $email, $password, $role = 1)
     {
-        $data = [
+        $data   = [
             'username' => $username,
-            'name'=> $name ,
+            'name' => $name,
             'surname' => $surname,
             'middlename' => $middlename,
             'email' => $email,
-            'password'=>hash('sha256',$password),
-            'role'=>$role
+            'password' => hash('sha256', $password),
+            'role' => $role
         ];
-        $result =Dbcon::insert('users', $data);
+        $result = Dbcon::insert('users', $data);
         if ($result) {
             return $result;
         } else {
@@ -35,7 +36,7 @@ class User
     {
         $username = Dbcon::clean($username);
         $password = Dbcon::clean($password);
-        $password = hash('sha256',$password);
+        $password = hash('sha256', $password);
         if (!strpos($username, '@')) {
             $sql = "
                 SELECT 
@@ -83,7 +84,7 @@ class User
                     password = MD5('{$password}')
             ";
         }
-        $data = Dbcon::execute($sql);
+        $data   = Dbcon::execute($sql);
         $result = DBcon::fetch_assoc($data);
         if (!empty($result)) {
             $this->setID($result['id']);
@@ -99,6 +100,25 @@ class User
         }
     }
 
+    public static function userCount($id = null)
+    {
+        if (empty($id)) {
+            $sql = "SELECT 
+                        count(*)
+                    FROM
+                        users";
+        } else {
+            $sql = "SELECT
+                        *
+                    FROM
+                        users
+                    WHERE
+                        role_id = '{$id}'";
+        }
+        $result = DBcon::execute($sql);
+        return DBcon::fetch_row($result);
+    }
+
     public function getID()
     {
         return $this->id;
@@ -108,7 +128,6 @@ class User
     {
         $this->$id = $id;
     }
-
 
     public function getUsername()
     {
@@ -129,7 +148,6 @@ class User
     {
         $this->name = $name;
     }
-
 
     public function getSurname()
     {
