@@ -17,15 +17,17 @@ $courses =  Course::LoadArray();
                             <th>Course Name</th>
                             <th>Course Description</th>
                             <th>Units</th>
+                            <th>Option</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
                         foreach ($courses as $course){
                             $html =  "<tr>";
-                            $html .= "<td><a href='teacher.php?page=courseDetails&cid={$course->getCourseID()}'>{$course->getCourseName()}</a></td>";
+                            $html .= "<td>{$course->getCourseName()}</td>";
                             $html .= "<td>{$course->getDesc()}</td>";
                             $html .= "<td>{$course->getUnits()}</td>";
+                            $html .= "<td><a href='teacher.php?page=courseDetails&cid={$course->getCourseID()}'>View</a><a href='teacher.php?page=addCourse&cid={$course->getCourseID()}'>Edit</a></td>";
                             $html .= "</tr>";
                             print $html;
                         }

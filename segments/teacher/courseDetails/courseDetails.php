@@ -14,6 +14,7 @@ if (!empty($cid)) {
                             <th>Lesson Title</th>
                             <th>Lesson Overview</th>
                             <th>Date Created</th>
+                            <th>Option</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -24,8 +25,8 @@ if (!empty($cid)) {
                                 $html .= "<td>{$lesson->getTitle()}</td>";
                                 $html .= "<td>{$lesson->getOverView()}</td>";
                                 $html .= "<td>{$lesson->getDateCreated()}</td>";
+                                $html .= "<td><a href='teacher.php?page=addLesson&lid={$lesson->getLessonID()}'>Edit</a></td>";
                                 $html .= "</tr>";
-
                                 print $html;
                             }
                             ?>

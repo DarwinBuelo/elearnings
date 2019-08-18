@@ -43,6 +43,22 @@ class Dbcon
         $this->close();
     }
 
+    public static function  update($table, array $data,array $where){
+        $sql =  "UPDATE {$table} SET ";
+        foreach ($data as $key => $value){
+            if ($key === array_key_last($data)){
+                $sql .= " {$key} = '{$value}' ";
+            }else{
+                $sql .= " {$key} = '{$value}', ";
+            }
+        }
+        $sql .= "WHERE true ";
+        foreach ($where as $key => $value){
+            $sql .= "AND {$key} = '{$value}'";
+        }
+        return self::execute($sql);
+    }
+
     /**
      *  Insert data into
      * @param $table name of table

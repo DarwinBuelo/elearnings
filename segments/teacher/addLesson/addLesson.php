@@ -1,5 +1,6 @@
 <?php
 $submit = Util::getParam('submit');
+$lid = Util::getParam('lid');
 if (isset($submit) && !empty($submit)) {
     $lessonTitle = Util::getParam('lessonTittle');
     $lessonOverview = Util::getParam('lessonOverview');
@@ -21,8 +22,6 @@ if (isset($submit) && !empty($submit)) {
         $message = ['result' => 'error', 'message' => 'Failed added a Lesson'];
     }
 }
-
-
 ?>
 <?php if (!empty($message) && $message['result'] == 'failed'): ?>
     <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">

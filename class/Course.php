@@ -80,6 +80,18 @@ class Course
             return true;
         }
     }
+    // will save to the database any update
+    public function submit(){
+        $data = [
+            'course_name' => $this->getCourseName(),
+            'course_code' => $this->getCourseCode(),
+            'course_desc' => $this->getCourseCode(),
+            'units'       => $this->getUnits(),
+        ];
+        $where = ['course_id'=> $this->getCourseID()];
+        $return = DBcon::update('courses',$data,$where);
+        return $return;
+    }
 
     public function getCourseID()
     {
