@@ -19,6 +19,9 @@
                     <a href="/teacher.php?page=addLesson">
                         <i class="menu-icon fa fa-book"></i>Add Lesson
                     </a>
+                    <a href="/teacher.php?page=courses">
+                        <i class="menu-icon fa fa-book"></i>Course Details
+                    </a>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->

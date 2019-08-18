@@ -10,12 +10,14 @@ $sceditorJS = [
    ];
 $adminOutline->addCSS('lib/minified/themes/default.min.css');
 $adminOutline->addJS($sceditorJS);
-$adminOutline->header();
+$adminOutline->header('Teacher Panel');
 
 $page = Util::getParam('page');
 
 if ($user) {
     if ($user->getRoleID() == 2) {
+        $adminOutline->loadJS(); //will load the js since we can't use the current header to this Layout
+
         //include all admin pages needed
         require 'segments/teacher/sidebar.php';
         print '<div id="right-panel" class="right-panel">';
@@ -23,6 +25,12 @@ if ($user) {
         print '<div class="content mt-3">';
         if (isset($page)) {
             switch ($page) {
+                case 'courses':
+                    require 'segments/teacher/courseDetails/courses.php';
+                    break;
+                case 'courseDetails':
+                    require 'segments/teacher/courseDetails/courseDetails.php';
+                    break;
                 case 'addCourse':
                     require 'segments/teacher/addCourse/addCourse.php';
                     break;
@@ -36,7 +44,6 @@ if ($user) {
             }
         }
         print '</div></div>';
-        $adminOutline->loadJS(); //will load the js since we can't use the current header to this Layout
     }
 } else {
     Util::redirect('index.php');

@@ -53,6 +53,23 @@ class Course
         return $new;
     }
 
+    public function getLessons(){
+        $sql = "
+                SELECT 
+                    lesson_id as id
+                FROM
+                    lessons
+                WHERE
+                    course_id = {$this->courseID}";
+        $resultObj = Dbcon::execute($sql);
+        $results = Dbcon::fetch_all_array($resultObj);
+        $ids=[];
+        foreach($results as $result){
+            $ids[] = $result[0];
+        }
+        $return = Lesson::LoadArray($ids);
+        return $return;
+    }
     /**
      * @param $data
      * @return bool

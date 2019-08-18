@@ -1,7 +1,7 @@
 <?php
 require 'init.php';
 require 'segments/admin/adminSettings.php';
-$adminOutline->header();
+$adminOutline->header('Admin Panel');
 
 $page = Util::getParam('page');
 

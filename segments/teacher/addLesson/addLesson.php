@@ -75,21 +75,27 @@ if (isset($submit) && !empty($submit)) {
                 </div>
                 <div class="form-group">
                     <label for="content">Lesson Content</label>
-                    <textarea id="content" name="content" style="height:50vh;width:100%;"></textarea>
+                    <textarea id="content" name="content" style="width:100%;height: 50vh"></textarea>
                 </div>
                 <script>
                     var textarea = document.getElementById('content');
                     sceditor.create(textarea, {
                         format: 'bbcode',
                         icons: 'monocons',
-                        style: '../minified/themes/content/default.min.css'
+                        style: '../minified/themes/content/modern.min.css'
                     });
 
                 </script>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-success float-right" name="submit" value="save">Save</button>
-            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success float-right" name="submit" value="save">Save</button>
+                    </div>
+                </div>
+
+                </div>
+
         </div>
     </div>
 </form>

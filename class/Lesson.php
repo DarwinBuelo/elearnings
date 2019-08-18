@@ -14,6 +14,49 @@ class Lesson
     protected $courseID;
     protected $dateCreated;
 
+    public static function LoadArray(array $ids = null){
+        if(isset($ids)){
+            $return = [];
+            foreach ($ids as $id){
+                $return[$id] = self::load($id);
+            }
+            return $return;
+        } else{
+            $sql =  "SELECT
+                        lesson_id as id
+                     FROM
+                        lessons";
+            $result = Dbcon::execute($sql);
+            $data =Dbcon::fetch_all_assoc($result);
+            $return = [];
+
+            foreach ($data as $key =>$value){
+                $return[$value['id']] = self::load($value['id']);
+            }
+            return $return;
+
+        }
+    }
+
+    public function load($id){
+        $sql =  "SELECT
+                        *
+                 FROM
+                    lessons
+                 WHERE
+                    lesson_id = {$id}";
+        $result = Dbcon::execute($sql);
+        $data =Dbcon::fetch_assoc($result);
+        $new = new self();
+        $new->setLessonID($data['lesson_id']);
+        $new->setTitle($data['title']);
+        $new->setOverView($data['overview']);
+        $new->setContent($data['content']);
+        $new->setCourseID($data['course_id']);
+        $new->setDateCreated($data['date_created']);
+        return $new;
+    }
+
 
     public function addLesson(array $data){
         if(is_array($data) && count($data) > 0 ){
@@ -51,7 +94,7 @@ class Lesson
 
     public function setOverView($overview)
     {
-        $this->title = $overview;
+        $this->overView = $overview;
     }
 
     public function getContent()

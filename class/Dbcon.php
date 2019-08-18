@@ -86,6 +86,28 @@ class Dbcon
         }
     }
 
+    public function fetch_all_array($object)
+    {
+        //handle database object
+        if (!empty($object)) {
+            $result = mysqli_fetch_all($object, MYSQLI_NUM);
+            mysqli_free_result($object);
+            self::close();
+            return $result;
+        }
+    }
+
+    public function fetch_array($object)
+    {
+        //handle database object
+        if (!empty($object)) {
+            $result = mysqli_fetch_array($object,MYSQLI_NUM);
+            mysqli_free_result($object);
+            self::close();
+            return $result;
+        }
+    }
+
     public function fetch_assoc($object)
     {
         //handle database object
