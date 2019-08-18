@@ -64,6 +64,19 @@ class Lesson
             return true;
         }
     }
+
+    public function submit(){
+        $data = [
+            'title' => $this->getTitle(),
+            'overview' => $this->getOverView(),
+            'content' => $this->getContent(),
+            'course_id' => $this->getCourseID()
+        ];
+
+        $where = ['lesson_id'=> $this->getLessonID()];
+        $result= DBcon::update('lessons',$data,$where);
+        return $result;
+    }
     /**
      * @return mixed
      */
