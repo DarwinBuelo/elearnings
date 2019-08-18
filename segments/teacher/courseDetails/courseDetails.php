@@ -8,7 +8,7 @@ if (!empty($cid)) {
             <div class="card">
                 <div class="card-header"><h4><?= $course->getCourseName() ?> - Details</h4></div>
                 <div class="card-body">
-                    <table id="courses" class="table table-striped table-bordered">
+                    <table id="lessons" class="table table-striped table-bordered">
                         <thead>
                         <tr>
                             <th>Lesson Title</th>
@@ -36,7 +36,9 @@ if (!empty($cid)) {
             </div>
         </div>
     </div>
-
+    <script>
+        jQuery('#lessons').DataTable();
+    </script>
     <?php
 
 }
