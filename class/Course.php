@@ -5,7 +5,6 @@ class Course
     public $courseID;
     public $courseName;
     public $courseDesc;
-
     public $courseCode;
     public $units;
     protected $creatorID;
@@ -54,6 +53,17 @@ class Course
         return $new;
     }
 
+    /**
+     * @param $data
+     * @return bool
+     */
+    public static function addCourse($data){
+        if(is_array($data) && count($data) > 0){
+            DBcon::insert('courses', $data);
+            return true;
+        }
+    }
+
     public function getCourseID()
     {
         return $this->courseID;
@@ -73,7 +83,7 @@ class Course
     {
         $this->courseName = $name;
     }
-    
+
     public function getDesc()
     {
         return $this->courseDesc;
@@ -82,6 +92,16 @@ class Course
     public function setDesc($desc)
     {
         $this->courseDesc = $desc;
+    }
+
+    public function getUnits()
+    {
+        return $this->units;
+    }
+
+    public function setUnits($units)
+    {
+        $this->units = $units;
     }
 
     public function getCourseCode(){

@@ -1,13 +1,13 @@
 <?php
 if (!empty(Util::getParam('submit')) && Util::getParam('submit') == 'save') {
-    $name    = ucfirst(Util::getParam('name'));
+    $name = ucfirst(Util::getParam('name'));
     $surname = ucfirst(Util::getParam('surname'));
-    $mname   = ucfirst(Util::getParam('mname'));
-    $uname   = Util::getParam('uname');
-    $phone   = Util::getParam('phone');
-    $email   = Util::getParam('email');
-    $pass    = 'admin123';
-    $role    = Util::getParam('role');
+    $mname = ucfirst(Util::getParam('mname'));
+    $uname = Util::getParam('uname');
+    $phone = Util::getParam('phone');
+    $email = Util::getParam('email');
+    $pass = 'admin123';
+    $role = Util::getParam('role');
 
     if (User::addUser($name, $surname, $uname, $mname, $email, $pass, $role)) {
         $html = "<table>";
@@ -17,7 +17,7 @@ if (!empty(Util::getParam('submit')) && Util::getParam('submit') == 'save') {
         $html .= "<tr><td>Password: </td><td>{$pass}</td></tr>";
         $html .= "</table>";
 
-        $message = ['result' => 'success', 'message' => 'Successfully added user'.$html];
+        $message = ['result' => 'success', 'message' => 'Successfully added user' . $html];
     } else {
         $message = ['result' => 'failed', 'message' => 'Failed to insert user'];
     }
@@ -26,15 +26,15 @@ if (!empty(Util::getParam('submit')) && Util::getParam('submit') == 'save') {
 <?php if (!empty($message) && $message['result'] == 'failed'): ?>
     <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
         <span class="badge badge-pill badge-danger">Failed</span>
-        <?= $message['message']?>
+        <?= $message['message'] ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
     </div>
-<?php elseif(!empty($message) && $message['result'] == 'success'):?>
+<?php elseif (!empty($message) && $message['result'] == 'success'): ?>
     <div class="sufee-alert alert with-close alert-success  alert-dismissible fade show">
         <span class="badge badge-pill badge-success ">Success</span>
-        <?= $message['message']?>
+        <?= $message['message'] ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
@@ -83,7 +83,8 @@ if (!empty(Util::getParam('submit')) && Util::getParam('submit') == 'save') {
         <div class="card">
             <div class="card-header"><h4>User Privilege</h4></div>
             <div class="card-body">
-                <div class="form-group"><div class="input-group mb-3">
+                <div class="form-group">
+                    <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="role">Role</label>
                         </div>
@@ -92,7 +93,7 @@ if (!empty(Util::getParam('submit')) && Util::getParam('submit') == 'save') {
                             <option selected>Choose...</option>
                             <?php
                             $roles = Role::loadArray();
-                            $html  = '';
+                            $html = '';
                             foreach ($roles as $role) {
                                 $html .= "<option value='{$role['id']}'>{$role['role_name']}</option>";
                             }
