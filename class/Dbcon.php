@@ -43,6 +43,22 @@ class Dbcon
         $this->close();
     }
 
+    public static function  update($table, array $data,array $where){
+        $sql =  "UPDATE {$table} SET ";
+        foreach ($data as $key => $value){
+            if ($key === array_key_last($data)){
+                $sql .= " {$key} = '{$value}' ";
+            }else{
+                $sql .= " {$key} = '{$value}', ";
+            }
+        }
+        $sql .= "WHERE true ";
+        foreach ($where as $key => $value){
+            $sql .= "AND {$key} = '{$value}'";
+        }
+        return self::execute($sql);
+    }
+
     /**
      *  Insert data into
      * @param $table name of table
@@ -57,7 +73,7 @@ class Dbcon
         $query = "INSERT INTO {$table} ({$fields}) VALUES ('{$data}')";
         try {
             self::connect();
-            mysqli_query(self::$conn, $query) or die(mysqli_error(self::$conn));
+            mysqli_query(self::$conn, $query);
             return mysqli_insert_id(self::$conn);
         } catch (Exception $e) {
             self::$error =  $e;
@@ -80,6 +96,28 @@ class Dbcon
         //handle database object
         if (!empty($object)) {
             $result = mysqli_fetch_all($object, MYSQLI_ASSOC);
+            mysqli_free_result($object);
+            self::close();
+            return $result;
+        }
+    }
+
+    public function fetch_all_array($object)
+    {
+        //handle database object
+        if (!empty($object)) {
+            $result = mysqli_fetch_all($object, MYSQLI_NUM);
+            mysqli_free_result($object);
+            self::close();
+            return $result;
+        }
+    }
+
+    public function fetch_array($object)
+    {
+        //handle database object
+        if (!empty($object)) {
+            $result = mysqli_fetch_array($object,MYSQLI_NUM);
             mysqli_free_result($object);
             self::close();
             return $result;
