@@ -2,6 +2,7 @@
 include 'init.php';
 $Outline->addCSS('styles/responsive.css');
 $Outline->header('Home');
+$Outline->navigationBar('Home');
 // Only shows when you are login
 if(isset($user) && !empty($user)){
     if($user->getRoleID() == 1){

@@ -1,8 +1,5 @@
 <?php
-/**
- * Class Layout
- * this will hold everything about the layout
- */
+
 class Layout
 {
     protected $css =[];
@@ -10,7 +7,7 @@ class Layout
     protected $companyName = 'Test Company';
     protected $companyDesc =  'Test Description';
 
-    function __construct($companyName, $companyDesc = null, $css = null, $js = null)
+    function __construct($companyName=null, $companyDesc = null, $css = null, $js = null)
     {
         $this->setCompanyName($companyName);
         if (!empty($companyDesc)) {
@@ -41,7 +38,7 @@ class Layout
                 <meta name="description" content="Unicat project">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <?php
-                foreach ($this->css as $css) {
+                foreach ($this->css as $css){
                     ?><link rel="stylesheet" type="text/css" href="<?= $css ?>"><?php
                 }
                 ?>
@@ -49,7 +46,6 @@ class Layout
             </head>
         <body>
         <?php
-        $this->navigationBar($page);
     }
 
     /**
@@ -150,8 +146,9 @@ class Layout
             foreach ($path as $file) {
                 $this->css[] = $file;
             }
+        }else{
+            $this->css[] = $path;
         }
-        $this->css[] = $path;
     }
 
     /**
@@ -165,6 +162,15 @@ class Layout
             }
         } else {
             $this->js[] = $path;
+        }
+    }
+
+    public function loadJS(){
+        if(count($this->js)>0){
+            foreach ($this->js as $js){
+                $html = "<script src='{$js}'></script>";
+                print $html;
+            }
         }
     }
 

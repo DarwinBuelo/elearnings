@@ -1,7 +1,7 @@
 <?php
 require 'init.php';
 require 'segments/admin/adminSettings.php';
-$adminOutline->header();
+$adminOutline->header('Admin Panel');
 
 $page = Util::getParam('page');
 
@@ -23,8 +23,8 @@ if ($user) {
             }
         }
         print '</div></div>';
+        $adminOutline->loadJS(); //will load the js since we can't use the current header to this Layout
     }
 } else {
     Util::redirect('index.php');
 }
-

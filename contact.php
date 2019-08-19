@@ -4,6 +4,7 @@ $Outline->addCSS('plugins/video-js/video-js.css');
 $Outline->addCSS('styles/contact.css');
 $Outline->addCSS('styles/contact_responsive.css');
 $Outline->header('Contact');
+$Outline->navigationBar('Contact');
 ?>
 <!-- Contact -->
 

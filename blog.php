@@ -4,6 +4,7 @@ $Outline->addCSS('plugins/video-js/video-js.css');
 $Outline->addCSS('styles/blog.css');
 $Outline->addCSS('styles/blog_responsive.css');
 $Outline->header('Blog');
+$Outline->navigationBar('Blog');
 ?>
 <!-- Blog -->
 

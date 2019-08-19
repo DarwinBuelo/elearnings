@@ -9,10 +9,10 @@
         <div class="counter_form">
             <div class="row fill_height">
                 <div class="col fill_height">
-                    <form class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="#">
+                    <form class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="<?= $_SERVER['PHP_SELF']?>" method="post">
                         <div class="counter_form_title">Login Now</div>
                         <input type="text" class="counter_input" name="uname" placeholder="Email Address" required="required">
-                        <input type="password" class="counter_input" name="pswd"placeholder="Password" required="required">
+                        <input type="password" class="counter_input" name="pswd" placeholder="Password" required="required">
                         <button type="submit" class="counter_form_button">submit now</button>
                     </form>
                 </div>
