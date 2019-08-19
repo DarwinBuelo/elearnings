@@ -4,6 +4,9 @@ $Outline->addCSS('plugins/colorbox/colorbox.css');
 $Outline->addCSS('styles/courses.css');
 $Outline->addCSS('styles/courses_responsive.css');
 $Outline->header('Courses');
+$Outline->navigationBar('Courses');
+
+$courses =  Course::LoadArray();
 ?>
 	<div class="courses">
 		<div class="container">
@@ -16,9 +19,9 @@ $Outline->header('Courses');
 							<input type="search" class="courses_search_input" placeholder="Search Courses" required="required">
 							<select id="courses_search_select" class="courses_search_select courses_search_input">
 								<option>All Categories</option>
-								<option>Category</option>
-								<option>Category</option>
-								<option>Category</option>
+                                <?php foreach ($courses as $Course) {?>
+                                    <option><?php echo $Course->getCourseName(); ?></option>
+                                <?php } ?>
 							</select>
 							<button action="submit" class="courses_search_button ml-auto">search now</button>
 						</form>
@@ -225,11 +228,9 @@ $Outline->header('Courses');
 							<div class="sidebar_section_title">Categories</div>
 							<div class="sidebar_categories">
 								<ul>
-									<li><a href="#">Art & Design</a></li>
-									<li><a href="#">Business</a></li>
-									<li><a href="#">IT & Software</a></li>
-									<li><a href="#">Languages</a></li>
-									<li><a href="#">Programming</a></li>
+                                    <?php foreach ($courses as $Course) { ?>
+									<li><a href="#"><?php echo $Course->getCourseName();?></a></li>
+                                    <?php } ?>
 								</ul>
 							</div>
 						</div>

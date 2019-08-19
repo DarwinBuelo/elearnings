@@ -4,6 +4,7 @@ $Outline->addCSS('plugins/colorbox/colorbox.css');
 $Outline->addCSS('styles/about.css');
 $Outline->addCSS('styles/about_responsive.css');
 $Outline->header('About');
+$Outline->navigationBar('About');
 ?>
 	<!-- About -->
 
@@ -25,7 +26,7 @@ $Outline->header('About');
 						<div class="about_item_image"><img src="images/about_1.jpg" alt=""></div>
 						<div class="about_item_title"><a href="#">Our Stories</a></div>
 						<div class="about_item_text">
-							<p>Lorem ipsum dolor sit , consectet adipisi elit, sed do eiusmod tempor for enim en consectet adipisi elit, sed do consectet adipisi elit, sed doadesg.</p>
+							<p>Temporary Stories.</p>
 						</div>
 					</div>
 				</div>
@@ -36,7 +37,7 @@ $Outline->header('About');
 						<div class="about_item_image"><img src="images/about_2.jpg" alt=""></div>
 						<div class="about_item_title"><a href="#">Our Mission</a></div>
 						<div class="about_item_text">
-							<p>Lorem ipsum dolor sit , consectet adipisi elit, sed do eiusmod tempor for enim en consectet adipisi elit, sed do consectet adipisi elit, sed doadesg.</p>
+							<p>Temporary Mission.</p>
 						</div>
 					</div>
 				</div>
@@ -47,7 +48,7 @@ $Outline->header('About');
 						<div class="about_item_image"><img src="images/about_3.jpg" alt=""></div>
 						<div class="about_item_title"><a href="#">Our Vision</a></div>
 						<div class="about_item_text">
-							<p>Lorem ipsum dolor sit , consectet adipisi elit, sed do eiusmod tempor for enim en consectet adipisi elit, sed do consectet adipisi elit, sed doadesg.</p>
+							<p>Temporary Vision.</p>
 						</div>
 					</div>
 				</div>
