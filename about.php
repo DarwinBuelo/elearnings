@@ -23,7 +23,7 @@ $Outline->navigationBar('About');
 				<!-- About Item -->
 				<div class="col-lg-4 about_col about_col_left">
 					<div class="about_item">
-						<div class="about_item_image"><img src="images/about_1.jpg" alt=""></div>
+						<div class="about_item_image"><img src="images/piagotsky.jpg" alt=""></div>
 						<div class="about_item_title"><a href="#">Our Stories</a></div>
 						<div class="about_item_text">
 							<p>Temporary Stories.</p>
@@ -34,7 +34,7 @@ $Outline->navigationBar('About');
 				<!-- About Item -->
 				<div class="col-lg-4 about_col about_col_middle">
 					<div class="about_item">
-						<div class="about_item_image"><img src="images/about_2.jpg" alt=""></div>
+						<div class="about_item_image"><img src="images/piagotsky2.jpg" alt=""></div>
 						<div class="about_item_title"><a href="#">Our Mission</a></div>
 						<div class="about_item_text">
 							<p>Temporary Mission.</p>
@@ -45,7 +45,7 @@ $Outline->navigationBar('About');
 				<!-- About Item -->
 				<div class="col-lg-4 about_col about_col_right">
 					<div class="about_item">
-						<div class="about_item_image"><img src="images/about_3.jpg" alt=""></div>
+						<div class="about_item_image"><img src="images/piagotsky.jpg" alt=""></div>
 						<div class="about_item_title"><a href="#">Our Vision</a></div>
 						<div class="about_item_text">
 							<p>Temporary Vision.</p>
