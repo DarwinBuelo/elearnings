@@ -2,6 +2,8 @@
 
 class Role
 {
+    const ROLE_TEACHER = 2;
+    const ROLE_ADMIN = 1;
     public $roleID;
     public $roleName;
 

@@ -25,8 +25,10 @@ if (!empty($cid)) {
                                 $html .= "<td>{$lesson->getTitle()}</td>";
                                 $html .= "<td>{$lesson->getOverView()}</td>";
                                 $html .= "<td>{$lesson->getDateCreated()}</td>";
-                                $html .= "<td><a href='teacher.php?page=addLesson&lid={$lesson->getLessonID()}'>Edit</a></td>";
-                                $html .= "</tr>";
+                                $html .= "<td><a href='teacher.php?page=addLesson&lid={$lesson->getLessonID()}'>Edit</a> | ";
+                                $backLink = urlencode($_SERVER['PHP_SELF'] ."?page=".Util::getParam('page') . "&cid=".$cid);
+                                $html .= "<a href='process.php?task=delLesson&lid={$lesson->getLessonID()}&backLink={$backLink}'>Delete</a>";
+                                $html .= "</td></tr>";
                                 print $html;
                             }
                             ?>

@@ -27,8 +27,11 @@ $courses =  Course::LoadArray();
                             $html .= "<td>{$course->getCourseName()}</td>";
                             $html .= "<td>{$course->getDesc()}</td>";
                             $html .= "<td>{$course->getUnits()}</td>";
-                            $html .= "<td><a href='teacher.php?page=courseDetails&cid={$course->getCourseID()}'>View</a><a href='teacher.php?page=addCourse&cid={$course->getCourseID()}'>Edit</a></td>";
-                            $html .= "</tr>";
+                            $html .= "<td><a href='teacher.php?page=courseDetails&cid={$course->getCourseID()}'>View</a> | ";
+                            $html .="<a href='teacher.php?page=addCourse&cid={$course->getCourseID()}'>Edit</a> | ";
+                            $backLink = urlencode($_SERVER['PHP_SELF'] ."?page=".Util::getParam('page'));
+                            $html .="<a href='process.php?cid={$course->getCourseID()}&task=delCourse&backLink={$backLink}'>Delete</a>";
+                            $html .= "</td></tr>";
                             print $html;
                         }
 
