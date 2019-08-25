@@ -281,6 +281,7 @@ class Layout
 										<div>piagotsky2017@gmail.com</div>
 									</li>
 								</ul>
+                                                                <!-- Please link switch between login and logout -->
 								<div class="top_bar_login ml-auto">
 									<div class="login_button"><a href="login.php">Login</a></div>
 								</div>

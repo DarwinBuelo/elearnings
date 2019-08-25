@@ -40,6 +40,9 @@ if ($user) {
                 case 'addExam':
                     require 'segments/teacher/addExam/addExam.php';
                     break;
+                case 'examDetails':
+                    require 'segments/teacher/addExam/examDetails.php';
+                    break;
 
                 default:
                     require 'segments/teacher/dashboard/dashboard.php';

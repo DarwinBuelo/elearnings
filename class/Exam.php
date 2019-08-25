@@ -15,6 +15,7 @@ class Exam
     const EXAM_TYPE_ESSAY = 1;
     const EXAM_TYPE_BOOLEAN = 2;
     const EXAM_TYPE_MULTIPLE_CHOICE = 3;
+    const EXAM_TYPE_FILL_IN_THE_BLANK = 4 ;
 
     public function getExamID(){
         return $this->examID;

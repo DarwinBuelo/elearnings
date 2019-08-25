@@ -22,7 +22,7 @@ $courses =  Course::LoadArray();
                         </thead>
                         <tbody>
                         <?php
-                        foreach ($courses as $course){
+                        foreach ($courses as $course) {
                             $html =  "<tr>";
                             $html .= "<td>{$course->getCourseName()}</td>";
                             $html .= "<td>{$course->getDesc()}</td>";
