@@ -36,6 +36,11 @@ if (isset($submit) && !empty($submit)) {
         // add
         $result = Course::addCourse($data);
         if ($result) {
+            $cid = null;
+            $courseName = null;
+            $courseDescription = null;
+            $courseCode = null;
+            $units = null;
             $message = ['result' => 'success', 'message' => 'Successfuly added a course'];
         } else {
             $message = ['result' => 'error', 'message' => 'Failed added a course'];
