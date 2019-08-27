@@ -40,7 +40,7 @@ if (isset($submit) && !empty($submit)) {
             $lessonOverview = null;
             $content = null;
             $courseID = null;
-            $message = ['result' => 'success', 'message' => 'Successfuly added a Lesson with a title "'.$lessonTitle.'"'];
+            $message = ['result' => 'success', 'message' => 'Successfully added a Lesson with a title "'.$lessonTitle.'"'];
         } else {
             $message = ['result' => 'error', 'message' => 'Failed added a Lesson'];
         }

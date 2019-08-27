@@ -41,7 +41,7 @@ if (isset($submit) && !empty($submit)) {
             $courseDescription = null;
             $courseCode = null;
             $units = null;
-            $message = ['result' => 'success', 'message' => 'Successfuly added a course'];
+            $message = ['result' => 'success', 'message' => 'Successfully added a course'];
         } else {
             $message = ['result' => 'error', 'message' => 'Failed added a course'];
 
