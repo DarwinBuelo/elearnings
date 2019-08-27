@@ -8,7 +8,7 @@ $courses =  Course::LoadArray();
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <strong class="card-title">Courses List</strong>
+                    <strong class="card-title">Courses List - Select a course</strong>
                 </div>
                 <div class="card-body">
                     <table id="courses" class="table table-striped table-bordered">
@@ -27,10 +27,9 @@ $courses =  Course::LoadArray();
                             $html .= "<td>{$course->getCourseName()}</td>";
                             $html .= "<td>{$course->getDesc()}</td>";
                             $html .= "<td>{$course->getUnits()}</td>";
-                            $html .= "<td><a href='teacher.php?page=courseDetails&cid={$course->getCourseID()}'>View</a> | ";
-                            $html .="<a href='teacher.php?page=addCourse&cid={$course->getCourseID()}'>Edit</a> | ";
+                            $html .= "<td>";
                             $backLink = urlencode($_SERVER['PHP_SELF'] ."?page=".Util::getParam('page'));
-                            $html .="<a href='process.php?cid={$course->getCourseID()}&task=delCourse&backLink={$backLink}'>Delete</a>";
+                            $html .="<a href='teacher.php?page=examDetails&cid={$course->getCourseID()}'>Add Exam</a>";
                             $html .= "</td></tr>";
                             print $html;
                         }

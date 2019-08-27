@@ -146,10 +146,13 @@ class Dbcon
 
 
     //delete the file from database
-    function delete($table, $id)
+    public static function delete($table, $where)
     {
-        $query = "DELETE FROM $table WHERE id = '$id'";
-        $this->execute($query);
+        $query = "DELETE FROM {$table} WHERE true ";
+        foreach( $where as $key => $value) {
+            $query .= "AND {$key} = '{$value}' ";
+        }
+        self::execute($query);
     }
 
     //just making debug easier
@@ -173,18 +176,6 @@ class Dbcon
         }
     }
 
-    function is_logged()
-    {
-        if (isset($_SESSION['user'])) {
-            if ($_SESSION['privilege'] == 1) {
-                return 1;
-            } else {
-                return 0;
-            }
-        } else {
-            return 404;
-        }
-    }
 
 
     public static function close()
