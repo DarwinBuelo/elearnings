@@ -35,6 +35,11 @@ if (isset($submit) && !empty($submit)) {
         ];
         $result = Lesson::addLesson($data);
         if ($result) {
+            $lid = null;
+            $lessonTitle = null;
+            $lessonOverview = null;
+            $content = null;
+            $courseID = null;
             $message = ['result' => 'success', 'message' => 'Successfuly added a Lesson with a title "'.$lessonTitle.'"'];
         } else {
             $message = ['result' => 'error', 'message' => 'Failed added a Lesson'];
