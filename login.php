@@ -16,7 +16,7 @@ if ($username !== null && $password !== null) {
     if ($isLogged) {
         $_SESSION['user'] = serialize($user);
     } else {
-        $error = "Username or Password was incorrrect";
+        $message = "Username or Password was incorrrect";
     }
 }
 // redirect to proper page
