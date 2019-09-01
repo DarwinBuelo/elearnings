@@ -23,7 +23,7 @@
                         <i class="menu-icon fa fa-book"></i>Course Details
                     </a>
                     <a href="/teacher.php?page=addExam">
-                        <i class="menu-icon fa fa-book"></i>Add Exam
+                        <i class="menu-icon fa fa-book"></i>Exams
                     </a>
                 </li>
             </ul>

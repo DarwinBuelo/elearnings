@@ -76,6 +76,34 @@ class Exam
         return $exam;
     }
 
+    public static function getExamTypes($examType=null){
+        $data = null;
+        if(!empty($examType)) {
+            switch ($examType) {
+                case self::EXAM_TYPE_ESSAY:
+                    $data[self::EXAM_TYPE_ESSAY] = "Essay";
+                    break;
+                case self::EXAM_TYPE_BOOLEAN:
+                    $data[self::EXAM_TYPE_BOOLEAN] = "Boolean";
+                    break;
+                case self::EXAM_TYPE_FILL_IN_THE_BLANK:
+                    $data[self::EXAM_TYPE_FILL_IN_THE_BLANK] = "Fill in the blank";
+                    break;
+                case self::EXAM_TYPE_MULTIPLE_CHOICE:
+                    $data[self::EXAM_TYPE_MULTIPLE_CHOICE] = "Multiple Choice";
+                    break;
+            }
+        } else {
+            $data = [
+                self::EXAM_TYPE_ESSAY => "Essay",
+                self::EXAM_TYPE_BOOLEAN => "Boolean",
+                self::EXAM_TYPE_FILL_IN_THE_BLANK => "Fill in the blank",
+                self::EXAM_TYPE_MULTIPLE_CHOICE => "Multiple Choice"
+            ];
+        }
+        return $data;
+    }
+
     public function getExamID()
     {
         return $this->examID;

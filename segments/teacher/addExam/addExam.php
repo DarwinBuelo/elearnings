@@ -2,6 +2,7 @@
 // will display user courses
 $courses =  Course::LoadArray();
 ?>
+
 <div class="animated fadeIn">
     <div class="row">
 
