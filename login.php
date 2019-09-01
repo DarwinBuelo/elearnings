@@ -5,11 +5,10 @@ $Outline->addCSS('styles/contact.css');
 $Outline->addCSS('styles/contact_responsive.css');
 $Outline->header('Login');
 
-
 $username = Util::getParam('uname');
 $password = Util::getParam('pswd');
 
-if ($username !== null && $password !== null) {
+if ($username !== false && $password !== false) {
     // authenticate
     $user     = new User();
     $isLogged = $user->login($username, $password);
