@@ -12,7 +12,8 @@ if (isset($submit) && !empty($submit)) {
         'course_name' => $courseName,
         'course_desc' => $courseDescription,
         'course_code' => $courseCode,
-        'units' => $units
+        'units' => $units,
+        'creator' => $user->getID()
     ];
     if (!empty($cid)) {
         //update
@@ -21,6 +22,7 @@ if (isset($submit) && !empty($submit)) {
         $course->setDesc($courseDescription);
         $course->setCourseCode($courseCode);
         $course->setUnits($units);
+        $course->setCreatorID($user->getID);
         $result = $course->submit();
         if ($result) {
             $cid = null;
@@ -28,7 +30,7 @@ if (isset($submit) && !empty($submit)) {
             $courseDescription = null;
             $courseCode = null;
             $units = null;
-            $message = ['result' => 'success', 'message' => 'Successfuly saved'];
+            $message = ['result' => 'success', 'message' => 'Successfuly saved'. var_dump($course->getCreatorID())];
         } else {
             $message = ['result' => 'error', 'message' => 'Failed save course'];
         }
@@ -41,10 +43,9 @@ if (isset($submit) && !empty($submit)) {
             $courseDescription = null;
             $courseCode = null;
             $units = null;
-            $message = ['result' => 'success', 'message' => 'Successfully added a course'];
+            $message = ['result' => 'success', 'message' => 'Successfully added a course '];
         } else {
             $message = ['result' => 'error', 'message' => 'Failed added a course'];
-
         }
     }
 }

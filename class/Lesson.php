@@ -38,7 +38,7 @@ class Lesson
         }
     }
 
-    public function load($id){
+    public static function load($id){
         $sql =  "SELECT
                         *
                  FROM
@@ -76,6 +76,30 @@ class Lesson
         $where = ['lesson_id'=> $this->getLessonID()];
         $result= DBcon::update('lessons',$data,$where);
         return $result;
+    }
+
+    public function getExams()
+    {
+        $query ="SELECT 
+                    exam_id
+                FROM
+                    exams
+                WHERE
+                    lesson_id = {$this->getLessonID()}";
+
+        $result = Dbcon::execute($query);
+        $data = DBcon::fetch_all_assoc($result);
+        $ids = [];
+        foreach ($data as $value){
+            $ids[] = $value['exam_id'];
+        }
+        $exams = Exam::LoadArray($ids);
+        if($exams != false){
+            return $exams;
+        }else{
+            return false;
+        }
+
     }
     /**
      * @return mixed

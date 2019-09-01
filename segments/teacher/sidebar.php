@@ -13,6 +13,9 @@
             <ul class="nav navbar-nav">
                 <li class="active">
                     <a href="/teacher.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="/teacher.php?page=addExam">
+                        <i class="menu-icon fa fa-book"></i>Courses
+                    </a>
                     <a href="/teacher.php?page=addCourse">
                         <i class="menu-icon fa fa-book"></i>Add Course
                     </a>
@@ -22,9 +25,7 @@
                     <a href="/teacher.php?page=courses">
                         <i class="menu-icon fa fa-book"></i>Course Details
                     </a>
-                    <a href="/teacher.php?page=addExam">
-                        <i class="menu-icon fa fa-book"></i>Add Exam
-                    </a>
+
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->

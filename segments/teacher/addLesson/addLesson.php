@@ -1,12 +1,12 @@
 <?php
 $submit = Util::getParam('submit');
 $lid = Util::getParam('lid');
+$lessonTitle = Util::getParam('lessonTittle');
+$lessonOverview = Util::getParam('lessonOverview');
+$content = Util::getParam('content');
+$courseID = Util::getParam('courseID');
+$createdDate = date('Y-m-d');
 if (isset($submit) && !empty($submit)) {
-    $lessonTitle = Util::getParam('lessonTittle');
-    $lessonOverview = Util::getParam('lessonOverview');
-    $content = Util::getParam('content');
-    $courseID = Util::getParam('courseID');
-    $createdDate = date('Y-m-d');
 
     if(!empty($lid)){
         $lesson = Lesson::load($lid);
