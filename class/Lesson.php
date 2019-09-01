@@ -14,23 +14,30 @@ class Lesson
     protected $courseID;
     protected $dateCreated;
 
-    public static function LoadArray(array $ids = null){
-        if(isset($ids)){
+    public static function LoadArray(array $ids = null, $teacherID = null)
+    {
+        if (isset($ids)) {
             $return = [];
-            foreach ($ids as $id){
+            foreach ($ids as $id) {
                 $return[$id] = self::load($id);
             }
             return $return;
-        } else{
-            $sql =  "SELECT
+        } else {
+            $sql = "SELECT
                         lesson_id as id
                      FROM
-                        lessons";
+                        lessons
+                     WHERE
+                        TRUE";
+            if (!empty($teacherID)) {
+                $sql .= " AND ";
+            }
+
             $result = Dbcon::execute($sql);
-            $data =Dbcon::fetch_all_assoc($result);
+            $data = Dbcon::fetch_all_assoc($result);
             $return = [];
 
-            foreach ($data as $key =>$value){
+            foreach ($data as $key => $value) {
                 $return[$value['id']] = self::load($value['id']);
             }
             return $return;
@@ -38,15 +45,16 @@ class Lesson
         }
     }
 
-    public static function load($id){
-        $sql =  "SELECT
+    public static function load($id)
+    {
+        $sql = "SELECT
                         *
                  FROM
                     lessons
                  WHERE
                     lesson_id = {$id}";
         $result = Dbcon::execute($sql);
-        $data =Dbcon::fetch_assoc($result);
+        $data = Dbcon::fetch_assoc($result);
         $new = new self();
         $new->setLessonID($data['lesson_id']);
         $new->setTitle($data['title']);
@@ -58,14 +66,16 @@ class Lesson
     }
 
 
-    public function addLesson(array $data){
-        if(is_array($data) && count($data) > 0 ){
+    public function addLesson(array $data)
+    {
+        if (is_array($data) && count($data) > 0) {
             DBcon::insert('lessons', $data);
             return true;
         }
     }
 
-    public function submit(){
+    public function submit()
+    {
         $data = [
             'title' => $this->getTitle(),
             'overview' => $this->getOverView(),
@@ -73,14 +83,14 @@ class Lesson
             'course_id' => $this->getCourseID()
         ];
 
-        $where = ['lesson_id'=> $this->getLessonID()];
-        $result= DBcon::update('lessons',$data,$where);
+        $where = ['lesson_id' => $this->getLessonID()];
+        $result = DBcon::update('lessons', $data, $where);
         return $result;
     }
 
     public function getExams()
     {
-        $query ="SELECT 
+        $query = "SELECT 
                     exam_id
                 FROM
                     exams
@@ -90,17 +100,18 @@ class Lesson
         $result = Dbcon::execute($query);
         $data = DBcon::fetch_all_assoc($result);
         $ids = [];
-        foreach ($data as $value){
+        foreach ($data as $value) {
             $ids[] = $value['exam_id'];
         }
         $exams = Exam::LoadArray($ids);
-        if($exams != false){
+        if ($exams != false) {
             return $exams;
-        }else{
+        } else {
             return false;
         }
 
     }
+
     /**
      * @return mixed
      */

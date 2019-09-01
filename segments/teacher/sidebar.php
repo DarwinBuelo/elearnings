@@ -13,7 +13,7 @@
             <ul class="nav navbar-nav">
                 <li class="active">
                     <a href="/teacher.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
-                    <a href="/teacher.php?page=addExam">
+                    <a href="/teacher.php?page=courseList">
                         <i class="menu-icon fa fa-book"></i>Courses
                     </a>
                     <a href="/teacher.php?page=addCourse">

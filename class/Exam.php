@@ -19,6 +19,8 @@ class Exam
     const EXAM_TYPE_MULTIPLE_CHOICE = 3;
     const EXAM_TYPE_FILL_IN_THE_BLANK = 4;
 
+    const TABLE_NAME =  'exams';
+
     public static function loadArray(array $eids = null)
     {
         if(empty($eids)){
@@ -102,6 +104,13 @@ class Exam
             ];
         }
         return $data;
+    }
+
+    public static function addExam(array $data){
+        if(is_array($data) && count($data) > 0 ){
+            DBcon::insert('exams', $data);
+            return true;
+        }
     }
 
     public function getExamID()

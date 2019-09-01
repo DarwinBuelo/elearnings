@@ -37,7 +37,7 @@ if ($user) {
                 case 'addLesson':
                     require 'segments/teacher/addLesson/addLesson.php';
                     break;
-                case 'addExam':
+                case 'courseList':
                     require 'segments/teacher/addExam/addExam.php';
                     break;
                 case 'examDetails':
