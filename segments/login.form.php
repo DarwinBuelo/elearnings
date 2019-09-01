@@ -2,8 +2,15 @@
     <div class="counter_background" style="background-image:url(images/piagotsky2.jpg)"></div>
     <div style="padding-left: 28vw;" class="container">
         <div class="row">
-            <div class="counter_content">
-                <!-- <h2 class="counter_title">Login Now</h2>-->
+            <div class="counter_content col-md-8 center">
+                <?php if(isset($message)){?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Login Failed: </strong> <?= $message ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <?php } ?>
             </div>
         </div>
         <div class="counter_form">
