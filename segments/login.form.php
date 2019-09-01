@@ -3,7 +3,8 @@
     <div style="padding-left: 28vw;" class="container">
         <div class="row">
             <div class="counter_content col-md-8 center">
-                <?php if(isset($message)){?>
+                <?php if(isset($message) && !empty($message)){?>
+                    <?= $username?>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <strong>Login Failed: </strong> <?= $message ?>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
