@@ -40,7 +40,12 @@ $courses =  Course::LoadArray();
                             $html .= "<td>{$countExams}</td>";
                             $html .= "<td>";
                             $backLink = urlencode($_SERVER['PHP_SELF'] ."?page=".Util::getParam('page'));
-                            $html .="<a href='teacher.php?page=examDetails&cid={$course->getCourseID()}'>Add Exam</a>";
+                            if($countLessons > 0){
+                                $html .="<a href='teacher.php?page=examDetails&cid={$course->getCourseID()}'>Add Exam</a>";
+                            }else{
+                                $html .="<a href='teacher.php?page=addLesson&courseID={$course->getCourseID()}'>Add Lesson</a>";
+                            }
+
                             $html .= "</td></tr>";
                             print $html;
                         }

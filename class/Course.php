@@ -2,12 +2,16 @@
 
 class Course
 {
-    public $courseID;
-    public $courseName;
-    public $courseDesc;
-    public $courseCode;
-    public $units;
-    protected $creatorID;
+    private $courseID;
+    private $courseName;
+    private $courseDesc;
+    private $courseCode;
+    private $units;
+    private $creatorID;
+
+    /**
+     * @TODO : Creator is not set when adding the course.
+     */
 
 
     public static function LoadArray(array $ids = null){
@@ -30,7 +34,6 @@ class Course
                 $return[$value['id']] = self::load($value['id']);
             }
             return $return;
-
         }
     }
 
@@ -87,10 +90,30 @@ class Course
             'course_code' => $this->getCourseCode(),
             'course_desc' => $this->getCourseCode(),
             'units'       => $this->getUnits(),
+            'creator'     => $this->getCreatorID()
         ];
         $where = ['course_id'=> $this->getCourseID()];
         $return = DBcon::update('courses',$data,$where);
         return $return;
+    }
+
+    public static function getCourseCount($teacherID = null){
+        if (!empty($teacherID)){
+            $sql = "SELECT 
+                        COUNT(*)
+                    FROM
+                        courses
+                    WHERE
+                        creator = {$teacherID} ";
+        }else{
+            $sql ="SELECT 
+                        COUNT(*)
+                    FROM
+                        courses";
+        }
+        $result = DBcon::execute($sql);
+        $data = DBcon::fetch_array($result);
+        return $data[0];
     }
 
     public function getCourseID()
