@@ -90,7 +90,7 @@ if(!empty($lid)){
                         <select class="custom-select" id="courseID" name="courseID">
                             <option>Choose...</option>
                             <?php
-                            $courses = Course::loadArray();
+                            $courses = Course::loadArray(null,$user->getID());
                             $html = '';
                             foreach ($courses as $course) {
                                 if(isset($courseID) && $course->getCourseID() == $courseID){

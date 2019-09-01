@@ -1,7 +1,9 @@
 <?php
 // will display user courses
 $courses =  Course::LoadArray(null,$user->getID());
+require 'segments/teacher/addCourse/addCourse.php'
 ?>
+
 <div class="animated fadeIn">
     <div class="row">
 
@@ -9,6 +11,7 @@ $courses =  Course::LoadArray(null,$user->getID());
             <div class="card">
                 <div class="card-header">
                     <strong class="card-title">Courses List - Select a course</strong>
+                    <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#AddCourseDetails">Add Course</button>
                 </div>
                 <div class="card-body">
                     <table id="courses" class="table table-striped table-bordered">
@@ -39,12 +42,14 @@ $courses =  Course::LoadArray(null,$user->getID());
                             $html .= "<td>{$countExams}</td>";
                             $html .= "<td>";
                             $backLink = urlencode($_SERVER['PHP_SELF'] ."?page=".Util::getParam('page'));
+                            $html .= "<div class='btn-group'>";
                             if($countLessons > 0){
-                                $html .="<a href='teacher.php?page=examDetails&cid={$course->getCourseID()}'>Add Exam</a>";
+                                $html .="<a data-toggle='tooltip' title='Add Exam' class='btn btn-success btn-sm' href='teacher.php?page=examDetails&cid={$course->getCourseID()}'><i class='fa fa-file-text-o'></i></a>";
+                                $html .="<a data-toggle='tooltip' title='Add Lesson' class='btn btn-success btn-sm' href='teacher.php?page=addLesson&courseID={$course->getCourseID()}'><i class='fa fa-files-o'></i></a>";
                             }else{
                                 $html .="<a href='teacher.php?page=addLesson&courseID={$course->getCourseID()}'>Add Lesson</a>";
                             }
-
+                            $html .= "</div>";
                             $html .= "</td></tr>";
                             print $html;
                         }

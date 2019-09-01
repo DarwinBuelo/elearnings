@@ -54,8 +54,6 @@ $lessons = $course->getLessons();
                                 $html .= "<td>".$exam->getExamQuestion()."</td>";
                                 $html .= "<td>".$exam->getPoints()."</td>";
                                 $html .= "<td>".$exam->getDuration()." min</td>";
-
-
                                 print $html;
                             }
                         }
