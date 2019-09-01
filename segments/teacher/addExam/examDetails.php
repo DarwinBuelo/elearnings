@@ -3,19 +3,22 @@ $cid = Util::getParam('cid');
 $course = Course::load($cid);
 //let us now load the form to handle the exam
 
-require 'segments/teacher/addExam/examList.php';
 $submit = Util::getParam('submit');
 
-
 if (isset($submit) && !empty($submit)) {
-    $lid = Util::getParam('lid');
-    $lessonTitle = Util::getParam('lessonTittle');
-    $lessonOverview = Util::getParam('lessonOverview');
-    $content = Util::getParam('content');
-    $courseID = Util::getParam('courseID');
-    $createdDate = date('Y-m-d');
 
-    if (!empty($lid)) {
+    $eid = Util::getParam('eid');
+    $lessonID = Util::getParam('lessonID');
+    $examType = Util::getParam('examType');
+    $question = Util::getParam('question');
+    $points = Util::getParam('points');
+    $duration = Util::getParam('duration');
+    $answer = Util::getParam('answer');
+    $examOptions = Util::getParam('examOptions');
+    $teacherID = $user->getID();
+    $dateCreated = date('Y-m-d');
+
+    if (!empty($eid)) {
         $lesson = Lesson::load($lid);
         $lesson->setTitle($lessonTitle);
         $lesson->setOverView($lessonOverview);
@@ -23,50 +26,53 @@ if (isset($submit) && !empty($submit)) {
         $lesson->setCourseID($courseID);
         $result = $lesson->submit();
         if ($result) {
+            //to be change
             $lid = null;
             $lessonTitle = null;
             $lessonOverview = null;
             $content = null;
             $courseID = null;
-            $message = ['result' => 'success', 'message' => 'Successfuly saved the lesson "' . $lessonTitle . '"'];
+            $message = ['result' => 'success', 'message' => 'Successfuly saved the exam'];
         } else {
-            $message = ['result' => 'error', 'message' => 'Failed save the Lesson'];
+            $message = ['result' => 'error', 'message' => 'Failed save the Exam'];
         }
     } else {
         $data = [
-            'title' => $lessonTitle,
-            'overview' => $lessonOverview,
-            'content' => $content,
-            'course_id' => $courseID,
-            'date_created' => $createdDate
+            'lesson_id' => $lessonID,
+            'exam_type' => $examType,
+            'exam_question' => $question,
+            'points' => $points,
+            'duration' => $duration,
+            'answer' => $answer,
+            'exam_option' => $examOptions,
+            'teacher_id' => $teacherID,
+            'date_created' => $dateCreated
+
         ];
-        $result = Lesson::addLesson($data);
+        $result = Exam::addExam($data);
         if ($result) {
-            $lid = null;
-            $lessonTitle = null;
-            $lessonOverview = null;
-            $content = null;
-            $courseID = null;
+            $eid = null;
+            $lessonID = null;
+            $examType = null;
+            $question = null;
+            $points = null;
+            $duration = null;
+            $answer = null;
+            $examOptions = null;
             $message = [
                 'result' => 'success',
-                'message' => 'Successfully added a Lesson with a title "' . $lessonTitle . '"'
+                'message' => 'Successfully added Exam'
             ];
         } else {
-            $message = ['result' => 'error', 'message' => 'Failed added a Lesson'];
+            $message = ['result' => 'error', 'message' => 'Failed added an Exam'];
         }
     }
 
 
 }
 
+require 'segments/teacher/addExam/examList.php';
 
-if (!empty($lid)) {
-    $lesson = Lesson::load($lid);
-    $lessonTitle = $lesson->getTitle();
-    $lessonOverview = $lesson->getOverView();
-    $content = $lesson->getContent();
-    $courseID = $lesson->getCourseID();
-}
 ?>
 
 
@@ -85,27 +91,11 @@ if (!empty($lid)) {
                 </button>
             </div>
             <div class="modal-body">
-                <?php if (!empty($message) && $message['result'] == 'failed'): ?>
-                    <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
-                        <span class="badge badge-pill badge-danger">Failed</span>
-                        <?= $message['message'] ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                <?php elseif (!empty($message) && $message['result'] == 'success'): ?>
-                    <div class="sufee-alert alert with-close alert-success  alert-dismissible fade show">
-                        <span class="badge badge-pill badge-success ">Success</span>
-                        <?= $message['message'] ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                <?php endif; ?>
-                <form action="teacher.php?page=addExam" method="post">
+
+                <form action="teacher.php?page=examDetails&cid=<?= $cid ?>" method="post">
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <input type="hidden" name="examID" value="<?= isset($eid) ? $eid : null ?>">
+                            <input type="hidden" name="eid" value="<?= isset($eid) ? $eid : null ?>">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="lessonID">Lesson </label>
                             </div>
@@ -123,41 +113,52 @@ if (!empty($lid)) {
                             </select>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="hidden" name="lid" value="<?= isset($lid) ? $lid : null ?>">
                             <div class="input-group-prepend">
-                                <label class="input-group-text" for="lessonID">Exam Type</label>
+                                <label class="input-group-text" for="examType">Exam Type</label>
                             </div>
                             <select name="examType" class="custom-select">
                                 <option>Choose...</option>
                                 <?php
-                                    $types= Exam::getExamTypes();
-                                    $html = null;
-                                    foreach ($types as $key => $value){
-                                        $html .= "<option value='" . $key . "'>" . $value. "</option>";
-                                    }
-                                    print $html;
+                                $types = Exam::getExamTypes();
+                                $html = null;
+                                foreach ($types as $key => $value) {
+                                    $html .= "<option value='" . $key . "'>" . $value . "</option>";
+                                }
+                                print $html;
                                 ?>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="question">Question:</label>
                             <input type="text" class="form-control" id="question" name="question"
-                                   value="<?= isset($lessonTitle) ? $lessonTitle : null ?>">
+                                   value="<?= isset($question) ? $question : null ?>">
                         </div>
                         <div class="form-group">
-                            <label for="lessonOverview">Put the choices seperated by two forward slash's (//)</label>
-                            <input type="text" class="form-control" id="lessonOverview" name="lessonOverview"
-                                   value="<?= isset($lessonOverview) ? $lessonOverview : null ?>">
+                            <label for="points">Points:</label>
+                            <input type="text" class="form-control" id="points" name="points"
+                                   value="<?= isset($points) ? $points : null ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Duration: (Minutes)</label>
+                            <input type="text" class="form-control" id="duration" name="duration"
+                                   value="<?= isset($duration) ? $duration : null ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="answer">Correct Answer:</label>
+                            <input type="text" class="form-control" id="answer" name="answer"
+                                   value="<?= isset($answer) ? $answer : null ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="examOption">Put the choices seperated by two forward slash's (//)</label>
+                            <input type="text" class="form-control" id="examOption" name="examOption"
+                                   value="<?= isset($examOption) ? $examOption : null ?>">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success float-right" name="submit" value="save">
-                        Save
-                    </button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="submit" value="save">Save</button>
+                    </div>
                 </form>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
             </div>
         </div>
     </div>

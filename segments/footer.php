@@ -38,7 +38,7 @@
                                 <div class="footer_contact_info">
                                     <ul>
                                         <li>Email: Info.deercreative@gmail.com</li>
-                                        <li>Phone:  +(88) 111 555 666</li>
+                                        <li>Phone: +(88) 111 555 666</li>
                                         <li>40 Baria Sreet 133/2 New York City, United States</li>
                                     </ul>
                                 </div>
@@ -73,8 +73,10 @@
                             <div class="footer_section footer_mobile">
                                 <div class="footer_title">Mobile</div>
                                 <div class="footer_mobile_content">
-                                    <div class="footer_image"><a href="#"><img src="images/mobile_1.png" alt=""></a></div>
-                                    <div class="footer_image"><a href="#"><img src="images/mobile_2.png" alt=""></a></div>
+                                    <div class="footer_image"><a href="#"><img src="images/mobile_1.png" alt=""></a>
+                                    </div>
+                                    <div class="footer_image"><a href="#"><img src="images/mobile_2.png" alt=""></a>
+                                    </div>
                                 </div>
                             </div>
 

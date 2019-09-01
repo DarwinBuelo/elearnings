@@ -13,8 +13,12 @@ class Course
      * @TODO : Creator is not set when adding the course.
      */
 
-
-    public static function LoadArray(array $ids = null){
+    /**
+     * @param array|null $ids
+     * @param null $teacherID
+     * @return array
+     */
+    public static function LoadArray(array $ids = null,$teacherID = null){
         if(isset($ids)){
             $return = [];
             foreach ($ids as $id){
@@ -25,7 +29,13 @@ class Course
             $sql =  "SELECT
                             course_id as id
                      FROM
-                        courses";
+                        courses
+                     WHERE
+                        true";
+
+            if(!empty($teacherID)){
+                $sql .= " AND creator =  {$teacherID}";
+            }
             $result = Dbcon::execute($sql);
             $data =Dbcon::fetch_all_assoc($result);
             $return = [];

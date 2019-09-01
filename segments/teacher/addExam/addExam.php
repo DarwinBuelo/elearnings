@@ -1,8 +1,7 @@
 <?php
 // will display user courses
-$courses =  Course::LoadArray();
+$courses =  Course::LoadArray(null,$user->getID());
 ?>
-
 <div class="animated fadeIn">
     <div class="row">
 
