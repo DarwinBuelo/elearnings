@@ -50,10 +50,10 @@ class Exam
         $query = "SELECT 
                         e.exam_id,
                         e.teacher_id,
-                        e.exam_question,
-                        e.exam_option,
+                        e.question,
+                        e.options,
                         e.answer,
-                        e.date_created,
+                        e.created_date,
                         e.duration,
                         e.exam_type,
                         e.lesson_id,
