@@ -19,25 +19,30 @@ $message = '';
 
 foreach ($files as $file) {
     $content = file_get_contents($file);
-    $sqlData = [
-        'file_name'  =>  $file
-    ];
-    $message .=  '<pre>'. var_dump($file) .'</pre>';
-    $message .=  '<pre>'. var_dump('success', $content) .'</pre>';
-    if (!empty($fetchValue)) {
-        foreach ($fetchValue as $value) {
-            if (in_array($file, $value)) {
-                continue;
-            } else {
-                Dbcon::execute($content);
-                Dbcon::insert(TABLE_NAME, $sqlData);
-                echo $message;
+    $fileType = substr(strrchr($file, "."), 1);
+    if ($fileType === 'sql') {
+        $sqlData = [
+            'file_name'  =>  $file
+        ];
+        $message .=  '<pre>'. var_dump($file) .'</pre>';
+        $message .=  '<pre>'. var_dump('success', $content) .'</pre>';
+        if (!empty($fetchValue)) {
+            foreach ($fetchValue as $value) {
+                if (in_array($file, $value)) {
+                    continue;
+                } else {
+                    Dbcon::execute($content);
+                    Dbcon::insert(TABLE_NAME, $sqlData);
+                    echo $message;
+                }
             }
+        } else {
+            Dbcon::execute($content);
+            Dbcon::insert(TABLE_NAME, $sqlData);
+            echo $message;
         }
     } else {
-        Dbcon::execute($content);
-        Dbcon::insert(TABLE_NAME, $sqlData);
-        echo $message;
+        continue;
     }
 }
 //EOF
