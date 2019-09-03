@@ -1,9 +1,6 @@
 <?php
 //databaseConnection
 
-/**
- * @author Darwin Buelo
- */
 class Dbcon
 {
     //define the variable needed
@@ -54,7 +51,7 @@ class Dbcon
         }
         $sql .= "WHERE true ";
         foreach ($where as $key => $value){
-            $sql .= "AND {$key} = '{$value}'";
+            $sql .= " AND {$key} = '{$value}'";
         }
         return self::execute($sql);
     }

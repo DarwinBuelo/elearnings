@@ -1,7 +1,7 @@
 <?php
 $cid = Util::getParam('cid');
 if (!empty($cid)) {
-    $course = Course::load($cid);
+    $course = Course::load($cid,$user->getID());
     ?>
     <div class="row">
         <div class="col-md-12">
