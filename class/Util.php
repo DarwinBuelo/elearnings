@@ -19,4 +19,13 @@ class Util
         }
     }
 
+    
+    public static function date($date=null){
+        if(!empty($date)){
+            $formated = date('m/d/Y', strtotime($date));
+        }else{
+            $formated = date('m/d/Y');
+        }
+        return $formated;
+    }
 }

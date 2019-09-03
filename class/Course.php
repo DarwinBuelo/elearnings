@@ -18,7 +18,7 @@ class Course
      * @param null $teacherID
      * @return array
      */
-    public static function LoadArray(array $ids = null,$teacherID = null){
+    public static function LoadArray(array $ids = null,$teacherID = null,$archive=false){
         if(isset($ids)){
             $return = [];
             foreach ($ids as $id){
@@ -32,9 +32,13 @@ class Course
                         courses
                      WHERE
                         true";
-
+            //filter by teacher
             if(!empty($teacherID)){
                 $sql .= " AND creator =  {$teacherID}";
+            }
+            //filter removed course
+            if(!$archive){
+                $sql .= " AND remove = 0";
             }
             $result = Dbcon::execute($sql);
             $data =Dbcon::fetch_all_assoc($result);
@@ -93,12 +97,14 @@ class Course
             return true;
         }
     }
-    // will save to the database any update
+    /**
+     * Save the data
+     */
     public function submit(){
         $data = [
             'course_name' => $this->getCourseName(),
             'course_code' => $this->getCourseCode(),
-            'course_desc' => $this->getCourseCode(),
+            'course_desc' => $this->getDesc(),
             'units'       => $this->getUnits(),
             'creator'     => $this->getCreatorID()
         ];
@@ -124,6 +130,12 @@ class Course
         $result = DBcon::execute($sql);
         $data = DBcon::fetch_array($result);
         return $data[0];
+    }
+
+    public static function archive(int $cid){
+        $data = ['remove'=> 1];
+        $where = ['course_id' => $cid];
+        Dbcon::update('courses',$data,$where);
     }
 
     public function getCourseID()
