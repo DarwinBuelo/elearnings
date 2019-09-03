@@ -4,7 +4,8 @@ include('../class/Dbcon.php');
 const TABLE_NAME = 'run_increments';
 
 $files=glob("../database/*.*");
-Dbcon::$dbname = 'elearning';
+$dbname='elearning';
+Dbcon::$dbname = $dbname;
 $data = "
     SELECT
         file_name
@@ -22,7 +23,7 @@ foreach ($files as $file) {
     $sqlData = [
         'file_name'  =>  $file
     ];
-    $message .=  '<pre>'. var_dump($file) .'</pre>';
+    $message .=  '<pre>'. var_dump($file) .'</pre><br>';
     $message .=  '<pre>'. var_dump('success', $content) .'</pre>';
     if (!empty($fetchValue)) {
         foreach ($fetchValue as $value) {
@@ -30,13 +31,13 @@ foreach ($files as $file) {
                 continue;
             } else {
                 Dbcon::execute($content);
-                Dbcon::insert(TABLE_NAME, $sqlData);
+                Dbcon::insert($dbname.".".TABLE_NAME, $sqlData);
                 echo $message;
             }
         }
     } else {
         Dbcon::execute($content);
-        Dbcon::insert(TABLE_NAME, $sqlData);
+        Dbcon::insert($dbname.".".TABLE_NAME, $sqlData);
         echo $message;
     }
 }

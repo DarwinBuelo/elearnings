@@ -49,7 +49,8 @@ $js = [
     'plugins/OwlCarousel2-2.2.1/owl.carousel.js',
     'plugins/easing/easing.js',
     'plugins/parallax-js-master/parallax.min.js',
-    'js/custom.js'
+    'js/custom.js',
+    'js/validator.js'
 ];
 $Outline->addCSS($css);
 $Outline->addJS($js);

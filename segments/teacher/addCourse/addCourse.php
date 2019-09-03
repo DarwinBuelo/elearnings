@@ -13,27 +13,30 @@
             <form action="teacher.php?page=courseList" method="post">
                 <div class="modal-body">
 
-
                     <input type="hidden" name="cid" value="<?= isset($cid) ? $cid : null ?>">
                     <div class="form-group">
                         <label for="name">Course Name</label>
+                        <input type="file" class="form-control" id="feature_image" name="feature_image">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Course Name</label>
                         <input type="text" class="form-control" id="course_name" name="course_name"
-                               value="<?= isset($courseName) ? $courseName : null ?>">
+                               value="<?= isset($courseName) ? $courseName : null ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="surname">Course Description</label>
                         <input type="text" class="form-control" id="course_desc" name="course_desc"
-                               value="<?= isset($courseDescription) ? $courseDescription : null ?>">
+                               value="<?= isset($courseDescription) ? $courseDescription : null ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="surname">Course Code</label>
                         <input type="text" class="form-control" id="course_code" name="course_code"
-                               value="<?= isset($courseCode) ? $courseCode : null ?>">
+                               value="<?= isset($courseCode) ? $courseCode : null ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="surname">Units</label>
                         <input type="number" class="form-control" id="units" name="units"
-                               value="<?= isset($courseUnits) ? intval($courseUnits) : null ?>">
+                               value="<?= isset($courseUnits) ? intval($courseUnits) : null ?>" required>
                     </div>
 
                     <div class="modal-footer">
