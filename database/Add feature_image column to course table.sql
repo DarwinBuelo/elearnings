@@ -1,0 +1,1 @@
+ALTER TABLE `courses` ADD `feature_image` LONGTEXT NOT NULL AFTER `course_desc`;
