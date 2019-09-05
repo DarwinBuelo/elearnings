@@ -24,8 +24,7 @@ foreach ($files as $file) {
         $sqlData = [
             'file_name'  =>  $file
         ];
-        $message .=  '<pre>'. var_dump($file) .'</pre>';
-        $message .=  '<pre>'. var_dump('success', $content) .'</pre>';
+        $message .=  '<pre>'. var_dump('success', $file) .'</pre>';
         if (!empty($fetchValue)) {
             foreach ($fetchValue as $value) {
                 if (in_array($file, $value)) {
