@@ -30,15 +30,25 @@ foreach ($files as $file) {
                 if (in_array($file, $value)) {
                     continue;
                 } else {
-                    Dbcon::execute($content);
-                    Dbcon::insert(TABLE_NAME, $sqlData);
-                    echo $message;
+                    try {
+                        Dbcon::execute($content);
+                        Dbcon::insert(TABLE_NAME, $sqlData);
+                        echo $message;
+                    } catch (Exception $ex) {
+                        echo $ex.message;
+                        continue;
+                    }
                 }
             }
         } else {
-            Dbcon::execute($content);
-            Dbcon::insert(TABLE_NAME, $sqlData);
-            echo $message;
+            try {
+                Dbcon::execute($content);
+                Dbcon::insert(TABLE_NAME, $sqlData);
+                echo $message;
+            } catch (Exception $ex) {
+                echo $ex.message;
+                continue;
+            }
         }
     } else {
         continue;
