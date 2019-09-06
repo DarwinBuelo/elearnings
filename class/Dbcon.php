@@ -81,9 +81,10 @@ class Dbcon
     public static function execute($query)
     {
         self::connect();
-        if ($result = mysqli_query(self::$conn, $query) or die(mysqli_error(self::$conn))) {
+        if ($result = mysqli_query(self::$conn, $query)) {
             return $result;
         } else {
+            self::$error = mysqli_error(self::$conn);
             return false;
         }
     }
