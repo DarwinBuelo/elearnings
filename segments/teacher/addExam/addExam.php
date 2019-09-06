@@ -12,7 +12,7 @@ $courseCode        = Util::getParam('course_code');
 $units             = Util::getParam('units');
 $task              = Util::getParam('task');
 $message           = null;
-
+$path ='images/upload';
 //switch between task
 switch ($task) {
     case 'trash':
@@ -49,8 +49,19 @@ if (isset($submit) && !empty($submit)) {
         $course->setCourseCode($courseCode);
         $course->setUnits($units);
         $course->setCreatorID($user->getID());
-        
-        
+
+        $videoUp                     = new Upload($_FILES['image']);
+        $videoUp->file_new_name_body = "testFile";
+
+        if ($videoUp->uploaded) {
+            $videoUp->Process($path);
+            if ($videoUp->processed) {
+                //upload success
+                $course->setFeatureImage($videoUp->file_dst_name);
+            } else {
+                echo 'error : '.$videoUp->log;
+            }
+        }
         $result = $course->submit();
 
         if ($result) {
@@ -59,7 +70,7 @@ if (isset($submit) && !empty($submit)) {
             $courseDescription = null;
             $courseCode        = null;
             $units             = null;
-            $message           = ['result' => 'success', 'message' => 'Successfuly saved' ];
+            $message           = ['result' => 'success', 'message' => 'Successfuly saved'];
         } else {
             $message = ['result' => 'error', 'message' => 'Failed save course'];
         }
@@ -70,10 +81,10 @@ if (isset($submit) && !empty($submit)) {
         $videoUp->file_new_name_body = "testFile";
 
         if ($videoUp->uploaded) {
-            $videoUp->Process('images/upload');
+            $videoUp->Process($path);
             if ($videoUp->processed) {
                 //upload success
-                $fImage =$videoUp->file_dst_name;
+                $fImage = $videoUp->file_dst_name;
                 echo $videoUp->file_dst_name;
             } else {
                 echo 'error : '.$videoUp->log;
@@ -104,7 +115,7 @@ if (isset($submit) && !empty($submit)) {
 <?php if (!empty($message) && $message['result'] == 'failed'): ?>
     <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
         <span class="badge badge-pill badge-danger">Failed</span>
-    <?= $message['message'] ?>
+        <?= $message['message'] ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
@@ -112,7 +123,7 @@ if (isset($submit) && !empty($submit)) {
 <?php elseif (!empty($message) && $message['result'] == 'success'): ?>
     <div class="sufee-alert alert with-close alert-success  alert-dismissible fade show">
         <span class="badge badge-pill badge-success ">Success</span>
-    <?= $message['message'] ?>
+        <?= $message['message'] ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
@@ -138,6 +149,7 @@ $courses = Course::LoadArray(null, $user->getID());
                     <table id="courses" class="table table-striped table-bordered">
                         <thead>
                             <tr>
+                                <th>Image</th>
                                 <th>Course Name</th>
                                 <th>Course Description</th>
                                 <th>Units</th>
@@ -156,6 +168,7 @@ $courses = Course::LoadArray(null, $user->getID());
                                 }
 
                                 $html     = "<tr>";
+                                $html     .= "<td><img src='images/upload/{$course->getFeatureImage()}' width='100px'></td>";
                                 $html     .= "<td>{$course->getCourseName()}</td>";
                                 $html     .= "<td>{$course->getDesc()}</td>";
                                 $html     .= "<td>{$course->getUnits()}</td>";
