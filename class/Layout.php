@@ -131,7 +131,10 @@ class Layout
         </div>';
         if (count($this->js) > 0) {
             foreach ($this->js as $js) {
-                ?><script src="<?= $js ?>"></script><?php
+                ?>
+            
+            <script src="<?= $js ?>"></script>
+                <?php
             }
         }
         ?></body></html><?php
@@ -168,7 +171,7 @@ class Layout
     public function loadJS(){
         if(count($this->js)>0){
             foreach ($this->js as $js){
-                $html = "<script src='{$js}'></script>";
+                $html = "<script src='{$js}'></script>".PHP_EOL;
                 print $html;
             }
         }

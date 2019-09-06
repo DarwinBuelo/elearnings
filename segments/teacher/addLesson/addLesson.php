@@ -87,7 +87,7 @@ if(!empty($lid)){
                             <label class="input-group-text" for="courseID">Course</label>
                         </div>
 
-                        <select class="custom-select" id="courseID" name="courseID">
+                        <select class="custom-select" id="courseID" name="courseID" required>
                             <option>Choose...</option>
                             <?php
                             $courses = Course::loadArray(null,$user->getID());
@@ -107,15 +107,15 @@ if(!empty($lid)){
 
                 <div class="form-group">
                     <label for="lessonTittle">Lesson Title</label>
-                    <input type="text" class="form-control" id="lessonTittle" name="lessonTittle" value="<?= isset($lessonTitle)?$lessonTitle:null ?>">
+                    <input type="text" class="form-control" id="lessonTittle" name="lessonTittle" value="<?= isset($lessonTitle)?$lessonTitle:null ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="lessonOverview">Lesson Overview</label>
-                    <input type="text" class="form-control" id="lessonOverview" name="lessonOverview" value="<?= isset($lessonOverview) ? $lessonOverview : null ?>">
+                    <input type="text" class="form-control" id="lessonOverview" name="lessonOverview" value="<?= isset($lessonOverview) ? $lessonOverview : null ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="content">Lesson Content</label>
-                    <textarea id="content" name="content" style="width:100%;height: 50vh"><?= isset($content)?$content:null ?></textarea>
+                    <textarea id="content" name="content" style="width:100%;height: 50vh" required><?= isset($content)?$content:null ?></textarea>
                 </div>
                 <script>
                     var textarea = document.getElementById('content');

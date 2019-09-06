@@ -12,7 +12,7 @@ $courseCode        = Util::getParam('course_code');
 $units             = Util::getParam('units');
 $task              = Util::getParam('task');
 $message           = null;
-
+$path ='images/upload';
 //switch between task
 switch ($task) {
     case 'trash':
@@ -49,7 +49,21 @@ if (isset($submit) && !empty($submit)) {
         $course->setCourseCode($courseCode);
         $course->setUnits($units);
         $course->setCreatorID($user->getID());
+
+        $videoUp                     = new Upload($_FILES['image']);
+        $videoUp->file_new_name_body = "testFile";
+
+        if ($videoUp->uploaded) {
+            $videoUp->Process($path);
+            if ($videoUp->processed) {
+                //upload success
+                $course->setFeatureImage($videoUp->file_dst_name);
+            } else {
+                echo 'error : '.$videoUp->log;
+            }
+        }
         $result = $course->submit();
+
         if ($result) {
             $cid               = null;
             $courseName        = null;
@@ -63,12 +77,26 @@ if (isset($submit) && !empty($submit)) {
     } else {
         // add
 
+        $videoUp                     = new Upload($_FILES['image']);
+        $videoUp->file_new_name_body = "testFile";
+
+        if ($videoUp->uploaded) {
+            $videoUp->Process($path);
+            if ($videoUp->processed) {
+                //upload success
+                $fImage = $videoUp->file_dst_name;
+                echo $videoUp->file_dst_name;
+            } else {
+                echo 'error : '.$videoUp->log;
+            }
+        }
         $data   = [
             'course_name' => $courseName,
             'course_desc' => $courseDescription,
             'course_code' => $courseCode,
             'units' => $units,
-            'creator' => $user->getID()
+            'creator' => $user->getID(),
+            'feature_image' => $fImage,
         ];
         $result = Course::addCourse($data);
         if ($result) {
@@ -121,6 +149,7 @@ $courses = Course::LoadArray(null, $user->getID());
                     <table id="courses" class="table table-striped table-bordered">
                         <thead>
                             <tr>
+                                <th>Image</th>
                                 <th>Course Name</th>
                                 <th>Course Description</th>
                                 <th>Units</th>
@@ -139,6 +168,7 @@ $courses = Course::LoadArray(null, $user->getID());
                                 }
 
                                 $html     = "<tr>";
+                                $html     .= "<td><img src='images/upload/{$course->getFeatureImage()}' width='100px'></td>";
                                 $html     .= "<td>{$course->getCourseName()}</td>";
                                 $html     .= "<td>{$course->getDesc()}</td>";
                                 $html     .= "<td>{$course->getUnits()}</td>";
@@ -147,8 +177,8 @@ $courses = Course::LoadArray(null, $user->getID());
                                 $html     .= "<td>";
                                 $backLink = urlencode($_SERVER['PHP_SELF']."?page=".Util::getParam('page'));
                                 $html     .= "<div class='btn-group'>";
-                                
-                                $html     .= "<a data-toggle='tooltip' title='View Details' class='btn btn-success btn-sm' href='teacher.php?page=courseDetails&cid={$course->getCourseID()}'><i class='fa fa-eye'></i></a>";
+
+                                $html .= "<a data-toggle='tooltip' title='View Details' class='btn btn-success btn-sm' href='teacher.php?page=courseDetails&cid={$course->getCourseID()}'><i class='fa fa-eye'></i></a>";
 
                                 if ($countLessons > 0) {
                                     $html .= "<a data-toggle='tooltip' title='Add Exam' class='btn btn-success btn-sm' href='teacher.php?page=examDetails&cid={$course->getCourseID()}'><i class='fa fa-file-text-o'></i></a>";

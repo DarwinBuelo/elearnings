@@ -34,3 +34,56 @@ if(isset($user)&& !empty($user)){
             break;
     }
 }
+
+
+
+/**
+ *
+ *
+ *
+ * $videoUp = new Upload($_FILES['file-0']);
+$videoUp->file_new_name_body = "dclcwqVid";
+$title = $_POST['title'];
+$linkToContent = $_POST['linkto'];
+
+//get the id of the word link to the video
+$linkList = $c->select('content','title',$linkToContent);
+
+$linkContentId =$linkList[0]['id'];
+
+$thumb = new Upload($_POST['thumb']);
+$thumb->file_new_name_body = 'thumb';
+
+if($videoUp->uploaded){
+if($thumb->uploaded){
+$videoUp->Process('media/video');
+$thumb->Process('media/video/thumbnail');
+if($videoUp->processed){
+if($thumb->processed){
+$date = date("Y/m/d");
+$sql="INSERT INTO videocontent
+(linkToContent,title,file,thumb,created_date) VALUES
+('".$linkContentId."','".$title."','".$videoUp->file_dst_name."','".$thumb->file_dst_name."','".$date."')";
+
+return $c->execute($sql);
+
+}else{
+echo 'error: '.$thumb->log;
+}
+
+}else{
+echo 'error : '. $videoUp->log;
+}
+}
+}
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */

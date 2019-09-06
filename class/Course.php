@@ -8,6 +8,8 @@ class Course
     private $courseCode;
     private $units;
     private $creatorID;
+    private $featureImage;
+    private $archive;
 
     /**
      * @TODO : Creator is not set when adding the course.
@@ -67,6 +69,8 @@ class Course
         $new->setDesc($data['course_desc']);
         $new->setUnits($data['units']);
         $new->setCreatorID($data['creator']);
+        $new->setFeatureImage($data['feature_image']);
+        $new->archive = $data['remove'] == 0 ? true : false ;
         return $new;
     }
 
@@ -106,7 +110,8 @@ class Course
             'course_code' => $this->getCourseCode(),
             'course_desc' => $this->getDesc(),
             'units'       => $this->getUnits(),
-            'creator'     => $this->getCreatorID()
+            'creator'     => $this->getCreatorID(),
+            'feature_image'=> $this->getFeatureImage()
         ];
         $where = ['course_id'=> $this->getCourseID()];
         $return = DBcon::update('courses',$data,$where);
@@ -137,6 +142,11 @@ class Course
         $where = ['course_id' => $cid];
         Dbcon::update('courses',$data,$where);
     }
+
+    public function isArchived(){
+        return $this->archive;
+    }
+
 
     public function getCourseID()
     {
@@ -193,4 +203,14 @@ class Course
     public function getCreatorID(){
         return $this->creatorID;
     }
+
+    public function setFeatureImage($link){
+        $this->featureImage = $link;
+    }
+
+    public function getFeatureImage(){
+        return $this->featureImage;
+    }
+
+   
 }
