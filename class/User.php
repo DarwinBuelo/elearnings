@@ -114,7 +114,6 @@ class User
             return $return;
         }else{
             $sql ="SELECT id FROM ".self::TABLE_NAME;
-            var_dump($sql);
             $data =Dbcon::execute($sql);
             $result = Dbcon::fetch_all_assoc($data);
             $return = [];

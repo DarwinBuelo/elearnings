@@ -7,7 +7,7 @@ $Outline->header('Courses');
 $Outline->navigationBar('Courses');
 
 $courses =  Course::LoadArray();
-//$user = User::LoadArray();
+$User = User::LoadArray();
 ?>
 	<div class="courses">
 		<div class="container">
@@ -37,7 +37,7 @@ $courses =  Course::LoadArray();
 									<div class="course_image"><img src="images/upload/<?= $Course->getFeatureImage();?>" alt=""></div>
 									<div class="course_body">
 										<h3 class="course_title"><a href="course.php"><?= $Course->getCourseName(); ?></a></h3>
-										<div class="course_teacher">Teacher Name</div>
+										<div class="course_teacher"><?= $User[$Course->getCreatorID()]->getName().' '.$User[$Course->getCreatorID()]->getSurname(); ?></div>
 										<div class="course_text">
 											<p><?= $Course->getDesc(); ?></p>
 										</div>
