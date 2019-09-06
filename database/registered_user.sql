@@ -1,7 +1,5 @@
-DROP TABLE registered_user IF EXISTS;
-
 CREATE TABLE registered_user (
-  registered_user_id registered_user_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  registered_user_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   student_id varchar(225) NOT NULL,
   password LONGTEXT,
   date TIMESTAMP NOT NULL,
