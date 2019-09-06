@@ -1,3 +1,14 @@
+<style>
+    .select-checkbox option::before {
+        content: "\2610";
+        width: 1.3em;
+        text-align: center;
+        display: inline-block;
+      }
+      .select-checkbox option:checked::before {
+        content: "\2611";
+      }
+</style>
 <div class="counter">
     <div class="counter_background" style="background-image:url(images/piagotsky2.jpg)"></div>
     <div style="padding-left: 28vw;" class="container">
@@ -49,9 +60,16 @@
                             <label >Allergies</label>
                             <input type="text" class="counter_input" name="allergies">
                          </div>
+                        <?php
+                            $courses =  Course::LoadArray();
+                        ?>
                         <div class="counter_form">
                             <label >Program</label>
-                            <input type="text" class="counter_input" name="program">
+                            <select multiple="multiple" class="counter_input select-checkbox" name="program" id="program">
+                                <?php foreach ($courses as $Course) {?>
+                                    <option><?php echo $Course->getCourseName(); ?></option>
+                                <?php } ?>
+                            </select>
                         </div>
                          <div class="counter_form">
                             <label >Mother's Name</label>
@@ -108,3 +126,18 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+$(function() {
+
+    $('#program').multiselect({
+        includeSelectAllOption: true
+    });
+
+//    $('#btnget').click(function(){
+//
+//        alert($('#chkveg').val());
+//    });
+});
+
+</script>

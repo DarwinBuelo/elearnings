@@ -114,9 +114,9 @@ class User
                 }
             }
             return $return;
-        } else {
-            $sql    = "SELECT id FROM ".self::TABLE_NAME;
-            $data   = Dbcon::execute($sql);
+        }else{
+            $sql ="SELECT id FROM ".self::TABLE_NAME;
+            $data =Dbcon::execute($sql);
             $result = Dbcon::fetch_all_assoc($data);
             $return = [];
             foreach ($result as $key => $value) {
