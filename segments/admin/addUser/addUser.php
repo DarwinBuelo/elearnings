@@ -95,7 +95,7 @@ if (!empty(Util::getParam('submit')) && Util::getParam('submit') == 'save') {
                             $roles = Role::loadArray();
                             $html = '';
                             foreach ($roles as $role) {
-                                $html .= "<option value='{$role['id']}'>{$role['role_name']}</option>";
+                                $html .= "<option value='{$role->getRoleID()}'>{$role->getRoleName()}</option>";
                             }
                             print $html;
                             ?>

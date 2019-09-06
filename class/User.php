@@ -15,11 +15,9 @@ class User
     /**
      * TODO :  Role name is not yet working
      */
-
     const TABLE_NAME = "users";
 
-    public static function addUser($name, $surname, $username, $middlename,
-                                   $email, $password, $role = 1)
+    public static function addUser($name, $surname, $username, $middlename, $email, $password, $role = 1)
     {
         $data   = [
             'username' => $username,
@@ -105,42 +103,50 @@ class User
         }
     }
 
-    public function LoadArray(array  $ids = null ){
-        if(!empty($ids)){
+    public function LoadArray(array $ids = null)
+    {
+        if (!empty($ids)) {
             $return = [];
-            foreach ($ids as $id){
-                $return[$id] = self::load($id);
+            foreach ($ids as $id) {
+                $Object = self::load($id);
+                if($Object){
+                    $return[$id] = $Object;
+                }
             }
             return $return;
-        }else{
-            $sql ="SELECT id FROM ".self::TABLE_NAME;
-            var_dump($sql);
-            $data =Dbcon::execute($sql);
+        } else {
+            $sql    = "SELECT id FROM ".self::TABLE_NAME;
+            $data   = Dbcon::execute($sql);
             $result = Dbcon::fetch_all_assoc($data);
             $return = [];
-            foreach ($result as $key =>$value){
+            foreach ($result as $key => $value) {
                 $return[$value['id']] = self::load($value['id']);
             }
             return $return;
         }
     }
 
-    public static function Load($id=null){
-        $sql = "SELECT * FROM " .self::TABLE_NAME." WHERE id = ". $id;
-        $data = Dbcon::execute($sql);
-        $retunData =  Dbcon::fetch_assoc($data);
-        $new = new self();
-        $new->setID($retunData['id']);
-        $new->setUsername($retunData['username']);
-        $new->setName($retunData['name']);
-        $new->setSurname($retunData['surname']);
-        $new->setMiddlename($retunData['middlename']);
-        $new->setEmail($retunData['email']);
-        $new->setPhone($retunData['phone']);
-        $new->setRoleID($retunData['role']);
-        return $new;
+    public static function Load($id = null)
+    {
+        $sql       = "SELECT * FROM ".self::TABLE_NAME." WHERE id = ".$id;
+        $data      = Dbcon::execute($sql);
+        $retunData = Dbcon::fetch_assoc($data);
+        if (!empty($retunData)) {
+            $new = new self();
+            $new->setID($retunData['id']);
+            $new->setUsername($retunData['username']);
+            $new->setName($retunData['name']);
+            $new->setSurname($retunData['surname']);
+            $new->setMiddlename($retunData['middlename']);
+            $new->setEmail($retunData['email']);
+            $new->setPhone($retunData['phone']);
+            $new->setRoleID($retunData['role']);
+            return $new;
+        }else{
+            return false;
+        }
     }
-    
+
     public static function userCount($id = null)
     {
         if (empty($id)) {
