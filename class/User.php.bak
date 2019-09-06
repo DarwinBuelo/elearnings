@@ -114,9 +114,15 @@ class User
                 }
             }
             return $return;
+<<<<<<< HEAD
         }else{
             $sql ="SELECT id FROM ".self::TABLE_NAME;
             $data =Dbcon::execute($sql);
+=======
+        } else {
+            $sql    = "SELECT id FROM ".self::TABLE_NAME;
+            $data   = Dbcon::execute($sql);
+>>>>>>> 4ce0d1233d8c98ec9ea0c5f7bb32ac7de98a322b
             $result = Dbcon::fetch_all_assoc($data);
             $return = [];
             foreach ($result as $key => $value) {
