@@ -13,7 +13,7 @@
                 <?php } ?>
             </div>
         </div>
-        <div class="counter_form">
+        <div class="counter_form" style="height: 80vh">
             <div class="row fill_height">
                 <div class="col fill_height">
                     <form class="counter_form_content d-flex flex-column align-items-center justify-content-center"
@@ -24,6 +24,11 @@
                         <input type="password" class="counter_input" name="pswd" placeholder="Password"
                                required="required">
                         <button type="submit" class="counter_form_button">submit now</button>
+                        <br>
+                        <div class="flex-col-c p-t-10 p-b-40">
+                            <span class="txt1 p-b-9">Don’t have an account?</span>
+                            <a href="registration.php" class="txt3">Register Now</a>
+                        </div>
                     </form>
                 </div>
             </div>

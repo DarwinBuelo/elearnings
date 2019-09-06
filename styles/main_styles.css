@@ -1196,7 +1196,7 @@ section
 {
 	position: relative;
 	width: 40vw;
-	height: 80vh;
+	height: auto;
 	background: #FFFFFF;
 	padding-left: 4vw;
 	padding-right: 4vw;
