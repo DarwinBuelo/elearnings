@@ -38,7 +38,8 @@ $dataTables = [
     'lib/sufee-admin-dashboard-master/vendors/datatables.net-buttons/js/buttons.print.min.js',
     'lib/sufee-admin-dashboard-master/vendors/datatables.net-buttons/js/buttons.colVis.min.js',
     'lib/sufee-admin-dashboard-master/assets/js/init-scripts/data-table/datatables-init.js',
-    'js/validator.js'
+    'js/validator.js',
+    'js/uploadPreview.js',
 ];
 
 $js = array_merge($js,$dataTables);

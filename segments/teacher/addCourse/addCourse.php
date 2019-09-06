@@ -10,13 +10,13 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="teacher.php?page=courseList" method="post">
+            <form action="teacher.php?page=courseList" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
 
                     <input type="hidden" name="cid" value="<?= isset($cid) ? $cid : null ?>">
-                    <div class="form-group">
-                        <label for="name">Course Name</label>
-                        <input type="file" class="form-control" id="feature_image" name="feature_image">
+                    <div id="image-preview">
+                        <label for="image-upload" id="image-label">Choose File</label>
+                        <input type="file" name="image" id="image-upload" />
                     </div>
                     <div class="form-group">
                         <label for="name">Course Name</label>
@@ -49,3 +49,51 @@
         </div>
     </div>
 </div>
+
+<style type="text/css">
+#image-preview {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff;
+  color: #ecf0f1;
+}
+#image-preview input {
+  line-height: 200px;
+  font-size: 200px;
+  position: absolute;
+  opacity: 0;
+  z-index: 10;
+}
+#image-preview label {
+  position: absolute;
+  z-index: 5;
+  opacity: 0.8;
+  cursor: pointer;
+  background-color: #bdc3c7;
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  line-height: 50px;
+  text-transform: uppercase;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  text-align: center;
+}
+</style>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+  jQuery.uploadPreview({
+    input_field: "#image-upload",   // Default: .image-upload
+    preview_box: "#image-preview",  // Default: .image-preview
+    label_field: "#image-label",    // Default: .image-label
+    label_default: "Choose File",   // Default: Choose File
+    label_selected: "Change File",  // Default: Change File
+    no_label: false                 // Default: false
+  });
+});
+</script>

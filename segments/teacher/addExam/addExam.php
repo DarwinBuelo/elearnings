@@ -49,26 +49,43 @@ if (isset($submit) && !empty($submit)) {
         $course->setCourseCode($courseCode);
         $course->setUnits($units);
         $course->setCreatorID($user->getID());
+        
+        
         $result = $course->submit();
+
         if ($result) {
             $cid               = null;
             $courseName        = null;
             $courseDescription = null;
             $courseCode        = null;
             $units             = null;
-            $message           = ['result' => 'success', 'message' => 'Successfuly saved'];
+            $message           = ['result' => 'success', 'message' => 'Successfuly saved' ];
         } else {
             $message = ['result' => 'error', 'message' => 'Failed save course'];
         }
     } else {
         // add
 
+        $videoUp                     = new Upload($_FILES['image']);
+        $videoUp->file_new_name_body = "testFile";
+
+        if ($videoUp->uploaded) {
+            $videoUp->Process('images/upload');
+            if ($videoUp->processed) {
+                //upload success
+                $fImage =$videoUp->file_dst_name;
+                echo $videoUp->file_dst_name;
+            } else {
+                echo 'error : '.$videoUp->log;
+            }
+        }
         $data   = [
             'course_name' => $courseName,
             'course_desc' => $courseDescription,
             'course_code' => $courseCode,
             'units' => $units,
-            'creator' => $user->getID()
+            'creator' => $user->getID(),
+            'feature_image' => $fImage,
         ];
         $result = Course::addCourse($data);
         if ($result) {
@@ -87,7 +104,7 @@ if (isset($submit) && !empty($submit)) {
 <?php if (!empty($message) && $message['result'] == 'failed'): ?>
     <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
         <span class="badge badge-pill badge-danger">Failed</span>
-        <?= $message['message'] ?>
+    <?= $message['message'] ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
@@ -95,7 +112,7 @@ if (isset($submit) && !empty($submit)) {
 <?php elseif (!empty($message) && $message['result'] == 'success'): ?>
     <div class="sufee-alert alert with-close alert-success  alert-dismissible fade show">
         <span class="badge badge-pill badge-success ">Success</span>
-        <?= $message['message'] ?>
+    <?= $message['message'] ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
@@ -147,8 +164,8 @@ $courses = Course::LoadArray(null, $user->getID());
                                 $html     .= "<td>";
                                 $backLink = urlencode($_SERVER['PHP_SELF']."?page=".Util::getParam('page'));
                                 $html     .= "<div class='btn-group'>";
-                                
-                                $html     .= "<a data-toggle='tooltip' title='View Details' class='btn btn-success btn-sm' href='teacher.php?page=courseDetails&cid={$course->getCourseID()}'><i class='fa fa-eye'></i></a>";
+
+                                $html .= "<a data-toggle='tooltip' title='View Details' class='btn btn-success btn-sm' href='teacher.php?page=courseDetails&cid={$course->getCourseID()}'><i class='fa fa-eye'></i></a>";
 
                                 if ($countLessons > 0) {
                                     $html .= "<a data-toggle='tooltip' title='Add Exam' class='btn btn-success btn-sm' href='teacher.php?page=examDetails&cid={$course->getCourseID()}'><i class='fa fa-file-text-o'></i></a>";
