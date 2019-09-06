@@ -286,7 +286,7 @@ class Layout
 								</ul>
                                                                 <!-- Please link switch between login and logout -->
 								<div class="top_bar_login ml-auto">
-									<div class="login_button"><a href="login.php">Login</a></div>
+									<div class="login_button"><a href="login.php">Login | Register</a></div>
 								</div>
 							</div>
 						</div>
