@@ -49,9 +49,16 @@
                             <label >Allergies</label>
                             <input type="text" class="counter_input" name="allergies">
                          </div>
+                        <?php
+                            $courses =  Course::LoadArray();
+                        ?>
                         <div class="counter_form">
                             <label >Program</label>
-                            <input type="text" class="counter_input" name="program">
+                            <select class="counter_input" name="program">
+                                <?php foreach ($courses as $Course) {?>
+                                    <option><?php echo $Course->getCourseName(); ?></option>
+                                <?php } ?>
+                            </select>
                         </div>
                          <div class="counter_form">
                             <label >Mother's Name</label>

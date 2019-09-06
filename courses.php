@@ -7,6 +7,7 @@ $Outline->header('Courses');
 $Outline->navigationBar('Courses');
 
 $courses =  Course::LoadArray();
+//$user = User::LoadArray();
 ?>
 	<div class="courses">
 		<div class="container">
@@ -28,16 +29,17 @@ $courses =  Course::LoadArray();
 					</div>
 					<div class="courses_container">
 						<div class="row courses_row">
-							
+
+                                                        <?php foreach ($courses as $Course) { ?>
 							<!-- Course -->
 							<div class="col-lg-6 course_col">
 								<div class="course">
-									<div class="course_image"><img src="images/piagotsky.jpg" alt=""></div>
+									<div class="course_image"><img src="images/upload/<?= $Course->getFeatureImage();?>" alt=""></div>
 									<div class="course_body">
-										<h3 class="course_title"><a href="course.php">Software Training</a></h3>
-										<div class="course_teacher">Daryll Abion</div>
+										<h3 class="course_title"><a href="course.php"><?= $Course->getCourseName(); ?></a></h3>
+										<div class="course_teacher">Teacher Name</div>
 										<div class="course_text">
-											<p>-------.</p>
+											<p><?= $Course->getDesc(); ?></p>
 										</div>
 									</div>
 									<div class="course_footer">
@@ -46,15 +48,16 @@ $courses =  Course::LoadArray();
 												<i class="fa fa-graduation-cap" aria-hidden="true"></i>
 												<span>20 Student</span>
 											</div>
-											<div class="course_info">
+<!--											<div class="course_info">
 												<i class="fa fa-star" aria-hidden="true"></i>
 												<span>5 Ratings</span>
 											</div>
-											<div class="course_price ml-auto">P 5000</div>
+											<div class="course_price ml-auto">P 5000</div>-->
 										</div>
 									</div>
 								</div>
 							</div>
+                                                                    <?php } ?>
 
 						</div>
 						<div class="row pagination_row">
