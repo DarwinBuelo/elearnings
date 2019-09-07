@@ -1,0 +1,1 @@
+CREATE TABLE `elearning`.`student_course` ( `student_course_id` INT NOT NULL AUTO_INCREMENT ,  `student_id` VARCHAR(225) NOT NULL ,  `course_id` INT NOT NULL ,    PRIMARY KEY  (`student_course_id`)) ENGINE = InnoDB;

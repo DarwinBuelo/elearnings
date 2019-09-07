@@ -5,7 +5,7 @@
  *
  * all about the lessons
  */
-class Lesson
+class Lesson extends LessonInterface
 {
     protected $lessonID;
     protected $title;

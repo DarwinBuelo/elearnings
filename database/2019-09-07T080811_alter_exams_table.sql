@@ -1,0 +1,1 @@
+ALTER TABLE `exams` ADD `course_id` INT NOT NULL AFTER `points`;

@@ -8,34 +8,41 @@ $Outline->navigationBar('Registration');
 require 'segments/registrationForm.php';
 
 const REGISTERED_USER_TABLE = 'registered_user';
-
-$date = Util::getParam('date');
-$name = Util::getParam('name');
-$school = Util::getParam('school');
-$address = Util::getParam('address');
-$contact = Util::getParam('contact');
-$gradeLevel = Util::getParam('gradeLevel');
-$birthday = Util::getParam('birthday');
-$age = Util::getParam('age');
-$emailAddress = Util::getParam('emailAddress');
-$allergies = Util::getParam('allergies');
-$program = Util::getParam('program');
-$mothersName = Util::getParam('mothersName');
-$motherOccupation = Util::getParam('motherOccupation');
-$motherOfficeAddress = Util::getParam('motherOfficeAddress');
-$motherTelNo = Util::getParam('motherTelNo');
-$fathersName = Util::getParam('fathersName');
-$fatherOccupation = Util::getParam('fatherOccupation');
-$fatherOfficeAddress = Util::getParam('fatherOfficeAddress');
-$fatherTelNo = Util::getParam('fatherTelNo');
-$noOfSiblings = Util::getParam('noOfSiblings');
-$otherProgram = Util::getParam('otherProgram');
-$suggestions = Util::getParam('suggestions');
-$others = Util::getParam('others');
+const STUDENT_COURSE_TABLE = 'student_course';
 
 if (isset($_POST['register'])) {
+    $date = Util::getParam('date');
+    $name = Util::getParam('name');
+    $school = Util::getParam('school');
+    $address = Util::getParam('address');
+    $contact = Util::getParam('contact');
+    $gradeLevel = Util::getParam('gradeLevel');
+    $birthday = Util::getParam('birthday');
+    $age = Util::getParam('age');
+    $emailAddress = Util::getParam('emailAddress');
+    $allergies = Util::getParam('allergies');
+    $program = Util::getParam('program');
+    $mothersName = Util::getParam('mothersName');
+    $motherOccupation = Util::getParam('motherOccupation');
+    $motherOfficeAddress = Util::getParam('motherOfficeAddress');
+    $motherTelNo = Util::getParam('motherTelNo');
+    $fathersName = Util::getParam('fathersName');
+    $fatherOccupation = Util::getParam('fatherOccupation');
+    $fatherOfficeAddress = Util::getParam('fatherOfficeAddress');
+    $fatherTelNo = Util::getParam('fatherTelNo');
+    $noOfSiblings = Util::getParam('noOfSiblings');
+    $otherProgram = Util::getParam('otherProgram');
+    $suggestions = Util::getParam('suggestions');
+    $others = Util::getParam('others');
     $studentID = date('YmdHms');
     $password = rand(1000, 9999);
+    $programID = [];
+    $programName = [];
+    foreach ($program as $value) {
+        $explode = explode(', ', $value);
+        $programID[] = $explode[1];
+        $programName[] = $explode[0];
+    }
     $data = [
         'date'  =>  date('Y-m-d H:m:s'),
         'student_id'  =>  $studentID,
@@ -49,7 +56,7 @@ if (isset($_POST['register'])) {
         'age'  =>  $age,
         'email_address'  =>  $emailAddress,
         'allergies'  =>  $allergies,
-        'program'  =>  implode(', ', $program),
+        'program'  =>  implode(', ', $programName),
         'mothers_name'  =>  $mothersName,
         'mother_occupation'  =>  $motherOccupation,
         'mother_office_address'  =>  $motherOfficeAddress,
@@ -64,6 +71,13 @@ if (isset($_POST['register'])) {
         'others'  =>  $others
     ];
     Dbcon::insert(REGISTERED_USER_TABLE, $data);
+    foreach ($programID as $id) {
+        $studentCourseData = [
+            'student_id'  =>    $studentID,
+            'course_id'  =>    $id
+    ];
+        Dbcon::insert(STUDENT_COURSE_TABLE, $studentCourseData);
+    }
 }
 
 $Outline->addJS('plugins/marker_with_label/marker_with_label.js');
