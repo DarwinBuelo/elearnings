@@ -4,9 +4,14 @@ if (!empty($cid)) {
     $course = Course::load($cid, $user->getID());
     ?>
     <div class="row">
+        <div class="col-md-12 d-inline-flex p-3">
+            <div class="justify-content-center align-items-center">
+                <h4 class=""><?= ucfirst($course->getCourseName()) ?> - Details</h4>
+            </div>
+        </div>
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><h4><?= $course->getCourseName() ?> - Details</h4></div>
+                <div class="card-header"><h4>List of Lessons</h4></div>
                 <div class="card-body">
                     <table id="lessons" class="table table-striped table-bordered">
                         <thead>
