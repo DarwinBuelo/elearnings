@@ -17,6 +17,9 @@ if ($user) {
                 case 'addUser':
                     require 'segments/admin/addUser/addUser.php';
                     break;
+                case 'student':
+                    require 'segments/admin/student/student.php';
+                    break;
                 default:
                     require 'segments/admin/dashboard/dashboard.php';
                     break;
