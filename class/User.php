@@ -19,7 +19,7 @@ class User
 
     public static function addUser($name, $surname, $username, $middlename, $email, $password, $role = 1)
     {
-        $data   = [
+        $data = [
             'username' => $username,
             'name' => $name,
             'surname' => $surname,
@@ -88,7 +88,7 @@ class User
                     password ='{$password}'
             ";
         }
-        $data   = Dbcon::execute($sql);
+        $data = Dbcon::execute($sql);
         $result = DBcon::fetch_assoc($data);
         if (!empty($result)) {
             $this->setID($result['id']);
@@ -109,14 +109,14 @@ class User
             $return = [];
             foreach ($ids as $id) {
                 $Object = self::load($id);
-                if($Object){
+                if ($Object) {
                     $return[$id] = $Object;
                 }
             }
             return $return;
-        }else{
-            $sql ="SELECT id FROM ".self::TABLE_NAME;
-            $data =Dbcon::execute($sql);
+        } else {
+            $sql = "SELECT id FROM " . self::TABLE_NAME;
+            $data = Dbcon::execute($sql);
             $result = Dbcon::fetch_all_assoc($data);
             $return = [];
             foreach ($result as $key => $value) {
@@ -128,21 +128,24 @@ class User
 
     public static function Load($id = null)
     {
-        $sql       = "SELECT * FROM ".self::TABLE_NAME." WHERE id = ".$id;
-        $data      = Dbcon::execute($sql);
-        $retunData = Dbcon::fetch_assoc($data);
+        $sql = "SELECT * FROM " . self::TABLE_NAME . " WHERE id = " . $id;
+        $data = Dbcon::execute($sql);
+        $returnData = Dbcon::fetch_assoc($data);
         if (!empty($retunData)) {
             $new = new self();
-            $new->setID($retunData['id']);
-            $new->setUsername($retunData['username']);
-            $new->setName($retunData['name']);
-            $new->setSurname($retunData['surname']);
-            $new->setMiddlename($retunData['middlename']);
-            $new->setEmail($retunData['email']);
-            $new->setPhone($retunData['phone']);
-            $new->setRoleID($retunData['role']);
+            $new->setID($returnData['id']);
+            $new->setUsername($returnData['username']);
+            $new->setName($returnData['name']);
+            $new->setSurname($returnData['surname']);
+            $new->setMiddlename($returnData['middlename']);
+            $new->setEmail($returnData['email']);
+            $new->setPhone($returnData['phone']);
+            $new->setRoleID($returnData['role']);
+            // Role name
+            $roleObj = Role::Load($returnData['role']);
+            $new->setRoleName($roleObj->getRoleName());
             return $new;
-        }else{
+        } else {
             return false;
         }
     }
