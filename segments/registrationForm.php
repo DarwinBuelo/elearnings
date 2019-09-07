@@ -1,12 +1,9 @@
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <div class="counter">
     <div class="counter_background" style="background-image:url(images/piagotsky2.jpg)"></div>
     <div style="padding-left: 28vw;" class="container">
         <div class="row">
         </div>
-        <div class="counter_form" style="padding-bottom: 5vh;">
+        <div class="counter_form" style="padding-bottom: 5vh; padding-top: 25vh">
             <div class="row fill_height">
                 <div class="col fill_height">
                     <form class="counter_form_content d-flex flex-column align-items-center justify-content-center"
@@ -120,33 +117,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $(function(){
-            $("select").dashboardCodeBsMultiSelect();
-        });
-        $("select").bsMultiSelect({
-            selectedPanelDefMinHeight: 'calc(2.25rem + 2px)',
-            selectedPanelLgMinHeight: 'calc(2.875rem + 2px)',
-            selectedPanelSmMinHeight: 'calc(1.8125rem + 2px)',
-            selectedPanelDisabledBackgroundColor: '#e9ecef',
-            selectedPanelFocusBorderColor: '#80bdff',
-            selectedPanelFocusBoxShadow: '0 0 0 0.2rem rgba(0, 123, 255, 0.25)',
-            selectedPanelFocusValidBoxShadow: '0 0 0 0.2rem rgba(40, 167, 69, 0.25)',
-            selectedPanelFocusInvalidBoxShadow: '0 0 0 0.2rem rgba(220, 53, 69, 0.25)',
-            filterInputColor: '#495057',
-            selectedItemContentDisabledOpacity: '.65',
-            dropdDownLabelDisabledColor: '#6c757d',
-            containerClass: 'dashboardcode-bsmultiselect',
-            dropDown: '<a href="https://www.jqueryscript.net/menu/">Menu</a>',
-            Class: 'dropdown-menu',
-            dropDownItemClass: 'px-2',
-            dropDownItemHoverClass: 'text-primary bg-light',
-            selectedPanelClass: 'form-control',
-            selectedItemClass: 'badge',
-            removeSelectedItemButtonClass: 'close',
-            filterInputItemClass: '',
-            filterInputClass: ''
-    });
-    });
-</script>
