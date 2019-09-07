@@ -180,7 +180,7 @@ $courses = Course::LoadArray(null, $user->getID());
                                 $html .= "<a data-toggle='tooltip' title='View Details' class='btn btn-success btn-sm' href='teacher.php?page=courseDetails&cid={$course->getCourseID()}'><i class='fa fa-eye'></i></a>";
 
                                 if ($countLessons > 0) {
-                                    $html .= "<a data-toggle='tooltip' title='Add Exam' class='btn btn-success btn-sm' href='teacher.php?page=examDetails&cid={$course->getCourseID()}'><i class='fa fa-file-text-o'></i></a>";
+                                    $html .= "<a data-toggle='tooltip' title='Exam List' class='btn btn-success btn-sm' href='teacher.php?page=examDetails&cid={$course->getCourseID()}'><i class='fa fa-file-text-o'></i></a>";
                                 } else {
                                     $html .= "<a data-toggle='tooltip'  title='Add Exam' class='btn btn-secondary btn-sm disable' href='#'><i class='fa fa-file-text-o'></i></a>";
                                 }
