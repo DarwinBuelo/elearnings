@@ -1,6 +1,6 @@
 <?php
 
-class Course
+class Course extends CourseInterface
 {
     private $courseID;
     private $courseName;

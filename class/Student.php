@@ -1,7 +1,7 @@
 <?php
 
 
-class Student extends User
+class Student extends StudentInterface
 {
     public $enrolledCourse;
     public $exams;
