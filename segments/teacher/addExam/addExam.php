@@ -85,7 +85,6 @@ if (isset($submit) && !empty($submit)) {
             if ($videoUp->processed) {
                 //upload success
                 $fImage = $videoUp->file_dst_name;
-                echo $videoUp->file_dst_name;
             } else {
                 echo 'error : '.$videoUp->log;
             }
@@ -96,7 +95,7 @@ if (isset($submit) && !empty($submit)) {
             'course_code' => $courseCode,
             'units' => $units,
             'creator' => $user->getID(),
-            'feature_image' => $fImage,
+            'feature_image' => isset($fImage) ? $fImage : null,
         ];
         $result = Course::addCourse($data);
         if ($result) {
