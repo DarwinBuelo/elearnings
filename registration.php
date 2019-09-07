@@ -73,4 +73,5 @@ $Outline->addJS('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/pop
 $Outline->addJS('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js');
 $Outline->addJS('plugins/MultiSelect/dist/js/BsMultiSelect.js');
 $Outline->footer();
+require_once 'common/js/multiselect.php';
 //EOF

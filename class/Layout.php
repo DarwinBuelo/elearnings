@@ -132,7 +132,6 @@ class Layout
         if (count($this->js) > 0) {
             foreach ($this->js as $js) {
                 ?>
-            
             <script src="<?= $js ?>"></script>
                 <?php
             }
@@ -261,7 +260,7 @@ class Layout
 			</div>
 		</div>
 	</div>';
-        $locationStatus = ($activeNavbar === 'Home' || $activeNavbar === 'Login' ? '' : $locationStatus);
+        $locationStatus = ($activeNavbar === 'Home' || $activeNavbar === 'Login' || $activeNavbar === 'Registration' ? '' : $locationStatus);
 
         echo '<div class="super_container">
         <header class="header">
