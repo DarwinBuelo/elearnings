@@ -45,7 +45,7 @@ $lessons = $Course->getLessons();
 						</div>
 
 						<!-- Course Image -->
-						<div class="course_image"><img src="images/piagotsky.jpg" alt=""></div>
+						<div class="course_image"><img src="images/upload/<?= $Course->getFeatureImage(); ?>" alt=""></div>
 
 						<!-- Course Tabs -->
 						<div class="course_tabs_container">
