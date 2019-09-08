@@ -5,6 +5,7 @@ class StudentInterface
 {
     const STUDENT_COURSE_TABLE = 'student_course';
     const REGISTERED_USER_TABLE = 'registered_user';
+    
     public static function getEnrolledStudentCount($courseID = null)
     {
         if (!empty($courseID)){
