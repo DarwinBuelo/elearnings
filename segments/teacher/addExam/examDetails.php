@@ -49,6 +49,7 @@ switch ($task) {
 
 if (isset($submit) && !empty($submit)) {
     if (!empty($eid)) {
+        //edit exam
         $exam = Exam::load($eid);
         $exam->setLessonID($lessonID);
         $exam->setExamType($examType);
@@ -56,7 +57,7 @@ if (isset($submit) && !empty($submit)) {
         $exam->setPoints($points);
         $exam->setDuration($duration);
         $exam->setAnswer($answer);
-        $exam->setExamOption($answer);
+        $exam->setExamOption($examOptions);
         $result = $exam->submit();
         if ($result) {
             //to be change
@@ -194,8 +195,8 @@ require 'segments/teacher/addExam/examList.php';
                         </div>
                         <div class="form-group">
                             <label for="examOption">Put the choices seperated by two forward slash's (//)</label>
-                            <input type="text" class="form-control" id="examOption" name="examOption"
-                                   value="<?= isset($examOption) ? $examOption : null ?>">
+                            <input type="text" class="form-control" id="examOptions" name="examOptions"
+                                   value="<?= isset($examOptions) ? $examOptions : null ?>">
                         </div>
                     </div>
                     <div class="modal-footer">

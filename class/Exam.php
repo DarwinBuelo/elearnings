@@ -115,7 +115,7 @@ class Exam
     public static function addExam(array $data)
     {
         if (is_array($data) && count($data) > 0) {
-            DBcon::insert('exams', $data);
+            DBcon::insert(self::TABLE_NAME, $data);
             return true;
         }
     }
