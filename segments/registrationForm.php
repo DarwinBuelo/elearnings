@@ -35,7 +35,7 @@
                             <select multiple="multiple" class="counter_input" name="program[]" style="display: none;" id="program[]">
                                 <?php foreach ($courses as $Course) {
                                     $courseName =  $Course->getCourseName(); ?>
-                                    <option value="<?= $courseName; ?>"><?= $courseName; ?></option>
+                                    <option value="<?= $courseName.', '.$Course->getCourseID(); ?>"><?= $courseName; ?></option>
                                 <?php } ?>
                             </select>
                             <label >Mother's Name</label>

@@ -73,7 +73,8 @@ if (isset($submit) && !empty($submit)) {
             'answer' => $answer,
             'exam_option' => $examOptions,
             'teacher_id' => $teacherID,
-            'date_created' => $dateCreated
+            'date_created' => $dateCreated,
+            'course_id' => $cid
 
         ];
         $result = Exam::addExam($data);
