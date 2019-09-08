@@ -91,6 +91,7 @@ class Course extends CourseInterface
         $return = Lesson::LoadArray($ids);
         return $return;
     }
+
     /**
      * @param $data
      * @return bool
@@ -101,6 +102,7 @@ class Course extends CourseInterface
             return true;
         }
     }
+
     /**
      * Save the data
      */
@@ -144,6 +146,23 @@ class Course extends CourseInterface
         $result = DBcon::execute($sql);
         $data = DBcon::fetch_array($result);
         return $data[0];
+    }
+
+    public function getStudents(){
+        $sql = "SELECT * FROM student_course WHERE course_id ={$this->getCourseID()}";
+        $result =  DBcon::execute($sql);
+        $data = DBcon::fetch_all_assoc($result);
+        $ids = [];
+
+        if(count($data) > 0){
+            foreach($data as $student){
+                $ids[] = $student['student_id'];
+            }
+            $return =Student::LoadArray($ids);
+        }else{
+            $return = false;
+        }
+        return $return;
     }
 
     public static function archive(int $cid){

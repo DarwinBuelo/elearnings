@@ -85,23 +85,58 @@ class StudentInterface
     {
         $sql = "
                 SELECT
-                    student_id    
+                    *   
                 FROM
                     " . static::REGISTERED_USER_TABLE . "
                 WHERE
-                    student_id = " . $studentID . "
+                    student_id = '" .$studentID . "'
                 AND
-                    password = " . $password . "
+                    password = '" . $password . "'
                 AND    
                     status = 1
             ";
         $result = DBcon::execute($sql);
-        $data = DBcon::fetch_array($result);
-        return $data[0];
+        $data = DBcon::fetch_assoc($result);
+        Dbcon::debug($sql);
+        if (!empty($data)) {
+            $new = new self();
+            $new->setRegisteredUserID($data['registered_user_id']);
+            $new->setStudentID($data['student_id']);
+            $new->setDate($data['date']);
+            $new->setStudentName($data['student_name']);
+            $new->setSchool($data['school']);
+            $new->setAddress($data['address']);
+            $new->setContactNo($data['contact_no']);
+            $new->setGradeLevel($data['grade_level']);
+            $new->setContactNo($data['contact_no']);
+            $new->setBirthday($data['birthday']);
+            $new->setAge($data['age']);
+            $new->setEmail($data['email_address']);
+            $new->setAllergies($data['allergies']);
+            $new->setProgram($data['program']);
+            $new->setMotherName($data['mothers_name']);
+            $new->setMotherOccupation($data['mother_occupation']);
+            $new->setMotherOfficeAddress($data['mother_office_address']);
+            $new->setMotherTelNo($data['mother_tel_no']);
+            $new->setFatherName($data['fathers_name']);
+            $new->setFatherOccupation($data['father_occupation']);
+            $new->setFatherOfficeAddress($data['father_office_address']);
+            $new->setFatherTelNo($data['father_tel_no']);
+            $new->setNoOfSiblings($data['no_of_siblings']);
+            $new->setSiblingNames($data['sibling_names']);
+            $new->setSiblingAge($data['sibling_age']);
+            $new->setSiblingGradeLevel($data['sibling_grade_level']);
+            $new->setSiblingSchool($data['sibling_school']);
+            $new->setOtherProgramsAttended($data['other_programs_attended']);
+            $new->setSuggestions($data['suggestions']);
+            $new->setOthers($data['others']);
+            $new->setStatus($data['status']);
+            return $new;
+        }
     }
 
 
-    public function LoadArray(array $ids = null)
+    public static function LoadArray(array $ids = null)
     {
         $return = [];
         if (!empty($ids)) {
@@ -118,7 +153,7 @@ class StudentInterface
             $result = DBcon::execute($sql);
             $data = DBcon::fetch_all_assoc($result);
             foreach ($data as $key => $value) {
-                $return[$value['id']] = self::load($value['id']);
+                $return[$value['registered_user_id']] = self::load($value['registered_user_id']);
             }
         }
         return $return;
@@ -127,38 +162,42 @@ class StudentInterface
     public static function Load($id)
     {
         $table = self::REGISTERED_USER_TABLE;
-        $sql = "SELECT * FROM {$table} WHERE registered_user_id = {$id}";
+        $sql = "SELECT * FROM {$table} WHERE student_id = {$id}";
         $result = DBcon::execute($sql);
         $data = DBcon::fetch_assoc($result);
         if (!empty($data)) {
-            /**
-             * TODO: check the data if correctly set
-             */
             $new = new self();
-            $new->setAddress($data['address']);
-            $new->setAge($data['age']);
-            $new->setAllergies($data['allergies']);
-            $new->setContactNo($data['contactNo']);
+            $new->setRegisteredUserID($data['registered_user_id']);
+            $new->setStudentID($data['student_id']);
             $new->setDate($data['date']);
-            $new->setEmail($data['email']);
-            $new->setFatherName($data['fatherName']);
-            $new->setFatherOfficeAddress($data['fatherOfficeAddress']);
-            $new->setFatherTelNo($data['fatherTelNo']);
-            $new->setMotherName($data['motherName']);
-            $new->setMotherOfficeAddress($data['motherOfficeAddress']);
-            $new->setMotherTelNo($data['motherTelNo']);
-            $new->setNoOfSiblings($data['NoOfSiblings']);
-            $new->setSiblingNames($data['siblingNames']);
-            $new->setSiblingAge($data['siblingAge']);
-            $new->setSiblingGradeLevel($data['siblingGradeLevel']);
-            $new->setSiblingSchool($data['siblingSchool']);
-            $new->setOtherProgramsAttended($data['otherProgramsAttended']);
-            $new->setOthers($data['others']);
-            $new->setRegisteredUserID($data['registeredUserID']);
-            $new->setStudentName($data['studentName']);
+            $new->setStudentName($data['student_name']);
             $new->setSchool($data['school']);
-            $new->setGradeLevel($data['gradeLevel']);
+            $new->setAddress($data['address']);
+            $new->setContactNo($data['contact_no']);
+            $new->setGradeLevel($data['grade_level']);
+            $new->setContactNo($data['contact_no']);
+            $new->setBirthday($data['birthday']);
+            $new->setAge($data['age']);
+            $new->setEmail($data['email_address']);
+            $new->setAllergies($data['allergies']);
             $new->setProgram($data['program']);
+            $new->setMotherName($data['mothers_name']);
+            $new->setMotherOccupation($data['mother_occupation']);
+            $new->setMotherOfficeAddress($data['mother_office_address']);
+            $new->setMotherTelNo($data['mother_tel_no']);
+            $new->setFatherName($data['fathers_name']);
+            $new->setFatherOccupation($data['father_occupation']);
+            $new->setFatherOfficeAddress($data['father_office_address']);
+            $new->setFatherTelNo($data['father_tel_no']);
+            $new->setNoOfSiblings($data['no_of_siblings']);
+            $new->setSiblingNames($data['sibling_names']);
+            $new->setSiblingAge($data['sibling_age']);
+            $new->setSiblingGradeLevel($data['sibling_grade_level']);
+            $new->setSiblingSchool($data['sibling_school']);
+            $new->setOtherProgramsAttended($data['other_programs_attended']);
+            $new->setSuggestions($data['suggestions']);
+            $new->setOthers($data['others']);
+            $new->setStatus($data['status']);
             return $new;
         } else {
             return false;
