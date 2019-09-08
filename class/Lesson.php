@@ -100,15 +100,17 @@ class Lesson
         $result = Dbcon::execute($query);
         $data = DBcon::fetch_all_assoc($result);
         $ids = [];
+
         foreach ($data as $value) {
             $ids[] = $value['exam_id'];
         }
-        $exams = Exam::LoadArray($ids);
-        if ($exams != false) {
-            return $exams;
-        } else {
-            return false;
+        if(count($ids)>0){
+            $exams = Exam::LoadArray($ids);
+            if ($exams != false) {
+                return $exams;
+            }
         }
+
 
     }
 

@@ -29,7 +29,7 @@ $lessons = $course->getLessons();
                 <div class="card-header">
                     <strong class="card-title">Exam List for the course "<?= $course->getCourseName() ?>" </strong>
                     <button type="button" class="btn btn-success float-right" data-toggle="modal"
-                            data-target="#exampleModalCenter">Add Exam
+                            data-target="#ExamForm">Add Exam
                     </button>
                 </div>
                 <div class="card-body">
@@ -49,21 +49,23 @@ $lessons = $course->getLessons();
                         foreach ($lessons as $lesson) {
                             $Exams = $lesson->getExams();
                             if ($Exams) {
+                                $examList = Exam::getExamTypes();
                                 foreach ($Exams as $exam) {
                                     //exams
                                     $html = "<tr>";
                                     $html .= "<td>" . $exam->getExamID() . "</td>";
-                                    $html .= "<td>" . $exam->getExamType() . "</td>";
+                                    $html .= "<td>" . $examList[$exam->getExamType()] . "</td>";
                                     $html .= "<td>" . $exam->getExamQuestion() . "</td>";
                                     $html .= "<td>" . $exam->getPoints() . "</td>";
                                     $html .= "<td>" . $exam->getDuration() . " min</td>";
                                     $html .= "<div class='btn-group'>";
-                                    $html .= "<td><a data-toggle='tooltip' title='Edit Lesson' class='btn btn-success btn-sm' href='teacher.php?page=addLesson&lid={$lesson->getLessonID()}'><i class='fa fa-edit'></i></a>";
+                                    $html .= "<td><a data-toggle='tooltip' title='Edit Exam' class='btn btn-success btn-sm' href='teacher.php?page=examDetails&cid={$course->getCourseID()}&task=edit&eid={$exam->getExamID()}'><i class='fa fa-edit'></i></a>";
                                     $backLink = urlencode($_SERVER['PHP_SELF'] . "?page=" . Util::getParam('page') . "&cid=" . $cid);
-                                    $html .= "<a data-toggle='tooltip' title='Delete Lesson' class='btn btn-danger btn-sm'href='process.php?task=delLesson&lid={$lesson->getLessonID()}&backLink={$backLink}'><i class='fa fa-trash'></i></a>";
+                                    $html .= "<a data-toggle='tooltip' title='Delete Exam' class='btn btn-danger btn-sm'href='process.php?task=delLesson&lid={$lesson->getLessonID()}&backLink={$backLink}'><i class='fa fa-trash'></i></a>";
                                     $html .= "</div>";
 
                                     $html .= "</td>";
+                                    $html .= "</tr>";
 
                                     print $html;
                                 }
