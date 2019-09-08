@@ -1,5 +1,10 @@
 <?php
 require 'init.php';
-// For testing of files
+$Outline->loadJS();
 
-Util::debug(User::LoadArray());
+$Lessons = Lesson::LoadArray([23,26,27]);
+
+foreach($Lessons as $lesson){
+    $exams = $lesson->getExams();
+    Util::debug($exams);
+}
