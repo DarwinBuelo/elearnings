@@ -2,12 +2,12 @@
 
 class Layout
 {
-    protected $css =[];
+    protected $css = [];
     protected $js = [];
     protected $companyName = 'Test Company';
-    protected $companyDesc =  'Test Description';
+    protected $companyDesc = 'Test Description';
 
-    function __construct($companyName=null, $companyDesc = null, $css = null, $js = null)
+    function __construct($companyName = null, $companyDesc = null, $css = null, $js = null)
     {
         $this->setCompanyName($companyName);
         if (!empty($companyDesc)) {
@@ -30,20 +30,21 @@ class Layout
          * @TODO add favicon
          */
         ?>
-            <!DOCTYPE HTML>
-            <html lang="en">
-            <head>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="description" content="Unicat project">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <?php
-                foreach ($this->css as $css){
-                    ?><link rel="stylesheet" type="text/css" href="<?= $css ?>"><?php
-                }
+        <!DOCTYPE HTML>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="description" content="Unicat project">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <?php
+            foreach ($this->css as $css) {
                 ?>
-                <title><?=  (isset($page) ? $page : null) ?><?= !empty($this->companyName) ? '-'.$this->companyName : null?></title>
-            </head>
+                <link rel="stylesheet" type="text/css" href="<?= $css ?>"><?php
+            }
+            ?>
+            <title><?= (isset($page) ? $page : null) ?><?= !empty($this->companyName) ? '-' . $this->companyName : null ?></title>
+        </head>
         <body>
         <?php
     }
@@ -132,7 +133,7 @@ class Layout
         if (count($this->js) > 0) {
             foreach ($this->js as $js) {
                 ?>
-            <script src="<?= $js ?>"></script>
+                <script src="<?= $js ?>"></script>
                 <?php
             }
         }
@@ -148,7 +149,7 @@ class Layout
             foreach ($path as $file) {
                 $this->css[] = $file;
             }
-        }else{
+        } else {
             $this->css[] = $path;
         }
     }
@@ -160,17 +161,18 @@ class Layout
     {
         if (is_array($path)) {
             foreach ($path as $file) {
-                $this->js[] =  $file;
+                $this->js[] = $file;
             }
         } else {
             $this->js[] = $path;
         }
     }
 
-    public function loadJS(){
-        if(count($this->js)>0){
-            foreach ($this->js as $js){
-                $html = "<script src='{$js}'></script>".PHP_EOL;
+    public function loadJS()
+    {
+        if (count($this->js) > 0) {
+            foreach ($this->js as $js) {
+                $html = "<script src='{$js}'></script>" . PHP_EOL;
                 print $html;
             }
         }
@@ -189,7 +191,7 @@ class Layout
      */
     public function setCompanyDescription($desc)
     {
-        $this->companyDesc =  $desc;
+        $this->companyDesc = $desc;
     }
 
     /**
@@ -229,18 +231,18 @@ class Layout
         $navigationBar = [];
         $mobileMenuBar = [];
         foreach ($navBars as $key => $value) {
-            switch($activeNavbar) {
+            switch ($activeNavbar) {
                 case $value:
-                    $navigationBar[] = '<li class="active"><a href="'.$key.'">'.$value.'</a></li>';
-                    $mobileMenuBar[] = '<li class="menu_mm"><a href="'.$key.'">'.$value.'</a></li>';
+                    $navigationBar[] = '<li class="active"><a href="' . $key . '">' . $value . '</a></li>';
+                    $mobileMenuBar[] = '<li class="menu_mm"><a href="' . $key . '">' . $value . '</a></li>';
                     break;
                 case 'Login':
-                    $navigationBar[] = '<li><a href="'.$key.'">'.$value.'</a></li>';
-                    $mobileMenuBar[] = '<li class="menu_mm"><a href="'.$key.'">'.$value.'</a></li>';
+                    $navigationBar[] = '<li><a href="' . $key . '">' . $value . '</a></li>';
+                    $mobileMenuBar[] = '<li class="menu_mm"><a href="' . $key . '">' . $value . '</a></li>';
                     break;
                 default:
-                    $navigationBar[] = '<li><a href="'.$key.'">'.$value.'</a></li>';
-                    $mobileMenuBar[] = '<li class="menu_mm"><a href="'.$key.'">'.$value.'</a></li>';
+                    $navigationBar[] = '<li><a href="' . $key . '">' . $value . '</a></li>';
+                    $mobileMenuBar[] = '<li class="menu_mm"><a href="' . $key . '">' . $value . '</a></li>';
                     break;
             }
         }
@@ -252,7 +254,7 @@ class Layout
 						<div class="breadcrumbs">
 							<ul>
 								<li><a href="index.php">Home</a></li>
-								<li>'.$activeNavbar.'</li>
+								<li>' . $activeNavbar . '</li>
 							</ul>
 						</div>
 					</div>
@@ -307,7 +309,7 @@ class Layout
 							</div>
                             <nav class="main_nav_contaner ml-auto">
 								<ul class="main_nav">
-									'.implode('',$navigationBar).'
+									' . implode('', $navigationBar) . '
 								</ul>
 								<!-- Hamburger -->
 								<div class="hamburger menu_mm">
@@ -351,10 +353,10 @@ class Layout
 		</div>
 		<nav class="menu_nav">
 			<ul class="menu_mm">
-			    '.implode('',$mobileMenuBar).'
+			    ' . implode('', $mobileMenuBar) . '
 			</ul>
 		</nav> 
 	</div>
-	'.$locationStatus;
+	' . $locationStatus;
     }
 }

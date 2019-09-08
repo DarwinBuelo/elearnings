@@ -15,6 +15,10 @@ if ($username !== false && $password !== false) {
     if ($isLogged) {
         $_SESSION['user'] = serialize($user);
     } else {
+        /**
+         * TODO: Fix login
+         * 
+         * */
         $studentLogIn = Student::login($username, $password);
         if (!empty($studentLogIn)) {
             Util::redirect('student.php?studentID='.$username);

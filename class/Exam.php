@@ -21,7 +21,7 @@ class Exam
 
     const TABLE_NAME = 'exams';
 
-    public static function loadArray(array $eids = null,$archived = false)
+    public static function loadArray(array $eids = null, $archived = false)
     {
         if (empty($eids)) {
             $query = "SELECT 
@@ -30,7 +30,7 @@ class Exam
                         exams
                      WHERE
                         true";
-            if(!$archived){
+            if (!$archived) {
                 $query .= " AND remove = 0";
             }
             $result = DBcon::execute($query);
@@ -143,10 +143,11 @@ class Exam
         return $result;
     }
 
-    public static function archive(int $eid){
-        $data = ['remove'=> 1];
+    public static function archive(int $eid)
+    {
+        $data = ['remove' => 1];
         $where = ['exam_id' => $eid];
-        Dbcon::update(self::TABLE_NAME,$data,$where);
+        Dbcon::update(self::TABLE_NAME, $data, $where);
     }
 
     public function getExamID()
