@@ -40,4 +40,23 @@ class StudentInterface
         $data = DBcon::fetch_array($result);
         return $data[0];
     }
+
+    public static function login($studentID, $password)
+    {
+           $sql = "
+                SELECT
+                    student_id    
+                FROM
+                    ".static::REGISTERED_USER_TABLE."
+                WHERE
+                    student_id = ".$studentID."
+                AND
+                    password = ".$password."
+                AND    
+                    status = 1
+            ";
+            $result = DBcon::execute($sql);
+            $data = DBcon::fetch_array($result);
+            return $data[0];
+    }
 }
