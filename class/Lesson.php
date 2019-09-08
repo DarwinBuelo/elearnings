@@ -5,7 +5,7 @@
  *
  * all about the lessons
  */
-class Lesson
+class Lesson extends LessonInterface
 {
     protected $lessonID;
     protected $title;
@@ -88,7 +88,7 @@ class Lesson
         return $result;
     }
 
-    public function getExams()
+    public function getExams($archived=false)
     {
         $query = "SELECT 
                     exam_id
@@ -96,20 +96,23 @@ class Lesson
                     exams
                 WHERE
                     lesson_id = {$this->getLessonID()}";
+        if(!$archived){
+            $query .= " AND remove = 0";
+        }
 
         $result = Dbcon::execute($query);
         $data = DBcon::fetch_all_assoc($result);
         $ids = [];
+
         foreach ($data as $value) {
             $ids[] = $value['exam_id'];
         }
-        $exams = Exam::LoadArray($ids);
-        if ($exams != false) {
-            return $exams;
-        } else {
-            return false;
+        if(count($ids)>0){
+            $exams = Exam::LoadArray($ids);
+            if ($exams != false) {
+                return $exams;
+            }
         }
-
     }
 
     /**

@@ -85,7 +85,6 @@ if (isset($submit) && !empty($submit)) {
             if ($videoUp->processed) {
                 //upload success
                 $fImage = $videoUp->file_dst_name;
-                echo $videoUp->file_dst_name;
             } else {
                 echo 'error : '.$videoUp->log;
             }
@@ -96,7 +95,7 @@ if (isset($submit) && !empty($submit)) {
             'course_code' => $courseCode,
             'units' => $units,
             'creator' => $user->getID(),
-            'feature_image' => $fImage,
+            'feature_image' => isset($fImage) ? $fImage : null,
         ];
         $result = Course::addCourse($data);
         if ($result) {
@@ -181,7 +180,7 @@ $courses = Course::LoadArray(null, $user->getID());
                                 $html .= "<a data-toggle='tooltip' title='View Details' class='btn btn-success btn-sm' href='teacher.php?page=courseDetails&cid={$course->getCourseID()}'><i class='fa fa-eye'></i></a>";
 
                                 if ($countLessons > 0) {
-                                    $html .= "<a data-toggle='tooltip' title='Add Exam' class='btn btn-success btn-sm' href='teacher.php?page=examDetails&cid={$course->getCourseID()}'><i class='fa fa-file-text-o'></i></a>";
+                                    $html .= "<a data-toggle='tooltip' title='Exam List' class='btn btn-success btn-sm' href='teacher.php?page=examDetails&cid={$course->getCourseID()}'><i class='fa fa-file-text-o'></i></a>";
                                 } else {
                                     $html .= "<a data-toggle='tooltip'  title='Add Exam' class='btn btn-secondary btn-sm disable' href='#'><i class='fa fa-file-text-o'></i></a>";
                                 }

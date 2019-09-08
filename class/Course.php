@@ -1,6 +1,6 @@
 <?php
 
-class Course
+class Course extends CourseInterface
 {
     private $courseID;
     private $courseName;
@@ -118,7 +118,7 @@ class Course
         return $return;
     }
 
-    public static function getCourseCount($teacherID = null){
+    public static function getCourseCount($teacherID = null,$archived=false){
         if (!empty($teacherID)){
             $sql = "SELECT 
                         COUNT(*)
@@ -126,11 +126,20 @@ class Course
                         courses
                     WHERE
                         creator = {$teacherID} ";
+            if(!$archived){
+                $sql .= " AND remove = 0";
+            }
         }else{
             $sql ="SELECT 
                         COUNT(*)
                     FROM
-                        courses";
+                        courses
+                    WHERE 
+                          TRUE";
+
+            if(!$archived){
+                $sql .= " AND remove = 0";
+            }
         }
         $result = DBcon::execute($sql);
         $data = DBcon::fetch_array($result);
