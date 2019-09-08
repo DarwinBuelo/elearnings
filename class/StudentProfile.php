@@ -1,38 +1,31 @@
 <?php
 
+/**
+ * PIA GotSky
+ * This object is based on the enrollment form of PIA GotSky
+ *
+ */
 
-class StudentInterface
+/**
+ * TODO: Not yet check if working
+ */
+class StudentProfile
 {
-    const STUDENT_COURSE_TABLE = 'student_course';
-    const REGISTERED_USER_TABLE = 'registered_user';
-
-    const STATUS_APPROVED = 1;
-    const STATUS_DISAPPROVED = 0;
-
-    public $registeredUserID;
-    public $studentID; // setter and getter , load
-    public $date;
-    public $studentName;
-    public $school;
     public $address;
-    public $contactNo;
-    public $gradeLevel;
-    public $birthday;
     public $age;
-    public $email;
     public $allergies;
-    public $program; //course
-
-    public $motherName;
-    public $motherOccupation;
-    public $motherOfficeAddress;
-    public $motherTelNo;
-
+    public $birthday;
+    public $contactNo;
+    public $date;
+    public $email;
     public $fatherName;
     public $fatherOccupation;
     public $fatherOfficeAddress;
     public $fatherTelNo;
-
+    public $motherName;
+    public $motherOccupation;
+    public $motherOfficeAddress;
+    public $motherTelNo;
     public $noOfSiblings;
     public $siblingNames;
     public $siblingAge;
@@ -41,65 +34,13 @@ class StudentInterface
     public $otherProgramsAttended;
     public $suggestions;
     public $others;
+    public $registeredUserID;
+    public $studentName;
+    public $school;
+    public $gradeLevel;
+    public $program; //course
 
-    public $status;// new
-
-
-    public static function getEnrolledStudentCount($courseID = null)
-    {
-        if (!empty($courseID)) {
-            $sql = "
-                SELECT 
-                    count(*)
-                FROM
-                    " . static::STUDENT_COURSE_TABLE . " sc
-                INNER JOIN
-                    " . static::REGISTERED_USER_TABLE . " ru
-                ON
-                    sc.student_id = ru.student_id
-                WHERE
-                    sc.course_id = {$courseID} 
-                AND
-                    ru.status = 1
-            ";
-        } else {
-            $sql = "
-                SELECT 
-                    count(*)
-                FROM
-                    " . static::STUDENT_COURSE_TABLE . " sc
-                INNER JOIN
-                    " . static::REGISTERED_USER_TABLE . " ru
-                ON
-                    sc.student_id = ru.student_id
-                WHERE
-                    ru.status = 1
-            ";
-        }
-        $result = DBcon::execute($sql);
-        $data = DBcon::fetch_array($result);
-        return $data[0];
-    }
-
-    public static function login($studentID, $password)
-    {
-        $sql = "
-                SELECT
-                    student_id    
-                FROM
-                    " . static::REGISTERED_USER_TABLE . "
-                WHERE
-                    student_id = " . $studentID . "
-                AND
-                    password = " . $password . "
-                AND    
-                    status = 1
-            ";
-        $result = DBcon::execute($sql);
-        $data = DBcon::fetch_array($result);
-        return $data[0];
-    }
-
+    const  TABLE_NAME = 'registered_student';
 
     public function LoadArray(array $ids = null)
     {
@@ -113,7 +54,7 @@ class StudentInterface
             }
 
         } else {
-            $table = self::REGISTERED_USER_TABLE;
+            $table = self::TABLE_NAME;
             $sql = "SELECT registered_user_id FROM {$table}";
             $result = DBcon::execute($sql);
             $data = DBcon::fetch_all_assoc($result);
@@ -126,7 +67,7 @@ class StudentInterface
 
     public static function Load($id)
     {
-        $table = self::REGISTERED_USER_TABLE;
+        $table = self::TABLE_NAME;
         $sql = "SELECT * FROM {$table} WHERE registered_user_id = {$id}";
         $result = DBcon::execute($sql);
         $data = DBcon::fetch_assoc($result);
@@ -442,23 +383,5 @@ class StudentInterface
     public function getProgram()
     {
         return $this->program;
-    }
-
-    public function setStudentID($id)
-    {
-        $this->studentID = $id;
-    }
-
-    public function getStudentID()
-    {
-        return $this->studentID;
-    }
-
-    public function setStatus($status){
-        $this->status = $status;
-    }
-
-    public function getStatus(){
-        return $this->status;
     }
 }
