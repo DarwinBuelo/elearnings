@@ -1,0 +1,1 @@
+ALTER TABLE `exams` ADD `remove` INT NOT NULL DEFAULT '0' AFTER `points`;

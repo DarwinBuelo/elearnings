@@ -61,7 +61,7 @@ $lessons = $course->getLessons();
                                     $html .= "<div class='btn-group'>";
                                     $html .= "<td><a data-toggle='tooltip' title='Edit Exam' class='btn btn-success btn-sm' href='teacher.php?page=examDetails&cid={$course->getCourseID()}&task=edit&eid={$exam->getExamID()}'><i class='fa fa-edit'></i></a>";
                                     $backLink = urlencode($_SERVER['PHP_SELF'] . "?page=" . Util::getParam('page') . "&cid=" . $cid);
-                                    $html .= "<a data-toggle='tooltip' title='Delete Exam' class='btn btn-danger btn-sm'href='process.php?task=delLesson&lid={$lesson->getLessonID()}&backLink={$backLink}'><i class='fa fa-trash'></i></a>";
+                                    $html .= "<a data-toggle='tooltip' title='Delete Exam' class='btn btn-danger btn-sm'href='teacher.php?page=examDetails&cid={$course->getCourseID()}&task=trash&eid={$exam->getExamID()}'><i class='fa fa-trash'></i></a>";
                                     $html .= "</div>";
 
                                     $html .= "</td>";

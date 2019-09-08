@@ -36,6 +36,15 @@ switch ($task) {
         $answer = $exam->getAnswer();
         $examOptions = $exam->getExamOption();
         break;
+    case 'trash':
+        if(!empty($eid)){
+            $result = Exam::archive($eid);
+            if ($result) {
+                $message = ['result' => 'success', 'message' => 'Successfuly Deleted'];
+            } else {
+                $message = ['result' => 'error', 'message' => 'Failed to Delete'];
+            }
+        }
 }
 
 if (isset($submit) && !empty($submit)) {

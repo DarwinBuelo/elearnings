@@ -88,7 +88,7 @@ class Lesson extends LessonInterface
         return $result;
     }
 
-    public function getExams()
+    public function getExams($archived=false)
     {
         $query = "SELECT 
                     exam_id
@@ -96,6 +96,9 @@ class Lesson extends LessonInterface
                     exams
                 WHERE
                     lesson_id = {$this->getLessonID()}";
+        if(!$archived){
+            $query .= " AND remove = 0";
+        }
 
         $result = Dbcon::execute($query);
         $data = DBcon::fetch_all_assoc($result);
@@ -110,8 +113,6 @@ class Lesson extends LessonInterface
                 return $exams;
             }
         }
-
-
     }
 
     /**
