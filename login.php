@@ -15,7 +15,12 @@ if ($username !== false && $password !== false) {
     if ($isLogged) {
         $_SESSION['user'] = serialize($user);
     } else {
-        $message = "Username or Password was incorrrect";
+        $studentLogIn = Student::login($username, $password);
+        if (!empty($studentLogIn)) {
+            Util::redirect('student.php?studentID='.$username);
+        } else {
+            $message = "Username or Password was incorrrect";
+        }
     }
 }
 // redirect to proper page

@@ -12,11 +12,10 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="/admin.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
-                    <a href="/admin.php?page=addUser"> <i class="menu-icon fa fa-dashboard"></i>Add User</a>
-                    <a href="/admin.php?page=student"> <i class="menu-icon fa fa-dashboard"></i>Students</a>
+                    <a href="#"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="/student.php?page=course"> <i class="menu-icon fa fa-dashboard"></i>Courses</a>
                 </li>
             </ul>
-        </div><!-- /.navbar-collapse -->
+        </div>
     </nav>
-</aside><!-- /#left-panel -->
+</aside>
