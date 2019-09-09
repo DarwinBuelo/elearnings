@@ -141,14 +141,13 @@ class StudentInterface
                     $return[$id] = $Object;
                 }
             }
-
         } else {
             $table = self::REGISTERED_USER_TABLE;
-            $sql = "SELECT registered_user_id FROM {$table}";
+            $sql = "SELECT student_id FROM {$table}";
             $result = DBcon::execute($sql);
             $data = DBcon::fetch_all_assoc($result);
             foreach ($data as $key => $value) {
-                $return[$value['registered_user_id']] = self::load($value['registered_user_id']);
+                $return[$value['student_id']] = self::load($value['student_id']);
             }
         }
         return $return;
@@ -199,7 +198,7 @@ class StudentInterface
         }
     }
 
-    public function getCourseEnrolled()
+    public function getCoursesEnrolled()
     {
         $sql = "SELECT * FROM student_course WHERE student_id = {$this->getStudentID()}";
         $result = DBcon::execute($sql);
@@ -216,6 +215,43 @@ class StudentInterface
 
         return $return;
 
+    }
+
+
+    public function submit()
+    {
+        $data = [
+            'date' => $this->getDate(),
+            'student_name' => $this->getStudentName(),
+            'school' => $this->getSchool(),
+            'address' => $this->getAddress(),
+            'contact_no' => $this->getContactNo(),
+            'grade_level' => $this->getGradeLevel(),
+            'birthday' => $this->getBirthday(),
+            'age' => $this->getAge(),
+            'email_address' => $this->getEmail(),
+            'allergies' => $this->getAllergies(),
+            'mothers_name' => $this->getMotherName(),
+            'mother_occupation' => $this->getMotherOccupation(),
+            'mother_office_address' => $this->getMotherOfficeAddress(),
+            'mother_tel_no' => $this->getMotherTelNo(),
+            'fathers_name' => $this->getFatherName(),
+            'father_occupation' => $this->getFatherOccupation(),
+            'father_office_address' => $this->getFatherOfficeAddress(),
+            'father_tel_no' => $this->getFatherTelNo(),
+            'no_of_siblings' => $this->getNoOfSiblings(),
+            'sibling_names' => $this->getSiblingNames(),
+            'sibling_age' => $this->getSiblingAge(),
+            'sibling_grade_level' => $this->getSiblingGradeLevel(),
+            'sibling_school' => $this->getSiblingSchool(),
+            'other_programs_attended' => $this->getOtherProgramsAttended(),
+            'suggestions' => $this->getSuggestions(),
+            'others' => $this->getOthers(),
+            'status' => $this->getStatus(),
+        ];
+        $where = ['student_id' => $this->getStudentID()];
+        $return = DBcon::update(self::REGISTERED_USER_TABLE, $data, $where);
+        return $return;
     }
 
     public function setAddress($address)
@@ -265,7 +301,7 @@ class StudentInterface
 
     public function getContactNo()
     {
-        return $this->getContactNo();
+        return $this->contactNo;
     }
 
     public function setDate($date)
@@ -408,6 +444,11 @@ class StudentInterface
         return $this->siblingGradeLevel;
     }
 
+    public function getSiblingSchool()
+    {
+        return $this->siblingSchool;
+    }
+
     public function setSiblingSchool($siblingSchool)
     {
         $this->siblingSchool = $siblingSchool;
@@ -455,7 +496,7 @@ class StudentInterface
 
     public function setStudentName($name)
     {
-        $this->studentName;
+        $this->studentName = $name;
     }
 
     /**
@@ -518,6 +559,6 @@ class StudentInterface
 
     public function getRoleID()
     {
-        return  3 ;// constant for student
+        return 3;// constant for student
     }
 }

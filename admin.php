@@ -8,6 +8,7 @@ $page = Util::getParam('page');
 if ($user) {
     if ($user->getRoleID() == 1) {
         //include all admin pages needed
+        $adminOutline->loadJS();
         require 'segments/admin/sidebar.php';
         print '<div id="right-panel" class="right-panel">';
         require 'segments/admin/rightPanel.php';
@@ -26,7 +27,7 @@ if ($user) {
             }
         }
         print '</div></div>';
-        $adminOutline->loadJS(); //will load the js since we can't use the current header to this Layout
+         //will load the js since we can't use the current header to this Layout
     }
 } else {
     Util::redirect('index.php');
