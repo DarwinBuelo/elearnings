@@ -1,6 +1,6 @@
 <?php
-$courses =  Course::LoadArray();
-$User = User::LoadArray();
+$User = unserialize($_SESSION['user']);
+$courses = $user->getCourseEnrolled();
 ?>
     <div class="courses">
         <div class="container">
@@ -10,14 +10,16 @@ $User = User::LoadArray();
                     <div class="courses_container">
                         <div class="row courses_row">
 
-                            <?php foreach ($courses as $Course) { ?>
+                            <?php foreach ($courses as $Course) {
+                                $fImage = !empty($Course->getFeatureImage()) ? $Course->getFeatureImage() : "logo.png";
+                                ?>
                                 <!-- Course -->
                                 <div class="col-lg-6 course_col">
                                     <div class="course">
-                                        <div class="course_image"><img src="images/upload/<?= $Course->getFeatureImage();?>" alt=""></div>
+                                        <div class="course_image"><img src="images/upload/<?= $fImage;?>" alt=""></div>
                                         <div class="course_body">
                                             <h3 class="course_title"><a href="course.php?courseID=<?= $Course->getCourseID(); ?>"><?= $Course->getCourseName(); ?></a></h3>
-                                            <div class="course_teacher"><?= $User[$Course->getCreatorID()]->getName().' '.$User[$Course->getCreatorID()]->getSurname(); ?></div>
+                                            <div class="course_teacher"><?= 'test'?></div>
                                             <div class="course_text">
                                                 <p><?= $Course->getDesc(); ?></p>
                                             </div>

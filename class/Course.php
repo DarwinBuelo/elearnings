@@ -232,6 +232,11 @@ class Course extends CourseInterface
         return $this->creatorID;
     }
 
+    public function getCreatorDetails(){
+        $user = User::Load($this->creatorID);
+        return $user;
+    }
+
     public function setFeatureImage($link){
         $this->featureImage = $link;
     }

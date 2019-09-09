@@ -50,6 +50,8 @@ if (isset($_SESSION['user'])) {
         Util::redirect('admin.php');
     } elseif ($user->getRoleID() == 2) {
         Util::redirect('teacher.php');
+    } elseif ($user->getRoleID() == 3) {
+        Util::redirect('student.php');
     } else {
         Util::redirect('index.php');
     }

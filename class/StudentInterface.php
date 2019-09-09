@@ -22,17 +22,14 @@ class StudentInterface
     public $email;
     public $allergies;
     public $program; //course
-
     public $motherName;
     public $motherOccupation;
     public $motherOfficeAddress;
     public $motherTelNo;
-
     public $fatherName;
     public $fatherOccupation;
     public $fatherOfficeAddress;
     public $fatherTelNo;
-
     public $noOfSiblings;
     public $siblingNames;
     public $siblingAge;
@@ -41,7 +38,6 @@ class StudentInterface
     public $otherProgramsAttended;
     public $suggestions;
     public $others;
-
     public $status;// new
 
 
@@ -89,7 +85,7 @@ class StudentInterface
                 FROM
                     " . static::REGISTERED_USER_TABLE . "
                 WHERE
-                    student_id = '" .$studentID . "'
+                    student_id = '" . $studentID . "'
                 AND
                     password = '" . $password . "'
                 AND    
@@ -97,7 +93,6 @@ class StudentInterface
             ";
         $result = DBcon::execute($sql);
         $data = DBcon::fetch_assoc($result);
-        Dbcon::debug($sql);
         if (!empty($data)) {
             $new = new self();
             $new->setRegisteredUserID($data['registered_user_id']);
@@ -204,6 +199,24 @@ class StudentInterface
         }
     }
 
+    public function getCourseEnrolled()
+    {
+        $sql = "SELECT * FROM student_course WHERE student_id = {$this->getStudentID()}";
+        $result = DBcon::execute($sql);
+        $data = DBcon::fetch_all_assoc($result);
+        if (count($data) > 0) {
+            $ids = [];
+            foreach ($data as $value) {
+                $ids[] = $value['course_id'];
+            }
+            $return = Course::LoadArray($ids);
+        } else {
+            $return = false;
+        }
+
+        return $return;
+
+    }
 
     public function setAddress($address)
     {
@@ -493,11 +506,18 @@ class StudentInterface
         return $this->studentID;
     }
 
-    public function setStatus($status){
+    public function setStatus($status)
+    {
         $this->status = $status;
     }
 
-    public function getStatus(){
+    public function getStatus()
+    {
         return $this->status;
+    }
+
+    public function getRoleID()
+    {
+        return  3 ;// constant for student
     }
 }

@@ -30,7 +30,7 @@ foreach ($Courses as $course) {
                         Lessons
                     </li>
                     <li>
-                        <button class="btn-sm btn-success">Enroll Now</button>
+                        <a href ="#" class="btn-sm btn-success">Enroll Now</a>
                     </li>
                 </ul>
             </div>

@@ -41,9 +41,9 @@ $dataTables = [
     'js/validator.js',
     'js/uploadPreview.js',
 ];
-//$adminOutline->addCSS('plugins/colorbox/colorbox.css');
-////$adminOutline->addCSS('styles/courses.css');
-////$adminOutline->addCSS('styles/courses_responsive.css');
+$adminOutline->addCSS('plugins/colorbox/colorbox.css');
+$adminOutline->addCSS('styles/courses.css');
+$adminOutline->addCSS('styles/courses_responsive.css');
 $js = array_merge($js,$dataTables);
 $adminOutline->addCss($css);
 $adminOutline->addJS($js);
