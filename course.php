@@ -8,7 +8,7 @@ $Outline->navigationBar('Courses');
 
 $courseID = Util::getParam('courseID');
 $Course =  Course::load($courseID);
-$User = User::LoadArray();
+$teacher = $Course->getCreatorDetails();
 $lessons = $Course->getLessons();
 ?>
 <!-- Course -->
@@ -27,7 +27,7 @@ $lessons = $Course->getLessons();
 							<!-- Course Info Item -->
 							<div class="course_info_item">
 								<div class="course_info_title">Teacher: </div>
-								<div class="course_info_text"><a href="#"><?= $User[$Course->getCreatorID()]->getName().' '.$User[$Course->getCreatorID()]->getSurname();?></a></div>
+								<div class="course_info_text"><a href="#"><?=  $teacher->getName() ." " . $teacher->getSurname() ?></a></div>
 							</div>
 
 							<!-- Course Info Item -->
@@ -45,7 +45,7 @@ $lessons = $Course->getLessons();
 						</div>
 
 						<!-- Course Image -->
-						<div class="course_image"><img src="images/upload/<?= $Course->getFeatureImage(); ?>" alt=""></div>
+						<div class="course_image"><img src="images/upload/<?= !empty($Course->getFeatureImage())?$Course->getFeatureImage():'logo.png'; ?>" alt="" width="400px"></div>
 
 						<!-- Course Tabs -->
 						<div class="course_tabs_container">
@@ -177,7 +177,7 @@ $lessons = $Course->getLessons();
 								<div class="teacher_title_container d-flex flex-row align-items-center justify-content-start">
 									<div class="teacher_image"><img src="images/tempPic.png" alt=""></div>
 									<div class="teacher_title">
-										<div class="teacher_name"><a href="#"><?= $User[$Course->getCreatorID()]->getName().' '.$User[$Course->getCreatorID()]->getSurname();?></a></div>
+										<div class="teacher_name"><a href="#"><?= $teacher->getName().' '.$teacher->getSurname();?></a></div>
 										<div class="teacher_position">Professor</div>
 									</div>
 								</div>
@@ -199,7 +199,7 @@ $lessons = $Course->getLessons();
 									</div>
 								</div>
 								<div class="teacher_info">
-									<p>Email: <?= $User[$Course->getCreatorID()]->getEmail();?></p>
+									<p>Email: <?= $teacher->getEmail();?></p>
 								</div>
 							</div>
 						</div>

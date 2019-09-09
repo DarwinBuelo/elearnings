@@ -113,17 +113,19 @@ class User
                     $return[$id] = $Object;
                 }
             }
-            return $return;
+
         } else {
             $sql = "SELECT id FROM " . self::TABLE_NAME;
             $data = Dbcon::execute($sql);
             $result = Dbcon::fetch_all_assoc($data);
             $return = [];
             foreach ($result as $key => $value) {
+                Util::debug($value);
                 $return[$value['id']] = self::load($value['id']);
             }
-            return $return;
         }
+
+        return $return;
     }
 
     public static function Load($id = null)
@@ -131,7 +133,7 @@ class User
         $sql = "SELECT * FROM " . self::TABLE_NAME . " WHERE id = " . $id;
         $data = Dbcon::execute($sql);
         $returnData = Dbcon::fetch_assoc($data);
-        if (!empty($retunData)) {
+        if (!empty($returnData)) {
             $new = new self();
             $new->setID($returnData['id']);
             $new->setUsername($returnData['username']);
