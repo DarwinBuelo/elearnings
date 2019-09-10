@@ -160,7 +160,7 @@ class StudentInterface
         $result = DBcon::execute($sql);
         $data = DBcon::fetch_assoc($result);
         if (!empty($data)) {
-            $new = new self();
+            $new = new static();
             $new->setRegisteredUserID($data['registered_user_id']);
             $new->setStudentID($data['student_id']);
             $new->setDate($data['date']);

@@ -62,7 +62,7 @@ class Course extends CourseInterface
                     course_id = {$id}";
         $result = Dbcon::execute($sql);
         $data =Dbcon::fetch_assoc($result);
-        $new = new self();
+        $new = new static();
         $new->setCourseID($data['course_id']);
         $new->setCourseCode($data['course_code']);
         $new->setCourseName($data['course_name']);

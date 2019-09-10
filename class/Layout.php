@@ -26,9 +26,6 @@ class Layout
      */
     public function header($page = null)
     {
-        /**
-         * @TODO add favicon
-         */
         ?>
         <!DOCTYPE HTML>
         <html lang="en">

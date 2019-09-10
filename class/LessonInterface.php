@@ -53,7 +53,7 @@ class LessonInterface
                     lesson_id = {$id}";
         $result = Dbcon::execute($sql);
         $data = Dbcon::fetch_assoc($result);
-        $new = new self();
+        $new = new static();
         $new->setLessonID($data['lesson_id']);
         $new->setTitle($data['title']);
         $new->setOverView($data['overview']);

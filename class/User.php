@@ -133,7 +133,7 @@ class User
         $data = Dbcon::execute($sql);
         $returnData = Dbcon::fetch_assoc($data);
         if (!empty($returnData)) {
-            $new = new self();
+            $new = new static();
             $new->setID($returnData['id']);
             $new->setUsername($returnData['username']);
             $new->setName($returnData['name']);

@@ -16,12 +16,17 @@ $courses = $user->getCoursesEnrolled();
                                 <!-- Course -->
                                 <div class="col-lg-6 course_col">
                                     <div class="course">
-                                        <div class="course_image"><img src="images/upload/<?= $fImage;?>" alt=""></div>
+                                        <div class="course_image"><img src="images/upload/<?= $fImage; ?>" alt=""></div>
                                         <div class="course_body">
-                                            <h3 class="course_title"><a href="course.php?courseID=<?= $Course->getCourseID(); ?>"><?= $Course->getCourseName(); ?></a></h3>
-                                            <div class="course_teacher"><?= 'test'?></div>
+                                            <h3 class="course_title"><a
+                                                        href="course.php?courseID=<?= $Course->getCourseID(); ?>"><?= $Course->getCourseName(); ?></a>
+                                            </h3>
+                                            <div class="course_teacher"><?= 'test' ?></div>
                                             <div class="course_text">
                                                 <p><?= $Course->getDesc(); ?></p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <a class="btn btn-success" href="student.php?page=lesson&cid=<?= $Course->getCourseID() ?>">Start The course</a>
                                             </div>
                                         </div>
                                         <div class="course_footer">
@@ -60,7 +65,9 @@ $courses = $user->getCoursesEnrolled();
                             <div class="sidebar_categories">
                                 <ul>
                                     <?php foreach ($courses as $Course) { ?>
-                                        <li><a href="course.php?courseID=<?= $Course->getCourseID(); ?>"><?php echo $Course->getCourseName();?></a></li>
+                                        <li>
+                                            <a href="course.php?courseID=<?= $Course->getCourseID(); ?>"><?php echo $Course->getCourseName(); ?></a>
+                                        </li>
                                     <?php } ?>
                                 </ul>
                             </div>

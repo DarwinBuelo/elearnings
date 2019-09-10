@@ -14,9 +14,9 @@ $adminOutline->header('Student Panel');
 $page = Util::getParam('page');
 $sessionUser = $_SESSION['user'];
 
-if(isset($sessionUser)){
- $User = unserialize($sessionUser);
-}else{
+if (isset($sessionUser)) {
+    $User = unserialize($sessionUser);
+} else {
     Util::redirect('login.php?error=1');
 }
 
@@ -29,6 +29,12 @@ if (isset($page)) {
     switch ($page) {
         case 'course':
             require 'segments/student/student/studentCourse.php';
+            break;
+        case 'lesson':
+            require 'segments/student/student/lesson.php';
+            break;
+        case 'lessonDetails':
+            require 'segments/student/student/lessonDetails.php';
             break;
         default:
             require 'segments/student/dashboard/dashboard.php';

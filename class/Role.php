@@ -38,7 +38,7 @@ class Role
         $result = Dbcon::execute($sql);
         $data   = DBcon::fetch_assoc($result);
         if (!empty($data)) {
-            $new = new self();
+            $new = new static();
             $new->setRoleID($data['id']);
             $new->setRoleName($data['role_name']);
             return $new;
