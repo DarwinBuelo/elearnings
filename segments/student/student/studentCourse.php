@@ -1,6 +1,6 @@
 <?php
 $User = unserialize($_SESSION['user']);
-$courses = $user->getCourseEnrolled();
+$courses = $user->getCoursesEnrolled();
 ?>
     <div class="courses">
         <div class="container">

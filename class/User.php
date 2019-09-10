@@ -120,7 +120,6 @@ class User
             $result = Dbcon::fetch_all_assoc($data);
             $return = [];
             foreach ($result as $key => $value) {
-                Util::debug($value);
                 $return[$value['id']] = self::load($value['id']);
             }
         }
