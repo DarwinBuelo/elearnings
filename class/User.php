@@ -12,9 +12,6 @@ class User
     private $roleID;
     private $roleName;
 
-    /**
-     * TODO :  Role name is not yet working
-     */
     const TABLE_NAME = "users";
 
     public static function addUser($name, $surname, $username, $middlename, $email, $password, $role = 1)
