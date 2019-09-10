@@ -69,7 +69,7 @@ class Exam
                         e.exam_id = {$eid}";
         $result = DBcon::execute($query);
         $data = Dbcon::fetch_assoc($result);
-        $exam = new self();
+        $exam = new static();
         $exam->setExamID($data['exam_id']);
         $exam->setTeacherID($data['teacher_id']);
         $exam->setExamQuestion($data['exam_question']);
