@@ -16,9 +16,6 @@
                     <a href="/student.php?page=course">
                         <i class="menu-icon fa fa-book"></i>Courses
                     </a>
-                    <a href="#">
-                        <i class="menu-icon fa fa-user"></i>Students
-                    </a>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->

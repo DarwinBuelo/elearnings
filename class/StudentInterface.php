@@ -10,7 +10,7 @@ class StudentInterface
     const STATUS_DISAPPROVED = 0;
 
     public $registeredUserID;
-    public $studentID; // setter and getter , load
+    public $studentID;
     public $date;
     public $studentName;
     public $school;

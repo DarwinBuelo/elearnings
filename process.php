@@ -32,6 +32,17 @@ if(isset($user)&& !empty($user)){
                 Util::redirect($backLink);
             }
             break;
+        case 'enrollToCourse':
+
+            $cid = Util::getParam('cid');
+            $uid = $user->getStudentID();
+            $openHash = hash('ripemd160', Util::dateNow());
+            if(Course::EnrollTo($cid,$uid)){
+                $_SESSION['message'][$openHash] = ['result'=>'success','message'=>'Successfully Enrolled to a course'];
+                Util::redirect('student.php?message='.$openHash);
+            }else{
+                $_SESSION['message'][$openHash] = ['result'=>'failed','message'=>'Error in Enrolling to a course'];
+            }
     }
 }
 

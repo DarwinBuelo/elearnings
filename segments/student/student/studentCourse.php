@@ -16,7 +16,7 @@ $courses = $user->getCoursesEnrolled();
                                 <!-- Course -->
                                 <div class="col-lg-6 course_col">
                                     <div class="course">
-                                        <div class="course_image"><img src="images/upload/<?= $fImage; ?>" alt=""></div>
+                                        <div class="course_image text-center"><img src="images/upload/<?= $fImage; ?>" alt="" ></div>
                                         <div class="course_body">
                                             <h3 class="course_title"><a
                                                         href="course.php?courseID=<?= $Course->getCourseID(); ?>"><?= $Course->getCourseName(); ?></a>
@@ -25,9 +25,12 @@ $courses = $user->getCoursesEnrolled();
                                             <div class="course_text">
                                                 <p><?= $Course->getDesc(); ?></p>
                                             </div>
-                                            <div class="col-md-12">
-                                                <a class="btn btn-success" href="student.php?page=lesson&cid=<?= $Course->getCourseID() ?>">Start The course</a>
+                                            <div class="row">
+                                                <div class="col-12 pb-1  text-center">
+                                                    <a class="btn btn-success mt-2" href="student.php?page=lesson&cid=<?= $Course->getCourseID() ?>">Start The course</a>
+                                                </div>
                                             </div>
+
                                         </div>
                                         <div class="course_footer">
                                             <div class="course_footer_content d-flex flex-row align-items-center justify-content-start">

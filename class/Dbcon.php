@@ -101,13 +101,13 @@ class Dbcon
         }
     }
 
-    public function fetch_all_array($object)
+    public static function fetch_all_array($object)
     {
         //handle database object
         if (!empty($object)) {
             $result = mysqli_fetch_all($object, MYSQLI_NUM);
             mysqli_free_result($object);
-            self::close();
+            static::close();
             return $result;
         }
     }
@@ -118,12 +118,12 @@ class Dbcon
         if (!empty($object)) {
             $result = mysqli_fetch_array($object, MYSQLI_NUM);
             mysqli_free_result($object);
-            self::close();
+            static::close();
             return $result;
         }
     }
 
-    public function fetch_assoc($object)
+    public static function fetch_assoc($object)
     {
         //handle database object
         if (!empty($object)) {
