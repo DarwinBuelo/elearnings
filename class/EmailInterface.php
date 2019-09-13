@@ -11,7 +11,7 @@ class EmailInterface
     const SERVER_PASSWORD = 'pia123456';
     const GMAIL_HOST = 'smtp.gmail.com';
     const SMTP_SECURE = 'tls';
-    const SMTP_DEBUG = 2;
+    const SMTP_DEBUG = 0;
     const PORT = 587;
 
 
