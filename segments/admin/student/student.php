@@ -2,6 +2,8 @@
 /**
  * get the student details
  */
+
+
 $students = Student::LoadArray();
 $id = Util::getParam('id');
 $task = Util::getParam('task');
@@ -11,9 +13,29 @@ if(!empty($task)){
             $userApprove = Student::Load($id);
             $userApprove->setStatus(Student::STATUS_APPROVED);
             $userApprove->submit();
+            $to = $userApprove->getEmail();
+            $name = $userApprove->getStudentName();
+            $subject = 'Student Credentials';
+            $studentID = $userApprove->getStudentID();
+            $studentPassword = $userApprove->getStudentPassword();
+            $body = htmlBody($name, $studentID, $studentPassword);
             $userApprove = null;
+            Email::send($to, $name, $body, $subject);
             break;
     }
+}
+function htmlBody($name, $studentID, $password)
+{
+    $html = '<center>
+                <br>
+                <h2>Hi '.$name.'!</h2>
+                <p style="font-family: Arial;">Thank You For Joining into PiaGotsky E-Learning Website, You are all ready to go!</p>
+                <br>
+                <h2>Credentials</h2>
+                <p style="font-family: Arial;">Username: '.$studentID.'</p>
+                <p style="font-family: Arial;">Password: '.$password.'</p>
+            </center>';
+    return $html;
 }
 ?>
 <div class="row">
