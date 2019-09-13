@@ -14,6 +14,7 @@ class StudentInterface
     public $date;
     public $studentName;
     public $school;
+    public $studentPassword;
     public $address;
     public $contactNo;
     public $gradeLevel;
@@ -163,6 +164,7 @@ class StudentInterface
             $new = new static();
             $new->setRegisteredUserID($data['registered_user_id']);
             $new->setStudentID($data['student_id']);
+            $new->setStudentPassword($data['password']);
             $new->setDate($data['date']);
             $new->setStudentName($data['student_name']);
             $new->setSchool($data['school']);
@@ -257,6 +259,16 @@ class StudentInterface
     public function setAddress($address)
     {
         $this->address = $address;
+    }
+
+    public function setStudentPassword($password)
+    {
+        $this->studentPassword = $password;
+    }
+
+    public function getStudentPassword()
+    {
+        return $this->studentPassword;
     }
 
     public function getAddress()
