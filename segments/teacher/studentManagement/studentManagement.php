@@ -20,16 +20,18 @@ $Students = $User->getStudents();
                         </thead>
                         <tbody>
                             <?php
-                            if (count($Students) > 0) {
+                            if (!empty($Students)) {
                                 foreach ($Students as $key => $Course) {
                                     $CourseObj = Course::Load($key);
-                                    foreach ($Course as $Student) {
-                                        $html = "<tr>";
-                                        $html .= "<td>{$Student->getStudentID()}</td>";
-                                        $html .= "<td><a href='teacher.php?page=studentProfile&sid={$Student->getStudentID()}'>{$Student->getStudentName()}</a></td>";
-                                        $html .= "<td>{$CourseObj->getCourseName()}</td>";
-                                        
-                                        print $html;
+                                    if (!empty($Course)) {
+                                        foreach ($Course as $Student) {
+                                            $html = "<tr>";
+                                            $html .= "<td>{$Student->getStudentID()}</td>";
+                                            $html .= "<td><a href='teacher.php?page=studentProfile&sid={$Student->getStudentID()}'>{$Student->getStudentName()}</a></td>";
+                                            $html .= "<td>{$CourseObj->getCourseName()}</td>";
+
+                                            print $html;
+                                        }
                                     }
                                 }
                             } else {
