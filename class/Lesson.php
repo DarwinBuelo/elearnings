@@ -24,7 +24,10 @@ class Lesson extends LessonInterface
             '~\[color=([^"><]*?)\](.*?)\[/color\]~s',
             '~\[url\]((?:ftp|https?)://[^"><]*?)\[/url\]~s',
             '~\[img width=(.*?) height=(.*?)\](https?://[^"><]*?\.(?:jpg|jpeg|gif|png|bmp))\[/img\]~s',
-            '~\[img\](https?://[^"><]*?\.(?:jpg|jpeg|gif|png|bmp))\[/img\]~s'
+            '~\[img\](https?://[^"><]*?\.(?:jpg|jpeg|gif|png|bmp))\[/img\]~s',
+            '~\[font=([^"><]*?)\](.*?)\[/font\]~s',
+            '~\[hr]~s',
+             '~\[right\](.*?)\[/right\]~s',
         );
         // HTML tags to replace BBcode
         $replace = array(
@@ -35,11 +38,14 @@ class Lesson extends LessonInterface
             '<ol>$1</ol>',
             '<li >$1</li>',
             '<pre>$1</'.'pre>',
-            '<span style="font-size:$1px;">$2</span>',
+            '<font size="$1">$2</font>',
             '<span style="color:$1;">$2</span>',
             '<a href="$1">$1</a>',
             '<img width="$1" height="$2" src="$3" alt="" />',
-            '<img src="$1" alt="" />'
+            '<img src="$1" alt="" />',
+            '<font face="$1">$2</font>',
+            '<hr>',
+            '<div align="right">$1</div>'
         );
         // Replacing the BBcodes with corresponding HTML tags
         return preg_replace($find, $replace, $text);

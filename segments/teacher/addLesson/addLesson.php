@@ -7,12 +7,11 @@ $content = Util::getParam('content');
 $courseID = Util::getParam('courseID');
 $createdDate = date('Y-m-d');
 if (isset($submit) && !empty($submit)) {
-
     if (!empty($lid)) {
         $lesson = Lesson::load($lid);
         $lesson->setTitle($lessonTitle);
         $lesson->setOverView($lessonOverview);
-        $lesson->setContent($content);
+        $lesson->setContent(strip_tags($content));
         $lesson->setCourseID($courseID);
         $result = $lesson->submit();
         if ($result) {
