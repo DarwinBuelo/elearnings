@@ -24,7 +24,7 @@ if(isset($user)&& !empty($user)){
             }
             break;
         case 'delLesson':
-            if($user->getRoleID() == Role::ROLE_TEACHER ){
+            if($user->getRoleID() == Role::ROLE_TEACHER || $user->getRoleID() == Role::ROLE_ADMIN){
                 $lid = Util::getParam('lid');
                 $backLink = Util::getParam('backLink');
                 $where =['lesson_id '=>$lid];
