@@ -10,7 +10,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="teacher.php?page=courseList" method="post" enctype="multipart/form-data">
+            <form action="admin.php?page=course" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
 
                     <input type="hidden" name="cid" value="<?= isset($cid) ? $cid : null ?>">

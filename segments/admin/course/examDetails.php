@@ -108,7 +108,7 @@ if (isset($submit) && !empty($submit)) {
 
 }
 // include the list of exam on the course
-require 'segments/teacher/addExam/examList.php';
+require 'segments/admin/course/examList.php';
 
 ?>
 
@@ -128,7 +128,7 @@ require 'segments/teacher/addExam/examList.php';
             </div>
             <div class="modal-body">
 
-                <form action="teacher.php?page=examDetails&cid=<?= $cid ?>" method="post">
+                <form action="admin.php?page=examDetails&cid=<?= $cid ?>" method="post">
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <input type="hidden" name="eid" value="<?= isset($eid) ? $eid : null ?>">

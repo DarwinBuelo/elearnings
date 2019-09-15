@@ -1,9 +1,5 @@
 <?php
-/**
- * This holds the page
- * page=courseList
- *
- */
+
 $submit            = Util::getParam('submit');
 $cid               = Util::getParam('cid');
 $courseName        = Util::getParam('course_name');
@@ -130,7 +126,7 @@ if (isset($submit) && !empty($submit)) {
 <?php endif; ?>
 
 <?php
-require 'segments/teacher/addCourse/addCourse.php';
+require 'segments/admin/course/addCourse.php';
 // will display user courses
 $courses = Course::LoadArray(null, $user->getID());
 ?>
@@ -177,17 +173,17 @@ $courses = Course::LoadArray(null, $user->getID());
                                 $backLink = urlencode($_SERVER['PHP_SELF']."?page=".Util::getParam('page'));
                                 $html     .= "<div class='btn-group'>";
 
-                                $html .= "<a data-toggle='tooltip' title='View Details' class='btn btn-success btn-sm' href='teacher.php?page=courseDetails&cid={$course->getCourseID()}'><i class='fa fa-eye'></i></a>";
+                                $html .= "<a data-toggle='tooltip' title='View Details' class='btn btn-success btn-sm' href='admin.php?page=courseDetails&cid={$course->getCourseID()}'><i class='fa fa-eye'></i></a>";
 
                                 if ($countLessons > 0) {
-                                    $html .= "<a data-toggle='tooltip' title='Exam List' class='btn btn-success btn-sm' href='teacher.php?page=examDetails&cid={$course->getCourseID()}'><i class='fa fa-file-text-o'></i></a>";
+                                    $html .= "<a data-toggle='tooltip' title='Exam List' class='btn btn-success btn-sm' href='admin.php?page=examDetails&cid={$course->getCourseID()}'><i class='fa fa-file-text-o'></i></a>";
                                 } else {
                                     $html .= "<a data-toggle='tooltip'  title='Add Exam' class='btn btn-secondary btn-sm disable' href='#'><i class='fa fa-file-text-o'></i></a>";
                                 }
 
-                                $html .= "<a data-toggle='tooltip' title='Add Lesson' class='btn btn-success btn-sm' href='teacher.php?page=addLesson&courseID={$course->getCourseID()}'><i class='fa fa-files-o'></i></a>";
-                                $html .= "<a data-toggle='tooltip' title='Edit Course' class='btn btn-success btn-sm' href='teacher.php?page=courseList&task=edit&cid={$course->getCourseID()}'><i class='fa fa-edit'></i></a>";
-                                $html .= "<a data-toggle='tooltip' title='Delete Course' class='btn btn-danger btn-sm' href='teacher.php?page=courseList&task=trash&cid={$course->getCourseID()}'><i class='fa fa-trash'></i></a>";
+                                $html .= "<a data-toggle='tooltip' title='Add Lesson' class='btn btn-success btn-sm' href='admin.php?page=addLesson&courseID={$course->getCourseID()}'><i class='fa fa-files-o'></i></a>";
+                                $html .= "<a data-toggle='tooltip' title='Edit Course' class='btn btn-success btn-sm' href='admin.php?page=addExam&task=edit&cid={$course->getCourseID()}'><i class='fa fa-edit'></i></a>";
+                                $html .= "<a data-toggle='tooltip' title='Delete Course' class='btn btn-danger btn-sm' href='admin.php?page=addExam&task=trash&cid={$course->getCourseID()}'><i class='fa fa-trash'></i></a>";
 
                                 $html .= "</div>";
                                 $html .= "</td></tr>";

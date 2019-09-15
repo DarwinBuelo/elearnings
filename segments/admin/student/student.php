@@ -79,6 +79,7 @@ function htmlBody($name, $studentID, $password)
                         </thead>
                         <tbody>
                         <?php
+
                         foreach ($students as $student) {
                             if ($student->getStatus() == Student::STATUS_DISAPPROVED) {
                                 $html = "<tr>";

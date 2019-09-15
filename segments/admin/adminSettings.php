@@ -21,6 +21,7 @@ $js = [
     'lib/sufee-admin-dashboard-master/vendors/chart.js/dist/Chart.bundle.min.js',
     'lib/sufee-admin-dashboard-master/vendors/jqvmap/dist/jqvmap.min.css',
     'lib/sufee-admin-dashboard-master/assets/js/dashboard.js',
+    'js/uploadPreview.js',
 ];
 
 $adminOutline->addCss($css);
