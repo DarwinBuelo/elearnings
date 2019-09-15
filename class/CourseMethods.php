@@ -1,72 +1,75 @@
 <?php
 
-
 class CourseMethods extends CourseInterface
 {
 
-    public static function EnrollTo($cid,$uid){
-        $data = ['course_id'=>$cid,'student_id'=>$uid];
-        if(Dbcon::insert('student_course',$data)){
+    public static function EnrollTo($cid, $uid)
+    {
+        $data = ['course_id' => $cid, 'student_id' => $uid];
+        if (Dbcon::insert('student_course', $data)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-
 
     /**
      * @param array|null $ids
      * @param null $teacherID
      * @return array
      */
-    public static function LoadArray(array $ids = null,$teacherID = null,$archive=false){
-        if(isset($ids)){
+    public static function LoadArray(array $ids = null, $teacherID = null,
+                                     $archive = false)
+    {
+        if (isset($ids)) {
             $return = [];
-            foreach ($ids as $id){
+            foreach ($ids as $id) {
                 $return[$id] = self::load($id);
             }
             return $return;
-        } else{
-            $sql =  "SELECT
+        } else {
+            $sql = "SELECT
                             course_id as id
                      FROM
                         courses
                      WHERE
                         true";
             //filter by teacher
-            if(!empty($teacherID)){
+            if (!empty($teacherID)) {
                 $sql .= " AND creator =  {$teacherID}";
             }
             //filter removed course
-            if(!$archive){
+            if (!$archive) {
                 $sql .= " AND remove = 0";
             }
             $result = Dbcon::execute($sql);
-            $data =Dbcon::fetch_all_assoc($result);
+            $data = Dbcon::fetch_all_assoc($result);
             $return = [];
 
-            foreach ($data as $key =>$value){
+            foreach ($data as $key => $value) {
                 $return[$value['id']] = self::load($value['id']);
             }
             return $return;
         }
     }
 
-    public static function archive(int $cid){
-        $data = ['remove'=> 1];
+    public static function archive(int $cid)
+    {
+        $data = ['remove' => 1];
         $where = ['course_id' => $cid];
-        Dbcon::update('courses',$data,$where);
+        Dbcon::update('courses', $data, $where);
     }
 
-    public static function load($id){
-        $sql =  "SELECT
+    public static function load($id)
+    {
+        $sql = "SELECT
                         *
                  FROM
                     courses
                  WHERE
                     course_id = {$id}";
         $result = Dbcon::execute($sql);
-        $data =Dbcon::fetch_assoc($result);
+        $data = Dbcon::fetch_assoc($result);
         $new = new static();
         $new->setCourseID($data['course_id']);
         $new->setCourseCode($data['course_code']);
@@ -75,11 +78,12 @@ class CourseMethods extends CourseInterface
         $new->setUnits($data['units']);
         $new->setCreatorID($data['creator']);
         $new->setFeatureImage($data['feature_image']);
-        $new->archive = $data['remove'] == 0 ? true : false ;
+        $new->archive = $data['remove'] == 0 ? true : false;
         return $new;
     }
 
-    public function getLessons(){
+    public function getLessons()
+    {
         $sql = "
                 SELECT 
                     lesson_id as id
@@ -89,8 +93,8 @@ class CourseMethods extends CourseInterface
                     course_id = {$this->courseID}";
         $resultObj = Dbcon::execute($sql);
         $results = Dbcon::fetch_all_array($resultObj);
-        $ids=[];
-        foreach($results as $result){
+        $ids = [];
+        foreach ($results as $result) {
             $ids[] = $result[0];
         }
         $return = Lesson::LoadArray($ids);
@@ -99,7 +103,7 @@ class CourseMethods extends CourseInterface
 
     public static function getExamsCount($courseID = null)
     {
-        if (!empty($courseID)){
+        if (!empty($courseID)) {
             $sql = "SELECT 
                         COUNT(*)
                     FROM
@@ -107,7 +111,7 @@ class CourseMethods extends CourseInterface
                     WHERE
                         course_id = {$courseID} ";
         } else {
-            $sql ="SELECT 
+            $sql = "SELECT
                         COUNT(*)
                     FROM
                         ".static::EXAMS_TABLE;
@@ -121,8 +125,9 @@ class CourseMethods extends CourseInterface
      * @param $data
      * @return bool
      */
-    public static function addCourse($data){
-        if(is_array($data) && count($data) > 0){
+    public static function addCourse($data)
+    {
+        if (is_array($data) && count($data) > 0) {
             DBcon::insert('courses', $data);
             return true;
         }

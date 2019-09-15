@@ -16,7 +16,7 @@
                     <a href="/teacher.php?page=courseList">
                         <i class="menu-icon fa fa-book"></i>Courses
                     </a>
-                    <a href="#">
+                    <a href="/teacher.php?page=studentManagement">
                         <i class="menu-icon fa fa-user"></i>Students
                     </a>
                 </li>

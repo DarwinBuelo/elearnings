@@ -33,6 +33,27 @@ class User
         }
     }
 
+    public function getCourses()
+    {
+        if ($this->roleID == 2) {
+            $sql = 'SELECT course_id FROM courses WHERE creator ='.$this->getID();
+            $result = DBcon::execute($sql);
+            $data = DBcon::fetch_all_array($result);
+            $ids = [
+            ];
+            if (count($data) > 0) {
+                foreach ($data as $result) {
+                    $ids[] = $result[0];
+                }
+                return Course::LoadArray($ids);
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     public function login($username, $password)
     {
         $username = Dbcon::clean($username);
@@ -103,19 +124,20 @@ class User
     public function LoadArray(array $ids = null)
     {
         if (!empty($ids)) {
-            $return = [];
+            $return = [
+            ];
             foreach ($ids as $id) {
                 $Object = self::load($id);
                 if ($Object) {
                     $return[$id] = $Object;
                 }
             }
-
         } else {
-            $sql = "SELECT id FROM " . self::TABLE_NAME;
+            $sql = "SELECT id FROM ".self::TABLE_NAME;
             $data = Dbcon::execute($sql);
             $result = Dbcon::fetch_all_assoc($data);
-            $return = [];
+            $return = [
+            ];
             foreach ($result as $key => $value) {
                 $return[$value['id']] = self::load($value['id']);
             }
@@ -126,7 +148,7 @@ class User
 
     public static function Load($id = null)
     {
-        $sql = "SELECT * FROM " . self::TABLE_NAME . " WHERE id = " . $id;
+        $sql = "SELECT * FROM ".self::TABLE_NAME." WHERE id = ".$id;
         $data = Dbcon::execute($sql);
         $returnData = Dbcon::fetch_assoc($data);
         if (!empty($returnData)) {
@@ -151,7 +173,7 @@ class User
     public static function userCount($id = null)
     {
         if (empty($id)) {
-            $sql = "SELECT 
+            $sql = "SELECT
                         count(*)
                     FROM
                         users";
