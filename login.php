@@ -16,7 +16,12 @@ if ($username !== false && $password !== false) {
     $isLogged = $user->login($username, $password);
 
     if ($isLogged) {
-        $_SESSION['user'] = serialize($user);
+        if($user->getRoleID() ==  2 ){
+            $_SESSION['user'] = serialize(Teacher::Load($user->getID()));
+        }else{
+            $_SESSION['user'] = serialize($user);
+        }
+
     } else {
         //if  student login
         $studentLogIn = Student::login($username, $password);
