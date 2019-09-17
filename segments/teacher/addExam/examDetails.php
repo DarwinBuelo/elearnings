@@ -2,37 +2,74 @@
 $cid = Util::getParam('cid');
 $course = Course::load($cid);
 //let us now load the form to handle the exam
-
 $submit = Util::getParam('submit');
+$eid = Util::getParam('eid');
+$lessonID = Util::getParam('lessonID');
+$examType = Util::getParam('examType');
+$question = Util::getParam('question');
+$points = Util::getParam('points');
+$duration = Util::getParam('duration');
+$answer = Util::getParam('answer');
+$examOptions = Util::getParam('examOptions');
+$teacherID = $user->getID();
+$dateCreated = date('Y-m-d');
+
+$task = Util::getParam('task');
+//switch between task
+switch ($task) {
+    case 'edit':
+        if (!empty($cid)) {
+            $html = '<script>';
+            $html .= 'jQuery(window).on("load",function(){';
+            $html .= 'jQuery("#ExamForm").modal("show")';
+            $html .= '});';
+            $html .= '</script>';
+            echo $html;
+        }
+        //change this to exam details
+        $exam = Exam::load($eid);
+        $lessonID = $exam->getLessonID();
+        $examType = $exam->getExamType();
+        $question = $exam->getExamQuestion();
+        $points = $exam->getPoints();
+        $duration = $exam->getDuration();
+        $answer = $exam->getAnswer();
+        $examOptions = $exam->getExamOption();
+        break;
+    case 'trash':
+        if(!empty($eid)){
+            $result = Exam::archive($eid);
+            if ($result) {
+                $message = ['result' => 'success', 'message' => 'Successfuly Deleted'];
+            } else {
+                $message = ['result' => 'error', 'message' => 'Failed to Delete'];
+            }
+        }
+}
 
 if (isset($submit) && !empty($submit)) {
-
-    $eid = Util::getParam('eid');
-    $lessonID = Util::getParam('lessonID');
-    $examType = Util::getParam('examType');
-    $question = Util::getParam('question');
-    $points = Util::getParam('points');
-    $duration = Util::getParam('duration');
-    $answer = Util::getParam('answer');
-    $examOptions = Util::getParam('examOptions');
-    $teacherID = $user->getID();
-    $dateCreated = date('Y-m-d');
-
     if (!empty($eid)) {
-        $lesson = Lesson::load($lid);
-        $lesson->setTitle($lessonTitle);
-        $lesson->setOverView($lessonOverview);
-        $lesson->setContent($content);
-        $lesson->setCourseID($courseID);
-        $result = $lesson->submit();
+        //edit exam
+        $exam = Exam::load($eid);
+        $exam->setLessonID($lessonID);
+        $exam->setExamType($examType);
+        $exam->setExamQuestion($question);
+        $exam->setPoints($points);
+        $exam->setDuration($duration);
+        $exam->setAnswer($answer);
+        $exam->setExamOption($examOptions);
+        $result = $exam->submit();
         if ($result) {
             //to be change
-            $lid = null;
-            $lessonTitle = null;
-            $lessonOverview = null;
-            $content = null;
-            $courseID = null;
-            $message = ['result' => 'success', 'message' => 'Successfuly saved the exam'];
+            $eid = null;
+            $lessonID = null;
+            $examType = null;
+            $question = null;
+            $points = null;
+            $duration = null;
+            $answer = null;
+            $examOptions = null;
+            $message = ['result' => 'success', 'message' => 'Successfully saved the exam'];
         } else {
             $message = ['result' => 'error', 'message' => 'Failed save the Exam'];
         }
@@ -46,7 +83,8 @@ if (isset($submit) && !empty($submit)) {
             'answer' => $answer,
             'exam_option' => $examOptions,
             'teacher_id' => $teacherID,
-            'date_created' => $dateCreated
+            'date_created' => $dateCreated,
+            'course_id' => $cid
 
         ];
         $result = Exam::addExam($data);
@@ -68,9 +106,8 @@ if (isset($submit) && !empty($submit)) {
         }
     }
 
-
 }
-
+// include the list of exam on the course
 require 'segments/teacher/addExam/examList.php';
 
 ?>
@@ -78,14 +115,13 @@ require 'segments/teacher/addExam/examList.php';
 
 <!-- Add exam Modal-->
 
-
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="ExamForm" tabindex="-1" role="dialog" aria-labelledby="ExamForm"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Add Exam</h5>
+                <h5 class="modal-title" id="ExamForm">Exam Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -105,7 +141,11 @@ require 'segments/teacher/addExam/examList.php';
                                 $lessons = $course->getLessons();
                                 $html = null;
                                 foreach ($lessons as $lesson) {
-                                    $html .= "<option value='" . $lesson->getLessonID() . "'>" . $lesson->getTitle() . "</option>";
+                                    if (isset($lessonID) && $lessonID == $lesson->getLessonID()) {
+                                        $html .= "<option value='" . $lesson->getLessonID() . "' selected>" . $lesson->getTitle() . "</option>";
+                                    } else {
+                                        $html .= "<option value='" . $lesson->getLessonID() . "'>" . $lesson->getTitle() . "</option>";
+                                    }
                                 }
                                 print $html;
                                 ?>
@@ -122,7 +162,12 @@ require 'segments/teacher/addExam/examList.php';
                                 $types = Exam::getExamTypes();
                                 $html = null;
                                 foreach ($types as $key => $value) {
-                                    $html .= "<option value='" . $key . "'>" . $value . "</option>";
+                                    if (isset($examType) && $examType == $key) {
+                                        $html .= "<option value='" . $key . "' selected>" . $value . "</option>";
+                                    } else {
+                                        $html .= "<option value='" . $key . "'>" . $value . "</option>";
+                                    }
+
                                 }
                                 print $html;
                                 ?>
@@ -150,8 +195,8 @@ require 'segments/teacher/addExam/examList.php';
                         </div>
                         <div class="form-group">
                             <label for="examOption">Put the choices seperated by two forward slash's (//)</label>
-                            <input type="text" class="form-control" id="examOption" name="examOption"
-                                   value="<?= isset($examOption) ? $examOption : null ?>">
+                            <input type="text" class="form-control" id="examOptions" name="examOptions"
+                                   value="<?= isset($examOptions) ? $examOptions : null ?>">
                         </div>
                     </div>
                     <div class="modal-footer">

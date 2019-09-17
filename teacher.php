@@ -43,7 +43,12 @@ if ($user) {
                 case 'examDetails':
                     require 'segments/teacher/addExam/examDetails.php';
                     break;
-
+                case 'studentManagement':
+                    require 'segments/teacher/studentManagement/studentManagement.php';
+                    break;
+                case 'studentProfile':
+                    require 'segments/teacher/studentManagement/studentProfile.php';
+                    break;
                 default:
                     require 'segments/teacher/dashboard/dashboard.php';
                     break;

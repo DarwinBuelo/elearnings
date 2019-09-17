@@ -6,7 +6,10 @@ $Outline->addCSS('styles/course_responsive.css');
 $Outline->header('Courses');
 $Outline->navigationBar('Courses');
 
-$courses =  Course::LoadArray();
+$courseID = Util::getParam('courseID');
+$Course =  Course::load($courseID);
+$teacher = $Course->getCreatorDetails();
+$lessons = $Course->getLessons();
 ?>
 <!-- Course -->
 
@@ -18,31 +21,31 @@ $courses =  Course::LoadArray();
 				<div class="col-lg-8">
 					
 					<div class="course_container">
-						<div class="course_title">Software Training</div>
+						<div class="course_title"><?= $Course->getCourseName(); ?></div>
 						<div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
 
 							<!-- Course Info Item -->
 							<div class="course_info_item">
-								<div class="course_info_title">Teacher:</div>
-								<div class="course_info_text"><a href="#">Daryll Abion</a></div>
+								<div class="course_info_title">Teacher: </div>
+								<div class="course_info_text"><a href="#"><?=  $teacher->getName() ." " . $teacher->getSurname() ?></a></div>
 							</div>
 
 							<!-- Course Info Item -->
 							<div class="course_info_item">
-								<div class="course_info_title">Reviews:</div>
-								<div class="rating_r rating_r_4"><i></i><i></i><i></i><i></i><i></i></div>
+								<div class="course_info_title">Course Code:</div>
+								<div class="course_info_text"><?= $Course->getCourseCode(); ?></div>
 							</div>
 
 							<!-- Course Info Item -->
 							<div class="course_info_item">
-								<div class="course_info_title">Categories:</div>
-								<div class="course_info_text"><a href="#">Languages</a></div>
+								<div class="course_info_title">Units:</div>
+								<div class="course_info_text"><a href="#"><?= $Course->getUnits(); ?></a></div>
 							</div>
 
 						</div>
 
 						<!-- Course Image -->
-						<div class="course_image"><img src="images/piagotsky.jpg" alt=""></div>
+						<div class="course_image"><img src="images/upload/<?= !empty($Course->getFeatureImage())?$Course->getFeatureImage():'logo.png'; ?>" alt="" width="400px"></div>
 
 						<!-- Course Tabs -->
 						<div class="course_tabs_container">
@@ -54,10 +57,10 @@ $courses =  Course::LoadArray();
 
 								<!-- Description -->
 								<div class="tab_panel active">
-									<div class="tab_panel_title">Software Training</div>
+									<div class="tab_panel_title"><?= $Course->getCourseName(); ?></div>
 									<div class="tab_panel_content">
 										<div class="tab_panel_text">
-											<p>-------.</p>
+											<p><?= $Course->getDesc(); ?></p>
 										</div>
 										<div class="tab_panel_section">
 											<div class="tab_panel_subtitle">Requirements</div>
@@ -74,41 +77,43 @@ $courses =  Course::LoadArray();
 								<!-- Curriculum -->
 								<div class="tab_panel tab_panel_2">
 									<div class="tab_panel_content">
-										<div class="tab_panel_title">Software Training</div>
+										<div class="tab_panel_title"><?= $Course->getCourseName(); ?></div>
 										<div class="tab_panel_content">
 											<div class="tab_panel_text">
-												<p>-------.</p>
+												<p><?= $Course->getDesc(); ?></p>
 											</div>
 
 											<!-- Dropdowns -->
+                                            <?php $x=1; foreach ($lessons as $Lesson) { ?>
 											<ul class="dropdowns">
 												<li class="has_children">
 													<div class="dropdown_item">
-														<div class="dropdown_item_title"><span>Lecture 1:</span> Java Programming 101.</div>
+														<div class="dropdown_item_title"><span>Lecture <?= $x?>:</span> <?= $Lesson->getTitle(); ?></div>
 														<div class="dropdown_item_text">
-															<p>-------.</p>
+<!--															<p>-------.</p>-->
 														</div>
 													</div>
 													<ul>
 														<li>
 															<div class="dropdown_item">
-																<div class="dropdown_item_title"><span>Lecture 1.1:</span> Introduction to Java</div>
+																<div class="dropdown_item_title"><span></span> Overview</div>
 																<div class="dropdown_item_text">
-																	<p>-------.</p>
+																	<p><?= $Lesson->getOverView(); ?></p>
 																</div>
 															</div>
 														</li>
-														<li>
-															<div class="dropdown_item">
-																<div class="dropdown_item_title"><span>Lecture 1.2:</span> Java Programming</div>
-																<div class="dropdown_item_text">
-																	<p>-------.</p>
-																</div>
-															</div>
-														</li>
+<!--														<li>-->
+<!--															<div class="dropdown_item">-->
+<!--																<div class="dropdown_item_title"><span>Lecture 1.2:</span> Java Programming</div>-->
+<!--																<div class="dropdown_item_text">-->
+<!--																	<p>-------.</p>-->
+<!--																</div>-->
+<!--															</div>-->
+<!--														</li>-->
 													</ul>
 												</li>
 											</ul>
+                                        <?php $x++; } ?>
 										</div>
 									</div>
 								</div>
@@ -126,7 +131,7 @@ $courses =  Course::LoadArray();
 						<div class="sidebar_section">
 							<div class="sidebar_section_title">Course Feature</div>
 							<div class="sidebar_feature">
-								<div class="course_price">P 5000</div>
+<!--								<div class="course_price">P 5000</div>-->
 
 								<!-- Features -->
 								<div class="feature_list">
@@ -134,31 +139,31 @@ $courses =  Course::LoadArray();
 									<!-- Feature -->
 									<div class="feature d-flex flex-row align-items-center justify-content-start">
 										<div class="feature_title"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Duration:</span></div>
-										<div class="feature_text ml-auto">2 weeks</div>
+										<div class="feature_text ml-auto"><?= $Course->getUnits(); ?> weeks</div>
 									</div>
 
 									<!-- Feature -->
 									<div class="feature d-flex flex-row align-items-center justify-content-start">
 										<div class="feature_title"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>Lectures:</span></div>
-										<div class="feature_text ml-auto">10</div>
+										<div class="feature_text ml-auto"><?= Lesson::getLessonCount($Course->getCourseID()); ?></div>
+									</div>
+
+									<!-- Feature -->
+<!--									<div class="feature d-flex flex-row align-items-center justify-content-start">-->
+<!--										<div class="feature_title"><i class="fa fa-question-circle-o" aria-hidden="true"></i><span>Lectures:</span></div>-->
+<!--										<div class="feature_text ml-auto">6</div>-->
+<!--									</div>-->
+
+									<!-- Quizzes -->
+									<div class="feature d-flex flex-row align-items-center justify-content-start">
+										<div class="feature_title"><i class="fa fa-list-alt" aria-hidden="true"></i><span>Quizzes:</span></div>
+										<div class="feature_text ml-auto"><?= Course::getExamsCount($Course->getCourseID()); ?></div>
 									</div>
 
 									<!-- Feature -->
 									<div class="feature d-flex flex-row align-items-center justify-content-start">
-										<div class="feature_title"><i class="fa fa-question-circle-o" aria-hidden="true"></i><span>Lectures:</span></div>
-										<div class="feature_text ml-auto">6</div>
-									</div>
-
-									<!-- Feature -->
-									<div class="feature d-flex flex-row align-items-center justify-content-start">
-										<div class="feature_title"><i class="fa fa-list-alt" aria-hidden="true"></i><span>Lectures:</span></div>
-										<div class="feature_text ml-auto">Yes</div>
-									</div>
-
-									<!-- Feature -->
-									<div class="feature d-flex flex-row align-items-center justify-content-start">
-										<div class="feature_title"><i class="fa fa-users" aria-hidden="true"></i><span>Lectures:</span></div>
-										<div class="feature_text ml-auto">35</div>
+										<div class="feature_title"><i class="fa fa-users" aria-hidden="true"></i><span>Students:</span></div>
+										<div class="feature_text ml-auto"><?= (!empty(Student::getEnrolledStudentCount($Course->getCourseID())) ? Student::getEnrolledStudentCount($Course->getCourseID()) : 0); ?></div>
 									</div>
 
 								</div>
@@ -170,9 +175,9 @@ $courses =  Course::LoadArray();
 							<div class="sidebar_section_title">Teacher</div>
 							<div class="sidebar_teacher">
 								<div class="teacher_title_container d-flex flex-row align-items-center justify-content-start">
-									<div class="teacher_image"><img src="images/piagotsky2.jpg" alt=""></div>
+									<div class="teacher_image"><img src="images/tempPic.png" alt=""></div>
 									<div class="teacher_title">
-										<div class="teacher_name"><a href="#">Daryll Abion</a></div>
+										<div class="teacher_name"><a href="#"><?= $teacher->getName().' '.$teacher->getSurname();?></a></div>
 										<div class="teacher_position">Professor</div>
 									</div>
 								</div>
@@ -190,11 +195,11 @@ $courses =  Course::LoadArray();
 									<!-- Teacher Quizzes -->
 									<div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
 										<div class="teacher_meta_title">Quizzes:</div>
-										<div class="teacher_meta_text ml-auto"><span>600</span><i class="fa fa-user" aria-hidden="true"></i></div>
+										<div class="teacher_meta_text ml-auto"><span><?= Course::getExamsCount($Course->getCourseID()); ?></span><i class="fa fa-user" aria-hidden="true"></i></div>
 									</div>
 								</div>
 								<div class="teacher_info">
-									<p>-------.</p>
+									<p>Email: <?= $teacher->getEmail();?></p>
 								</div>
 							</div>
 						</div>

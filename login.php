@@ -8,16 +8,45 @@ $Outline->header('Login');
 $username = Util::getParam('uname');
 $password = Util::getParam('pswd');
 
+$error = Util::getParam('error');
+
 if ($username !== false && $password !== false) {
     // authenticate
     $user     = new User();
     $isLogged = $user->login($username, $password);
+
     if ($isLogged) {
-        $_SESSION['user'] = serialize($user);
+        if($user->getRoleID() ==  2 ){
+            $_SESSION['user'] = serialize(Teacher::Load($user->getID()));
+        }else{
+            $_SESSION['user'] = serialize($user);
+        }
+
     } else {
-        $message = "Username or Password was incorrrect";
+        //if  student login
+        $studentLogIn = Student::login($username, $password);
+        Util::debug($studentLogIn);
+        if (!empty($studentLogIn)) {
+            $_SESSION['user'] = serialize($studentLogIn);
+            Util::redirect('student.php');
+            die();
+        } else {
+            $message = "Username or Password was incorrrect";
+        }
     }
 }
+
+// show error messages
+if(isset($error) && !empty($error)){
+    switch ($error){
+        case '1':
+            $message = "Please Login";
+            break;
+    }
+
+}
+
+
 // redirect to proper page
 if (isset($_SESSION['user'])) {
     $user = unserialize($_SESSION['user']);
@@ -26,6 +55,8 @@ if (isset($_SESSION['user'])) {
         Util::redirect('admin.php');
     } elseif ($user->getRoleID() == 2) {
         Util::redirect('teacher.php');
+    } elseif ($user->getRoleID() == 3) {
+        Util::redirect('student.php');
     } else {
         Util::redirect('index.php');
     }

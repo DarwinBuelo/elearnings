@@ -19,27 +19,32 @@ class Exam
     const EXAM_TYPE_MULTIPLE_CHOICE = 3;
     const EXAM_TYPE_FILL_IN_THE_BLANK = 4;
 
-    const TABLE_NAME =  'exams';
+    const TABLE_NAME = 'exams';
 
-    public static function loadArray(array $eids = null)
+    public static function loadArray(array $eids = null, $archived = false)
     {
-        if(empty($eids)){
-            $query ="SELECT 
+        if (empty($eids)) {
+            $query = "SELECT 
                         exam_id
                      FROM
-                        exams";
+                        exams
+                     WHERE
+                        true";
+            if (!$archived) {
+                $query .= " AND remove = 0";
+            }
             $result = DBcon::execute($query);
             $eids = DBcon::fetch_array($result);
         }
 
         //get the data
         $exams = [];
-        if(!empty($eids)) {
+        if (!empty($eids)) {
             foreach ($eids as $id) {
                 $exams[$id] = self::load($id);
             }
             return $exams;
-        }else{
+        } else {
             return false;
         }
 
@@ -64,7 +69,7 @@ class Exam
                         e.exam_id = {$eid}";
         $result = DBcon::execute($query);
         $data = Dbcon::fetch_assoc($result);
-        $exam = new self();
+        $exam = new static();
         $exam->setExamID($data['exam_id']);
         $exam->setTeacherID($data['teacher_id']);
         $exam->setExamQuestion($data['exam_question']);
@@ -78,9 +83,10 @@ class Exam
         return $exam;
     }
 
-    public static function getExamTypes($examType=null){
+    public static function getExamTypes($examType = null)
+    {
         $data = null;
-        if(!empty($examType)) {
+        if (!empty($examType)) {
             switch ($examType) {
                 case self::EXAM_TYPE_ESSAY:
                     $data[self::EXAM_TYPE_ESSAY] = "Essay";
@@ -106,11 +112,42 @@ class Exam
         return $data;
     }
 
-    public static function addExam(array $data){
-        if(is_array($data) && count($data) > 0 ){
-            DBcon::insert('exams', $data);
+    public static function addExam(array $data)
+    {
+        if (is_array($data) && count($data) > 0) {
+            DBcon::insert(self::TABLE_NAME, $data);
             return true;
         }
+    }
+
+    /**
+     * Submit the object for updating
+     * @return bool|mysqli_result
+     */
+    public function submit()
+    {
+        //will submit the exam
+        $data = [
+            'teacher_id' => $this->getTeacherID(),
+            'exam_question' => $this->getExamQuestion(),
+            'exam_option' => $this->getExamOption(),
+            'answer' => $this->getAnswer(),
+            'duration' => $this->getDuration(),
+            'exam_type' => $this->getExamType(),
+            'lesson_id' => $this->getLessonID(),
+            'points' => $this->getPoints(),
+        ];
+
+        $where = ['exam_id' => $this->getExamID()];
+        $result = DBcon::update(self::TABLE_NAME, $data, $where);
+        return $result;
+    }
+
+    public static function archive(int $eid)
+    {
+        $data = ['remove' => 1];
+        $where = ['exam_id' => $eid];
+        Dbcon::update(self::TABLE_NAME, $data, $where);
     }
 
     public function getExamID()
@@ -163,7 +200,6 @@ class Exam
         $this->answer = $answer;
     }
 
-
     public function getCreatedDate()
     {
         return $this->createdDate;
@@ -196,7 +232,7 @@ class Exam
 
     public function getLessonID()
     {
-        $this->lessonID;
+        return $this->lessonID;
     }
 
     public function setLessonID($lessonID)

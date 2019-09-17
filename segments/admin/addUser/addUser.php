@@ -52,27 +52,27 @@ if (!empty(Util::getParam('submit')) && Util::getParam('submit') == 'save') {
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name">
+                    <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="surname">Surname</label>
-                    <input type="text" class="form-control" id="surname" name="surname">
+                    <input type="text" class="form-control" id="surname" name="surname" required>
                 </div>
                 <div class="form-group">
                     <label for="mname">Middle Name</label>
-                    <input type="text" class="form-control" id="mname" name="mname">
+                    <input type="text" class="form-control" id="mname" name="mname" required>
                 </div>
                 <div class="form-group">
                     <label for="uname">Username</label>
-                    <input type="text" class="form-control" id="uname" name="uname">
+                    <input type="text" class="form-control" id="uname" name="uname" required>
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone No.</label>
-                    <input type="text" class="form-control" id="phone" name="phone">
+                    <input type="text" class="form-control" id="phone" name="phone" required>
                 </div>
                 <div class="form-group">
                     <label for="pwd">Email</label>
-                    <input type="email" class="form-control" id="email" name="email">
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
 
 
@@ -89,13 +89,13 @@ if (!empty(Util::getParam('submit')) && Util::getParam('submit') == 'save') {
                             <label class="input-group-text" for="role">Role</label>
                         </div>
 
-                        <select class="custom-select" id="role" name="role">
+                        <select class="custom-select" id="role" name="role" required>
                             <option selected>Choose...</option>
                             <?php
                             $roles = Role::loadArray();
                             $html = '';
                             foreach ($roles as $role) {
-                                $html .= "<option value='{$role['id']}'>{$role['role_name']}</option>";
+                                $html .= "<option value='{$role->getRoleID()}'>{$role->getRoleName()}</option>";
                             }
                             print $html;
                             ?>

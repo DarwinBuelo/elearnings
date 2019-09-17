@@ -7,40 +7,44 @@ $content = Util::getParam('content');
 $courseID = Util::getParam('courseID');
 $createdDate = date('Y-m-d');
 if (isset($submit) && !empty($submit)) {
-
-    if(!empty($lid)){
+    if (!empty($lid)) {
         $lesson = Lesson::load($lid);
         $lesson->setTitle($lessonTitle);
         $lesson->setOverView($lessonOverview);
-        $lesson->setContent($content);
+        $lesson->setContent(strip_tags($content));
         $lesson->setCourseID($courseID);
         $result = $lesson->submit();
         if ($result) {
+            $message = ['result' => 'success', 'message' => 'Successfuly saved the lesson "' . $lessonTitle . '"'];
             $lid = null;
             $lessonTitle = null;
             $lessonOverview = null;
             $content = null;
             $courseID = null;
-            $message = ['result' => 'success', 'message' => 'Successfuly saved the lesson "'.$lessonTitle.'"'];
+
         } else {
             $message = ['result' => 'error', 'message' => 'Failed save the Lesson'];
         }
-    }else{
+    } else {
         $data = [
             'title' => $lessonTitle,
             'overview' => $lessonOverview,
             'content' => $content,
-            'course_id' =>$courseID,
+            'course_id' => $courseID,
             'date_created' => $createdDate
         ];
         $result = Lesson::addLesson($data);
         if ($result) {
+            $message = [
+                'result' => 'success',
+                'message' => 'Successfully added a Lesson with a title "' . $lessonTitle . '"'
+            ];
             $lid = null;
             $lessonTitle = null;
             $lessonOverview = null;
             $content = null;
             $courseID = null;
-            $message = ['result' => 'success', 'message' => 'Successfully added a Lesson with a title "'.$lessonTitle.'"'];
+
         } else {
             $message = ['result' => 'error', 'message' => 'Failed added a Lesson'];
         }
@@ -50,7 +54,7 @@ if (isset($submit) && !empty($submit)) {
 }
 
 
-if(!empty($lid)){
+if (!empty($lid)) {
     $lesson = Lesson::load($lid);
     $lessonTitle = $lesson->getTitle();
     $lessonOverview = $lesson->getOverView();
@@ -61,15 +65,15 @@ if(!empty($lid)){
 <?php if (!empty($message) && $message['result'] == 'failed'): ?>
     <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
         <span class="badge badge-pill badge-danger">Failed</span>
-        <?= $message['message']?>
+        <?= $message['message'] ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
     </div>
-<?php elseif(!empty($message) && $message['result'] == 'success'):?>
+<?php elseif (!empty($message) && $message['result'] == 'success'): ?>
     <div class="sufee-alert alert with-close alert-success  alert-dismissible fade show">
         <span class="badge badge-pill badge-success ">Success</span>
-        <?= $message['message']?>
+        <?= $message['message'] ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
@@ -82,20 +86,20 @@ if(!empty($lid)){
             <div class="card-body">
                 <div class="form-group">
                     <div class="input-group mb-3">
-                        <input type="hidden" name="lid" value="<?= isset($lid)? $lid: null ?>">
+                        <input type="hidden" name="lid" value="<?= isset($lid) ? $lid : null ?>">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="courseID">Course</label>
                         </div>
 
-                        <select class="custom-select" id="courseID" name="courseID">
+                        <select class="custom-select" id="courseID" name="courseID" required>
                             <option>Choose...</option>
                             <?php
-                            $courses = Course::loadArray(null,$user->getID());
+                            $courses = Course::loadArray(null, $user->getID());
                             $html = '';
                             foreach ($courses as $course) {
-                                if(isset($courseID) && $course->getCourseID() == $courseID){
+                                if (isset($courseID) && $course->getCourseID() == $courseID) {
                                     $html .= "<option value='{$course->getCourseID()}' selected >{$course->getCourseName()}</option>";
-                                }else{
+                                } else {
                                     $html .= "<option value='{$course->getCourseID()}'>{$course->getCourseName()}</option>";
                                 }
 
@@ -105,37 +109,41 @@ if(!empty($lid)){
                         </select>
                     </div>
 
-                <div class="form-group">
-                    <label for="lessonTittle">Lesson Title</label>
-                    <input type="text" class="form-control" id="lessonTittle" name="lessonTittle" value="<?= isset($lessonTitle)?$lessonTitle:null ?>">
-                </div>
-                <div class="form-group">
-                    <label for="lessonOverview">Lesson Overview</label>
-                    <input type="text" class="form-control" id="lessonOverview" name="lessonOverview" value="<?= isset($lessonOverview) ? $lessonOverview : null ?>">
-                </div>
-                <div class="form-group">
-                    <label for="content">Lesson Content</label>
-                    <textarea id="content" name="content" style="width:100%;height: 50vh"><?= isset($content)?$content:null ?></textarea>
-                </div>
-                <script>
-                    var textarea = document.getElementById('content');
-                    sceditor.create(textarea, {
-                        format: 'bbcode',
-                        icons: 'monocons',
-                        style: '../minified/themes/content/modern.min.css'
-                    });
-
-                </script>
-            </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-success float-right" name="submit" value="save">Save</button>
+                    <div class="form-group">
+                        <label for="lessonTittle">Lesson Title</label>
+                        <input type="text" class="form-control" id="lessonTittle" name="lessonTittle"
+                               value="<?= isset($lessonTitle) ? $lessonTitle : null ?>" required>
                     </div>
+                    <div class="form-group">
+                        <label for="lessonOverview">Lesson Overview</label>
+                        <input type="text" class="form-control" id="lessonOverview" name="lessonOverview"
+                               value="<?= isset($lessonOverview) ? $lessonOverview : null ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Lesson Content</label>
+                        <textarea id="content" name="content" style="width:100%;height: 50vh"
+                                  required><?= isset($content) ? $content : null ?></textarea>
+                    </div>
+                    <script>
+                        var textarea = document.getElementById('content');
+                        sceditor.create(textarea, {
+                            format: 'bbcode',
+                            icons: 'monocons',
+                            style: '../minified/themes/content/modern.min.css'
+                        });
+
+                    </script>
                 </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-success float-right" name="submit" value="save">Save
+                            </button>
+                        </div>
+                    </div>
 
                 </div>
 
+            </div>
         </div>
-    </div>
 </form>

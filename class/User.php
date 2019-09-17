@@ -12,10 +12,11 @@ class User
     private $roleID;
     private $roleName;
 
-    public static function addUser($name, $surname, $username, $middlename,
-                                   $email, $password, $role = 1)
+    const TABLE_NAME = "users";
+
+    public static function addUser($name, $surname, $username, $middlename, $email, $password, $role = 1)
     {
-        $data   = [
+        $data = [
             'username' => $username,
             'name' => $name,
             'surname' => $surname,
@@ -27,6 +28,27 @@ class User
         $result = Dbcon::insert('users', $data);
         if ($result) {
             return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function getCourses()
+    {
+        if ($this->roleID == 2) {
+            $sql = 'SELECT course_id FROM courses WHERE creator ='.$this->getID();
+            $result = DBcon::execute($sql);
+            $data = DBcon::fetch_all_array($result);
+            $ids = [
+            ];
+            if (count($data) > 0) {
+                foreach ($data as $result) {
+                    $ids[] = $result[0];
+                }
+                return Course::LoadArray($ids);
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
@@ -84,7 +106,7 @@ class User
                     password ='{$password}'
             ";
         }
-        $data   = Dbcon::execute($sql);
+        $data = Dbcon::execute($sql);
         $result = DBcon::fetch_assoc($data);
         if (!empty($result)) {
             $this->setID($result['id']);
@@ -95,15 +117,63 @@ class User
             $this->setEmail($result['email']);
             $this->setPhone($result['phone']);
             $this->setRoleID($result['role_id']);
-            $this->setRoleName($result['role_name']);
             return true;
+        }
+    }
+
+    public function LoadArray(array $ids = null)
+    {
+        if (!empty($ids)) {
+            $return = [
+            ];
+            foreach ($ids as $id) {
+                $Object = self::load($id);
+                if ($Object) {
+                    $return[$id] = $Object;
+                }
+            }
+        } else {
+            $sql = "SELECT id FROM ".self::TABLE_NAME;
+            $data = Dbcon::execute($sql);
+            $result = Dbcon::fetch_all_assoc($data);
+            $return = [
+            ];
+            foreach ($result as $key => $value) {
+                $return[$value['id']] = self::load($value['id']);
+            }
+        }
+
+        return $return;
+    }
+
+    public static function Load($id = null)
+    {
+        $sql = "SELECT * FROM ".self::TABLE_NAME." WHERE id = ".$id;
+        $data = Dbcon::execute($sql);
+        $returnData = Dbcon::fetch_assoc($data);
+        if (!empty($returnData)) {
+            $new = new static();
+            $new->setID($returnData['id']);
+            $new->setUsername($returnData['username']);
+            $new->setName($returnData['name']);
+            $new->setSurname($returnData['surname']);
+            $new->setMiddlename($returnData['middlename']);
+            $new->setEmail($returnData['email']);
+            $new->setPhone($returnData['phone']);
+            $new->setRoleID($returnData['role']);
+            // Role name
+            $roleObj = Role::Load($returnData['role']);
+            $new->setRoleName($roleObj->getRoleName());
+            return $new;
+        } else {
+            return false;
         }
     }
 
     public static function userCount($id = null)
     {
         if (empty($id)) {
-            $sql = "SELECT 
+            $sql = "SELECT
                         count(*)
                     FROM
                         users";
