@@ -13,26 +13,26 @@
                             <label>Date</label>
                             <input type="date" class="counter_input" disabled name="date" value="<?php echo date('Y-m-d');?>">
                             <label >Name of Student</label>
-                            <input type="text" class="counter_input" name="name">
+                            <input type="text" class="counter_input" name="name" required>
                             <label >School</label>
                             <input type="text" class="counter_input" name="school">
                             <label >Address</label>
-                            <input type="text" class="counter_input" name="address">
+                            <input type="text" class="counter_input" name="address" required>
                             <label >Contact No</label>
-                            <input type="text" class="counter_input" name="contact">
+                            <input type="text" class="counter_input" name="contact" required>
                             <label >Grade Level</label>
                             <input type="text" class="counter_input" name="gradeLevel">
                             <label >Birthday (dd/MM/yyyy)</label>
-                            <input type="date" class="counter_input" name="birthday" value="<?php echo date('Y-m-d');?>">
+                            <input type="date" class="counter_input" name="birthday" value="<?php echo date('Y-m-d');?>" required>
                             <label >Age</label>
                             <input type="number" class="counter_input" name="age">
                             <label >Email Address</label>
-                            <input type="email" class="counter_input" name="emailAddress">
+                            <input type="email" class="counter_input" name="emailAddress" required>
                             <label >Allergies</label>
                             <input type="text" class="counter_input" name="allergies">
                             <?php $courses =  Course::LoadArray(); ?>
                             <label >Program</label>
-                            <select multiple="multiple" class="counter_input" name="program[]" style="display: none;" id="program[]">
+                            <select multiple="multiple" class="counter_input" name="program[]" style="display: none;" id="program[]" required>
                                 <?php foreach ($courses as $Course) {
                                     $courseName =  $Course->getCourseName(); ?>
                                     <option value="<?= $courseName.', '.$Course->getCourseID(); ?>"><?= $courseName; ?></option>
