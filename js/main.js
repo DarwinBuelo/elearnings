@@ -1,22 +1,25 @@
-// $('.number-only').on('keyup keydown change',function(){
-//     $(this).value().isNumeric();
-// });
+$('document').ready(function () {
 
-//
-// $('.clickable').click(function(this){
-//     console.log('this is a test');
-//     $(this).each(function() {
-//         $.each(this.attributes, function() {
-//             // this.attributes is not a plain object, but an array
-//             // of attribute nodes, which contain both the name and value
-//             if(this.specified) {
-//                 console.log(this.name, this.value);
-//             }
-//         });
-//     });
-// });
-//
-//
-// $('#clickhere').click(function(){
-//     console.log('test');
-// });
+    //auto compute the age of the user
+    $('#birthday').on('change keyup', function () {
+        var inputDate = $('#birthday').val();
+        var age = null;
+        
+        age = _calculateAge(inputDate);
+        $('#age').val(age);
+    });
+
+
+});
+
+
+function _calculateAge(birthday) { 
+    var today = new Date();
+    var birthDate = new Date(birthday);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
