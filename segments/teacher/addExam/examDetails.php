@@ -1,4 +1,8 @@
 <?php
+
+const TABLE_NAME = 'exams';
+const TABLE_NAME_QUESTIONS = 'exams_questions';
+
 $cid = Util::getParam('cid');
 $course = Course::load($cid);
 //let us now load the form to handle the exam
@@ -87,8 +91,17 @@ if (isset($submit) && !empty($submit)) {
             'course_id' => $cid
 
         ];
-        $result = Exam::addExam($data);
-        if ($result) {
+        $examID = Dbcon::insert(TABLE_NAME, $data);
+
+        $dataQuestions = [
+            'exam_id' => $examID,
+            'question' => $question,
+            'choices' => $examOptions,
+            'answer' => $answer,
+            'points' => $points
+        ];
+        Dbcon::insert(TABLE_NAME_QUESTIONS, $dataQuestions);
+        if (!empty($examID)) {
             $eid = null;
             $lessonID = null;
             $examType = null;

@@ -37,9 +37,10 @@ $lessons = $course->getLessons();
                         <thead>
                         <tr>
                             <th>Exam ID</th>
+                            <th>Lesson</th>
                             <th>Type</th>
                             <th>Question</th>
-                            <th>Points</th>
+                            <th>Items</th>
                             <th>Duration</th>
                             <th>Options</th>
                         </tr>
@@ -54,6 +55,7 @@ $lessons = $course->getLessons();
                                     //exams
                                     $html = "<tr>";
                                     $html .= "<td>" . $exam->getExamID() . "</td>";
+                                    $html .= "<td>" . $lesson->getTitle() . "</td>";
                                     $html .= "<td>" . $examList[$exam->getExamType()] . "</td>";
                                     $html .= "<td>" . $exam->getExamQuestion() . "</td>";
                                     $html .= "<td>" . $exam->getPoints() . "</td>";
