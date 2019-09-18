@@ -23,9 +23,9 @@
                             <label >Grade Level</label>
                             <input type="text" class="counter_input" name="gradeLevel">
                             <label >Birthday (dd/MM/yyyy)</label>
-                            <input type="date" class="counter_input" name="birthday" value="<?php echo date('Y-m-d');?>" required>
+                            <input type="date" class="counter_input" name="birthday" value="<?php echo date('Y-m-d');?>" id="birthday" required>
                             <label >Age</label>
-                            <input type="number" class="counter_input" name="age">
+                            <input type="number" class="counter_input" name="age" id="age">
                             <label >Email Address</label>
                             <input type="email" class="counter_input" name="emailAddress" required>
                             <label >Allergies</label>
