@@ -129,98 +129,171 @@ require 'segments/teacher/addExam/examList.php';
 <!-- Add exam Modal-->
 
 <!-- Modal -->
-<div class="modal fade" id="ExamForm" tabindex="-1" role="dialog" aria-labelledby="ExamForm"
-     aria-hidden="true">
+<script>
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+</script>
+<div class="modal fade" id="ExamForm" tabindex="-1" role="dialog" aria-labelledby="ExamForm" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style="width: 60vw;">
-            <div style="width: 50%; float:left">
+
+        <div class="modal-content" style="width: 60vw">
             <div class="modal-header">
                 <h5 class="modal-title" id="ExamForm">Exam Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" style="width: 60vw; margin-left: 0px;">
+            <div class="modal-body" style="width: 60vw">
 
                 <form action="teacher.php?page=examDetails&cid=<?= $cid ?>" method="post">
-                    <div class="form-group">
-                        <div class="input-group mb-3">
-                            <input type="hidden" name="eid" value="<?= isset($eid) ? $eid : null ?>">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="lessonID">Lesson </label>
-                            </div>
-                            <select class="custom-select" id="lessonID" name="lessonID">
-                                <option>Choose...</option>
-                                <?php
-                                $lessons = $course->getLessons();
-                                $html = null;
-                                foreach ($lessons as $lesson) {
-                                    if (isset($lessonID) && $lessonID == $lesson->getLessonID()) {
-                                        $html .= "<option value='" . $lesson->getLessonID() . "' selected>" . $lesson->getTitle() . "</option>";
-                                    } else {
-                                        $html .= "<option value='" . $lesson->getLessonID() . "'>" . $lesson->getTitle() . "</option>";
-                                    }
-                                }
-                                print $html;
-                                ?>
+                    <div class="form-group" style="margin-left: 20px">
+                        <div class="row">
+                            <div class="column">
+                                <div class="input-group mb-3">
+                                    <input type="hidden" name="eid" value="<?= isset($eid) ? $eid : null ?>">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="lessonID">Lesson </label>
+                                    </div>
+                                    <select class="custom-select" id="lessonID" name="lessonID">
+                                        <option>Choose...</option>
+                                        <?php
+                                        $lessons = $course->getLessons();
+                                        $html = null;
+                                        foreach ($lessons as $lesson) {
+                                            if (isset($lessonID) && $lessonID == $lesson->getLessonID()) {
+                                                $html .= "<option value='" . $lesson->getLessonID() . "' selected>" . $lesson->getTitle() . "</option>";
+                                            } else {
+                                                $html .= "<option value='" . $lesson->getLessonID() . "'>" . $lesson->getTitle() . "</option>";
+                                            }
+                                        }
+                                        print $html;
+                                        ?>
 
-                            </select>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="examType">Exam Type</label>
-                            </div>
-                            <select name="examType" class="custom-select">
-                                <option>Choose...</option>
-                                <?php
-                                $types = Exam::getExamTypes();
-                                $html = null;
-                                foreach ($types as $key => $value) {
-                                    if (isset($examType) && $examType == $key) {
-                                        $html .= "<option value='" . $key . "' selected>" . $value . "</option>";
-                                    } else {
-                                        $html .= "<option value='" . $key . "'>" . $value . "</option>";
-                                    }
+                                    </select>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="examType">Exam Type</label>
+                                    </div>
+                                    <select name="examType" class="custom-select">
+                                        <option>Choose...</option>
+                                        <?php
+                                        $types = Exam::getExamTypes();
+                                        $html = null;
+                                        foreach ($types as $key => $value) {
+                                            if (isset($examType) && $examType == $key) {
+                                                $html .= "<option value='" . $key . "' selected>" . $value . "</option>";
+                                            } else {
+                                                $html .= "<option value='" . $key . "'>" . $value . "</option>";
+                                            }
 
-                                }
-                                print $html;
-                                ?>
-                            </select>
+                                        }
+                                        print $html;
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="question">Question</label>
+                                    <textarea type="text" class="form-control" id="question" name="question"
+                                              value="<?= isset($question) ? $question : null ?>"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="points">Points</label>
+                                    <input type="text" class="form-control" id="points" name="points"
+                                           value="<?= isset($points) ? $points : null ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="duration">Duration (Minutes)</label>
+                                    <input type="text" class="form-control" id="duration" name="duration"
+                                           value="<?= isset($duration) ? $duration : null ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="answer">Correct Answer</label>
+                                    <input type="text" class="form-control" id="answer" name="answer"
+                                           value="<?= isset($answer) ? $answer : null ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="examOption">Put the choices seperated by two forward slash's (//)</label>
+                                    <input type="text" class="form-control" id="examOptions" name="examOptions"
+                                           value="<?= isset($examOptions) ? $examOptions : null ?>">
+                                </div>
+                            </div>
+                            <div class="column" style="margin-left: 20px">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="chooseQuestion">Questions</label>
+                                    </div>
+                                    <select class="custom-select" onchange="myFunction()" id="chooseQuestion" name="chooseQuestion">
+                                        <option>Choose...</option>
+                                        <?php
+                                        $lessons = $course->getLessons();
+                                        $examDetails = Exam::getExamDetails($eid);
+                                        $html = null;
+                                        foreach ($examDetails as $ExamDetail) {
+                                            $html .= "<option value='" . $ExamDetail['exams_questions_id'] . "'>" . $ExamDetail['question'] . "</option>";
+                                        }
+                                        print $html;
+                                        ?>
+
+                                    </select>
+                                </div>
+                                <input type="text" class="form-control" id="examQuestionID" name="examQuestionID">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="lessonID">Answer</label>
+                                    </div>
+                                    <input type="text" class="form-control" id="editAnswer" name="editAnswer" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="answer">Choices</label>
+                                    <input type="text" class="form-control" id="choiceA" name="choiceA" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="choiceB" name="choiceB" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="choiceC" name="choiceC" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="choiceD" name="choiceD" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="answer">Points</label>
+                                    <input type="text" class="form-control" id="editPoints" name="editPoints" disabled>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="question">Question:</label>
-                            <input type="text" class="form-control" id="question" name="question"
-                                   value="<?= isset($question) ? $question : null ?>">
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="submit" value="save">Edit</button>
+                            <button type="submit" class="btn btn-success" name="submit" value="save">Save</button>
                         </div>
-                        <div class="form-group">
-                            <label for="points">Points:</label>
-                            <input type="text" class="form-control" id="points" name="points"
-                                   value="<?= isset($points) ? $points : null ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="duration">Duration: (Minutes)</label>
-                            <input type="text" class="form-control" id="duration" name="duration"
-                                   value="<?= isset($duration) ? $duration : null ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="answer">Correct Answer:</label>
-                            <input type="text" class="form-control" id="answer" name="answer"
-                                   value="<?= isset($answer) ? $answer : null ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="examOption">Put the choices seperated by two forward slash's (//)</label>
-                            <input type="text" class="form-control" id="examOptions" name="examOptions"
-                                   value="<?= isset($examOptions) ? $examOptions : null ?>">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="submit" value="save">Save</button>
                     </div>
                 </form>
-            </div>
+                </div>
             </div>
         </div>
     </div>
-
+<script>
+function myFunction()
+{
+    document.getElementById('examQuestionID').value = document.getElementById('chooseQuestion').value;
+    <?php
+//        $examDetails = Exam::getExamDetails($eid, );
+    ?>
+    document.getElementById('editAnswer').value = <?= 12;//$_GET['examQuestionID']; ?>;//document.getElementById('chooseQuestion').value;
+}
+</script>
     <!-- End off Modal -->

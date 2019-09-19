@@ -78,10 +78,11 @@ class Exam
         return $exam;
     }
 
-    public static function getExamDetails($examID)
+    public static function getExamDetails($examID, $examQuestionID = null)
     {
         $sql = "
             SELECT
+                eq.exams_questions_id,
                 eq.exam_id,
                 eq.question,
                 eq.choices,
@@ -92,6 +93,12 @@ class Exam
             WHERE
                 exam_id = {$examID}
         ";
+        if (!empty($examQuestionID)) {
+            $sql .= "
+                AND
+                    exams_question_id = {$examQuestionID}
+            ";
+        }
         $result = Dbcon::execute($sql);
         return Dbcon::fetch_all_assoc($result);
     }
