@@ -39,7 +39,6 @@ $lessons = $course->getLessons();
                             <th>Exam ID</th>
                             <th>Lesson</th>
                             <th>Type</th>
-                            <th>Question</th>
                             <th>Items</th>
                             <th>Duration</th>
                             <th>Options</th>
@@ -57,7 +56,6 @@ $lessons = $course->getLessons();
                                     $html .= "<td>" . $exam->getExamID() . "</td>";
                                     $html .= "<td>" . $lesson->getTitle() . "</td>";
                                     $html .= "<td>" . $examList[$exam->getExamType()] . "</td>";
-                                    $html .= "<td>" . $exam->getExamQuestion() . "</td>";
                                     $html .= "<td>" . $exam->getPoints() . "</td>";
                                     $html .= "<td>" . $exam->getDuration() . " min</td>";
                                     $html .= "<div class='btn-group'>";

@@ -20,6 +20,7 @@ class Exam
     const EXAM_TYPE_FILL_IN_THE_BLANK = 4;
 
     const TABLE_NAME = 'exams';
+    const TABLE_NAME_QUESTIONS = 'exams_questions';
 
     public static function loadArray(array $eids = null, $archived = false)
     {
@@ -55,9 +56,6 @@ class Exam
         $query = "SELECT 
                         e.exam_id,
                         e.teacher_id,
-                        e.exam_question,
-                        e.exam_option,
-                        e.answer,
                         e.date_created,
                         e.duration,
                         e.exam_type,
@@ -72,15 +70,30 @@ class Exam
         $exam = new static();
         $exam->setExamID($data['exam_id']);
         $exam->setTeacherID($data['teacher_id']);
-        $exam->setExamQuestion($data['exam_question']);
-        $exam->setExamOption($data['exam_option']);
-        $exam->setAnswer($data['answer']);
         $exam->setCreatedDate($data['date_created']);
         $exam->setDuration($data['duration']);
         $exam->setExamType($data['exam_type']);
         $exam->setLessonID($data['lesson_id']);
         $exam->setPoints($data['points']);
         return $exam;
+    }
+
+    public static function getExamDetails($examID)
+    {
+        $sql = "
+            SELECT
+                eq.exam_id,
+                eq.question,
+                eq.choices,
+                eq.answer,
+                eq.points
+            FROM
+                ".static::TABLE_NAME_QUESTIONS." eq
+            WHERE
+                exam_id = {$examID}
+        ";
+        $result = Dbcon::execute($sql);
+        return Dbcon::fetch_all_assoc($result);
     }
 
     public static function getExamTypes($examType = null)

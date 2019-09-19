@@ -132,14 +132,15 @@ require 'segments/teacher/addExam/examList.php';
 <div class="modal fade" id="ExamForm" tabindex="-1" role="dialog" aria-labelledby="ExamForm"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="width: 60vw;">
+            <div style="width: 50%; float:left">
             <div class="modal-header">
                 <h5 class="modal-title" id="ExamForm">Exam Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="width: 60vw; margin-left: 0px;">
 
                 <form action="teacher.php?page=examDetails&cid=<?= $cid ?>" method="post">
                     <div class="form-group">
@@ -217,6 +218,7 @@ require 'segments/teacher/addExam/examList.php';
                         <button type="submit" class="btn btn-primary" name="submit" value="save">Save</button>
                     </div>
                 </form>
+            </div>
             </div>
         </div>
     </div>
