@@ -124,8 +124,6 @@ if (isset($submit) && !empty($submit)) {
 require 'segments/teacher/addExam/examList.php';
 
 ?>
-
-
 <!-- Add exam Modal-->
 
 <!-- Modal -->
@@ -248,7 +246,7 @@ require 'segments/teacher/addExam/examList.php';
 
                                     </select>
                                 </div>
-                                <input type="text" class="form-control" id="examQuestionID" name="examQuestionID">
+                                <input type="hidden" class="form-control" id="examQuestionID" name="examQuestionID">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="lessonID">Answer</label>
@@ -290,10 +288,19 @@ require 'segments/teacher/addExam/examList.php';
 function myFunction()
 {
     document.getElementById('examQuestionID').value = document.getElementById('chooseQuestion').value;
+    var examQuestionID = document.getElementById('chooseQuestion').value;
     <?php
+        $examQuestionID = json_encode($value);
 //        $examDetails = Exam::getExamDetails($eid, );
     ?>
-    document.getElementById('editAnswer').value = <?= 12;//$_GET['examQuestionID']; ?>;//document.getElementById('chooseQuestion').value;
+    document.getElementById('editAnswer').value = exanQuestionID
 }
+//$(document).ready(function(){
+//    $('.launch-modal').click(function(){
+//        $('#ExamForm').modal({
+//                backdrop: 'static'
+//        });
+//    });
+//});
 </script>
     <!-- End off Modal -->
