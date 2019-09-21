@@ -59,3 +59,4 @@ if ($user) {
 } else {
     Util::redirect('index.php');
 }
+//EOF

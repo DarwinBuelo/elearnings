@@ -65,7 +65,7 @@ class Exam
                         exams as e
                    WHERE
                         e.exam_id = {$eid}";
-        $result = DBcon::execute($query);
+        $result = Dbcon::execute($query);
         $data = Dbcon::fetch_assoc($result);
         $exam = new static();
         $exam->setExamID($data['exam_id']);
@@ -96,7 +96,7 @@ class Exam
         if (!empty($examQuestionID)) {
             $sql .= "
                 AND
-                    exams_question_id = {$examQuestionID}
+                    eq.exams_questions_id = {$examQuestionID}
             ";
         }
         $result = Dbcon::execute($sql);

@@ -118,11 +118,9 @@ if (isset($submit) && !empty($submit)) {
             $message = ['result' => 'error', 'message' => 'Failed added an Exam'];
         }
     }
-
 }
 // include the list of exam on the course
 require 'segments/teacher/addExam/examList.php';
-
 ?>
 <!-- Add exam Modal-->
 
@@ -246,25 +244,24 @@ require 'segments/teacher/addExam/examList.php';
 
                                     </select>
                                 </div>
-                                <input type="hidden" class="form-control" id="examQuestionID" name="examQuestionID">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="lessonID">Answer</label>
                                     </div>
-                                    <input type="text" class="form-control" id="editAnswer" name="editAnswer" value="">
+                                    <input type="text" class="form-control" id="editAnswer" name="editAnswer" value="" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="answer">Choices</label>
-                                    <input type="text" class="form-control" id="choiceA" name="choiceA" disabled>
+                                    <input type="text" class="form-control" id="choice0" name="choice0" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="choiceB" name="choiceB" disabled>
+                                    <input type="text" class="form-control" id="choice1" name="choice1" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="choiceC" name="choiceC" disabled>
+                                    <input type="text" class="form-control" id="choice2" name="choice2" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="choiceD" name="choiceD" disabled>
+                                    <input type="text" class="form-control" id="choice3" name="choice3" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="answer">Points</label>
@@ -275,8 +272,8 @@ require 'segments/teacher/addExam/examList.php';
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" name="submit" value="save">Edit</button>
-                            <button type="submit" class="btn btn-success" name="submit" value="save">Save</button>
+                            <button class="btn btn-primary" onclick="editFunction()" name="btnEdit">Edit</button>
+                            <button type="submit" onclick="saveFunction()" class="btn btn-success" name="submit" value="save">Save</button>
                         </div>
                     </div>
                 </form>
@@ -284,23 +281,67 @@ require 'segments/teacher/addExam/examList.php';
             </div>
         </div>
     </div>
-<script>
+<script type="text/javascript">
 function myFunction()
 {
-    document.getElementById('examQuestionID').value = document.getElementById('chooseQuestion').value;
-    var examQuestionID = document.getElementById('chooseQuestion').value;
-    <?php
-        $examQuestionID = json_encode($value);
-//        $examDetails = Exam::getExamDetails($eid, );
-    ?>
-    document.getElementById('editAnswer').value = exanQuestionID
+    jQuery.ajax({
+       cache: false,
+       type:"post",
+       url:"common/ajax/displayExamDetails.php",
+       data:{
+           examID : <?= $eid; ?>,
+           examQuestionID : document.getElementById('chooseQuestion').value
+       },
+        dataType:'json',
+       success: function (data) {
+           var emailDetails = data[0];
+           var choices = emailDetails.choices.split('//');
+           jQuery.each(choices, function(key, value){
+               document.getElementById('choice'+key).value = value;
+           });
+           document.getElementById('editAnswer').value = emailDetails.answer;
+           document.getElementById('editPoints').value = emailDetails.points;
+       },
+       error: function(data) {
+       }
+    });
 }
-//$(document).ready(function(){
-//    $('.launch-modal').click(function(){
-//        $('#ExamForm').modal({
-//                backdrop: 'static'
-//        });
-//    });
-//});
+function editFunction()
+{
+    jQuery("form").on("submit", function (event) {
+        event.preventDefault();
+        if (jQuery('#editAnswer').prop('disabled') == true) {
+            jQuery('#editAnswer').prop('disabled', false);
+            jQuery('#editPoints').prop('disabled', false);
+            for (var x=0; x<=3; x++) {
+                jQuery('#choice'+x).prop('disabled', false);
+            }
+        } else {
+            jQuery('#editAnswer').prop('disabled', true);
+            jQuery('#editPoints').prop('disabled', true);
+            for (var x=0; x<=3; x++) {
+                jQuery('#choice'+x).prop('disabled', true);
+            }
+        }
+    });
+}
+function saveFunction()
+{
+    jQuery("form").on("submit", function (event) {
+        event.preventDefault();
+        jQuery.ajax({
+            cache: false,
+            type:"post",
+            url:"common/ajax/saveExamDetails.php",
+            data:{
+
+            },
+            dataType:'json',
+            success: function (data) {
+            },
+            error: function(data) {
+            }
+        });
+    });
+}
 </script>
-    <!-- End off Modal -->
