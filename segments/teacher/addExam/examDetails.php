@@ -12,7 +12,6 @@ $lessonID = Util::getParam('lessonID');
 $examType = Util::getParam('examType');
 $question = Util::getParam('question');
 $points = Util::getParam('points');
-$duration = Util::getParam('duration');
 $answer = Util::getParam('answer');
 $examOptions = Util::getParam('examOptions');
 $teacherID = $user->getID();
@@ -36,7 +35,6 @@ switch ($task) {
         $examType = $exam->getExamType();
         $question = $exam->getExamQuestion();
         $points = $exam->getPoints();
-        $duration = $exam->getDuration();
         $answer = $exam->getAnswer();
         $examOptions = $exam->getExamOption();
         break;
@@ -59,7 +57,6 @@ if (isset($submit) && !empty($submit)) {
         $exam->setExamType($examType);
         $exam->setExamQuestion($question);
         $exam->setPoints($points);
-        $exam->setDuration($duration);
         $exam->setAnswer($answer);
         $exam->setExamOption($examOptions);
         $result = $exam->submit();
@@ -70,7 +67,6 @@ if (isset($submit) && !empty($submit)) {
             $examType = null;
             $question = null;
             $points = null;
-            $duration = null;
             $answer = null;
             $examOptions = null;
             $message = ['result' => 'success', 'message' => 'Successfully saved the exam'];
@@ -78,36 +74,12 @@ if (isset($submit) && !empty($submit)) {
             $message = ['result' => 'error', 'message' => 'Failed save the Exam'];
         }
     } else {
-        $data = [
-            'lesson_id' => $lessonID,
-            'exam_type' => $examType,
-            'exam_question' => $question,
-            'points' => $points,
-            'duration' => $duration,
-            'answer' => $answer,
-            'exam_option' => $examOptions,
-            'teacher_id' => $teacherID,
-            'date_created' => $dateCreated,
-            'course_id' => $cid
-
-        ];
-        $examID = Dbcon::insert(TABLE_NAME, $data);
-
-        $dataQuestions = [
-            'exam_id' => $examID,
-            'question' => $question,
-            'choices' => $examOptions,
-            'answer' => $answer,
-            'points' => $points
-        ];
-        Dbcon::insert(TABLE_NAME_QUESTIONS, $dataQuestions);
         if (!empty($examID)) {
             $eid = null;
             $lessonID = null;
             $examType = null;
             $question = null;
             $points = null;
-            $duration = null;
             $answer = null;
             $examOptions = null;
             $message = [
@@ -126,6 +98,9 @@ require 'segments/teacher/addExam/examList.php';
 
 <!-- Modal -->
 <script>
+* {
+    box-sizing: border-box;
+}
 /* Create two equal columns that floats next to each other */
 .column {
     float: left;
@@ -143,19 +118,19 @@ require 'segments/teacher/addExam/examList.php';
 <div class="modal fade" id="ExamForm" tabindex="-1" role="dialog" aria-labelledby="ExamForm" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
 
-        <div class="modal-content" style="width: 60vw">
+        <div class="modal-content" style="width: 65vw">
             <div class="modal-header">
                 <h5 class="modal-title" id="ExamForm">Exam Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" style="width: 60vw">
+            <div class="modal-body" style="width: 65vw">
 
                 <form action="teacher.php?page=examDetails&cid=<?= $cid ?>" method="post">
                     <div class="form-group" style="margin-left: 20px">
                         <div class="row">
-                            <div class="column">
+                            <div class="column" style="width: 50%">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="eid" value="<?= isset($eid) ? $eid : null ?>">
                                     <div class="input-group-prepend">
@@ -182,7 +157,7 @@ require 'segments/teacher/addExam/examList.php';
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="examType">Exam Type</label>
                                     </div>
-                                    <select name="examType" class="custom-select">
+                                    <select name="examType" class="custom-select" onchange="exampTypeFunction()">
                                         <option>Choose...</option>
                                         <?php
                                         $types = Exam::getExamTypes();
@@ -201,28 +176,25 @@ require 'segments/teacher/addExam/examList.php';
                                 </div>
                                 <div class="form-group">
                                     <label for="question">Question</label>
-                                    <textarea type="text" class="form-control" id="question" name="question"
-                                              value="<?= isset($question) ? $question : null ?>"></textarea>
+                                    <textarea type="text" class="form-control" id="question" name="question"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="points">Points</label>
-                                    <input type="text" class="form-control" id="points" name="points"
-                                           value="<?= isset($points) ? $points : null ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="duration">Duration (Minutes)</label>
-                                    <input type="text" class="form-control" id="duration" name="duration"
-                                           value="<?= isset($duration) ? $duration : null ?>">
+                                    <input type="text" class="form-control" id="points" name="points">
                                 </div>
                                 <div class="form-group">
                                     <label for="answer">Correct Answer</label>
-                                    <input type="text" class="form-control" id="answer" name="answer"
-                                           value="<?= isset($answer) ? $answer : null ?>">
+                                    <input type="text" class="form-control" id="answer" name="answer">
                                 </div>
                                 <div class="form-group">
-                                    <label for="examOption">Put the choices seperated by two forward slash's (//)</label>
-                                    <input type="text" class="form-control" id="examOptions" name="examOptions"
-                                           value="<?= isset($examOptions) ? $examOptions : null ?>">
+                                    <label for="examOptions">Choices</label>
+                                    <input type="text" class="form-control" id="examOptions0" name="examOptions0">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="examOptions1" name="examOptions1">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="examOptions2" name=examOptions2">
                                 </div>
                             </div>
                             <div class="column" style="margin-left: 20px">
@@ -290,17 +262,17 @@ function myFunction()
        url:"common/ajax/displayExamDetails.php",
        data:{
            examID : <?= $eid; ?>,
-           examQuestionID : document.getElementById('chooseQuestion').value
+           examQuestionID : jQuery("#chooseQuestion").val()
        },
         dataType:'json',
        success: function (data) {
            var emailDetails = data[0];
-           var choices = emailDetails.choices.split('//');
+           var choices = emailDetails.choices.split(", ");
            jQuery.each(choices, function(key, value){
-               document.getElementById('choice'+key).value = value;
+               jQuery("#choice"+key).val(value);
            });
-           document.getElementById('editAnswer').value = emailDetails.answer;
-           document.getElementById('editPoints').value = emailDetails.points;
+           jQuery("#editAnswer").val(emailDetails.answer);
+           jQuery("#editPoints").val(emailDetails.points);
        },
        error: function(data) {
        }
@@ -310,17 +282,17 @@ function editFunction()
 {
     jQuery("form").on("submit", function (event) {
         event.preventDefault();
-        if (jQuery('#editAnswer').prop('disabled') == true) {
-            jQuery('#editAnswer').prop('disabled', false);
-            jQuery('#editPoints').prop('disabled', false);
+        if (jQuery("#editAnswer").prop("disabled") == true) {
+            jQuery("#editAnswer").prop("disabled", false);
+            jQuery("#editPoints").prop("disabled", false);
             for (var x=0; x<=3; x++) {
-                jQuery('#choice'+x).prop('disabled', false);
+                jQuery("#choice"+x).prop("disabled", false);
             }
         } else {
-            jQuery('#editAnswer').prop('disabled', true);
-            jQuery('#editPoints').prop('disabled', true);
+            jQuery("#editAnswer").prop("disabled", true);
+            jQuery("#editPoints").prop("disabled", true);
             for (var x=0; x<=3; x++) {
-                jQuery('#choice'+x).prop('disabled', true);
+                jQuery("#choice"+x).prop("disabled", true);
             }
         }
     });
@@ -329,19 +301,44 @@ function saveFunction()
 {
     jQuery("form").on("submit", function (event) {
         event.preventDefault();
+        var choices = [];
+        var answer = jQuery("#answer").val();
+        for (var x=0; x<=2; x++) {
+            choices.push(jQuery("#examOptions"+x).val());
+        }
+        choices.push(answer);
         jQuery.ajax({
             cache: false,
             type:"post",
             url:"common/ajax/saveExamDetails.php",
             data:{
-
+                examID : <?= $eid; ?>,
+                examType : jQuery("#examType").val(),
+                points : jQuery("#points").val(),
+                lessonID : jQuery("#lessonID").val(),
+                question : jQuery("#question").val(),
+                answer : answer,
+                choices : choices,
+                courseID : <?= $cid; ?>
             },
-            dataType:'json',
-            success: function (data) {
+            dataType: "json",
+            success: function (questionDetails) {
+                jQuery("#chooseQuestion").append("<option value='"+questionDetails.examQuestionID+"'>"+questionDetails.question+"</option>");
+                clearText();
             },
-            error: function(data) {
+            error: function (data) {
             }
-        });
-    });
+         });
+     });
+}
+function clearText()
+{
+    jQuery("#examType").val("");
+    jQuery("#points").val("");
+    jQuery("#question").val("");
+    jQuery("#answer").val("");
+    for (var x=0; x<=2; x++) {
+        jQuery("#examOptions"+x).val("");
+    }
 }
 </script>

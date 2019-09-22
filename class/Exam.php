@@ -149,9 +149,6 @@ class Exam
         //will submit the exam
         $data = [
             'teacher_id' => $this->getTeacherID(),
-            'exam_question' => $this->getExamQuestion(),
-            'exam_option' => $this->getExamOption(),
-            'answer' => $this->getAnswer(),
             'duration' => $this->getDuration(),
             'exam_type' => $this->getExamType(),
             'lesson_id' => $this->getLessonID(),
