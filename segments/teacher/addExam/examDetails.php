@@ -24,6 +24,7 @@ switch ($task) {
         if (!empty($cid)) {
             $html = '<script>';
             $html .= 'jQuery(window).on("load",function(){';
+            $html .= hideContainer();
             $html .= 'jQuery("#ExamForm").modal("show")';
             $html .= '});';
             $html .= '</script>';
@@ -48,7 +49,18 @@ switch ($task) {
             }
         }
 }
-
+function hideContainer()
+{
+    $html = '
+        jQuery("#answerContainerSelect").hide();
+        jQuery("#answerContainerText").hide();
+        jQuery("#examOptions0").hide();
+        jQuery("#examOptions1").hide();
+        jQuery("#examOptions2").hide();
+        jQuery("#labelChoice").hide();
+    ';
+    return $html;
+}
 if (isset($submit) && !empty($submit)) {
     if (!empty($eid)) {
         //edit exam
@@ -139,16 +151,16 @@ require 'segments/teacher/addExam/examList.php';
                                     <select class="custom-select" id="lessonID" name="lessonID">
                                         <option>Choose...</option>
                                         <?php
-                                        $lessons = $course->getLessons();
-                                        $html = null;
-                                        foreach ($lessons as $lesson) {
-                                            if (isset($lessonID) && $lessonID == $lesson->getLessonID()) {
-                                                $html .= "<option value='" . $lesson->getLessonID() . "' selected>" . $lesson->getTitle() . "</option>";
-                                            } else {
-                                                $html .= "<option value='" . $lesson->getLessonID() . "'>" . $lesson->getTitle() . "</option>";
+                                            $lessons = $course->getLessons();
+                                            $html = null;
+                                            foreach ($lessons as $lesson) {
+                                                if (isset($lessonID) && $lessonID == $lesson->getLessonID()) {
+                                                    $html .= "<option value='" . $lesson->getLessonID() . "' selected>" . $lesson->getTitle() . "</option>";
+                                                } else {
+                                                    $html .= "<option value='" . $lesson->getLessonID() . "'>" . $lesson->getTitle() . "</option>";
+                                                }
                                             }
-                                        }
-                                        print $html;
+                                            print $html;
                                         ?>
 
                                     </select>
@@ -157,20 +169,15 @@ require 'segments/teacher/addExam/examList.php';
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="examType">Exam Type</label>
                                     </div>
-                                    <select name="examType" class="custom-select" onchange="exampTypeFunction()">
+                                    <select name="examType" id="examType" class="custom-select" onchange="exampTypeFunction()">
                                         <option>Choose...</option>
                                         <?php
-                                        $types = Exam::getExamTypes();
-                                        $html = null;
-                                        foreach ($types as $key => $value) {
-                                            if (isset($examType) && $examType == $key) {
-                                                $html .= "<option value='" . $key . "' selected>" . $value . "</option>";
-                                            } else {
+                                            $types = Exam::getExamTypes();
+                                            $html = null;
+                                            foreach ($types as $key => $value) {
                                                 $html .= "<option value='" . $key . "'>" . $value . "</option>";
                                             }
-
-                                        }
-                                        print $html;
+                                            print $html;
                                         ?>
                                     </select>
                                 </div>
@@ -182,12 +189,24 @@ require 'segments/teacher/addExam/examList.php';
                                     <label for="points">Points</label>
                                     <input type="text" class="form-control" id="points" name="points">
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="answerContainerSelect">
+                                    <label for="selectAnswer">Correct Answer</label>
+                                    <select name="selectAnswer" id="selectAnswer" class="custom-select">
+                                        <option>Choose...</option>
+                                        <?php
+                                            $html = '';
+                                            $html .= "<option value='true'>true</option>";
+                                            $html .= "<option value='false'>false</option>";
+                                            print $html;
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="answerContainerText">
                                     <label for="answer">Correct Answer</label>
                                     <input type="text" class="form-control" id="answer" name="answer">
                                 </div>
                                 <div class="form-group">
-                                    <label for="examOptions">Choices</label>
+                                    <label for="examOptions" id="labelChoice">Choices</label>
                                     <input type="text" class="form-control" id="examOptions0" name="examOptions0">
                                 </div>
                                 <div class="form-group">
@@ -202,16 +221,15 @@ require 'segments/teacher/addExam/examList.php';
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="chooseQuestion">Questions</label>
                                     </div>
-                                    <select class="custom-select" onchange="myFunction()" id="chooseQuestion" name="chooseQuestion">
+                                    <select class="custom-select" onchange="displayFunction()" id="chooseQuestion" name="chooseQuestion">
                                         <option>Choose...</option>
                                         <?php
-                                        $lessons = $course->getLessons();
-                                        $examDetails = Exam::getExamDetails($eid);
-                                        $html = null;
-                                        foreach ($examDetails as $ExamDetail) {
-                                            $html .= "<option value='" . $ExamDetail['exams_questions_id'] . "'>" . $ExamDetail['question'] . "</option>";
-                                        }
-                                        print $html;
+                                            $examDetails = Exam::getExamDetails($eid);
+                                            $html = null;
+                                            foreach ($examDetails as $ExamDetail) {
+                                                $html .= "<option value='" . $ExamDetail['exams_questions_id'] . "'>" . $ExamDetail['question'] . "</option>";
+                                            }
+                                            print $html;
                                         ?>
 
                                     </select>
@@ -254,7 +272,7 @@ require 'segments/teacher/addExam/examList.php';
         </div>
     </div>
 <script type="text/javascript">
-function myFunction()
+function displayFunction()
 {
     jQuery.ajax({
        cache: false,
@@ -267,6 +285,7 @@ function myFunction()
         dataType:'json',
        success: function (data) {
            var emailDetails = data[0];
+           //hide edit containers
            var choices = emailDetails.choices.split(", ");
            jQuery.each(choices, function(key, value){
                jQuery("#choice"+key).val(value);
@@ -318,6 +337,8 @@ function saveFunction()
                 lessonID : jQuery("#lessonID").val(),
                 question : jQuery("#question").val(),
                 answer : answer,
+                examType: jQuery("#examType").val(),
+                booleanAnswer : jQuery("#selectAnswer").val(),
                 choices : choices,
                 courseID : <?= $cid; ?>
             },
@@ -331,9 +352,53 @@ function saveFunction()
          });
      });
 }
+function exampTypeFunction()
+{
+    switch (jQuery("#examType").val()) {
+        case "1":
+            essayContainer();
+            break;
+        case "2":
+            booleanContainer();
+            break;
+        case "3":
+            multipleChoiceContainer();
+            break;
+        default:
+            <?= hideContainer(); ?>
+            break;
+    }
+}
+function booleanContainer()
+{
+    jQuery("#answerContainerSelect").show();
+    jQuery("#answerContainerText").hide();
+    for (var x=0; x<=2; x++) {
+        jQuery("#examOptions"+x).hide();
+    }
+    jQuery("#labelChoice").hide();
+}
+function multipleChoiceContainer()
+{
+    jQuery("#answerContainerSelect").hide();
+    jQuery("#answerContainerText").show();
+    jQuery("#labelChoice").show();
+    for (var x=0; x<=2; x++) {
+        jQuery("#examOptions"+x).show();
+    }
+}
+function essayContainer()
+{
+    jQuery("#answerContainerSelect").hide();
+    jQuery("#answerContainerText").hide();
+    for (var x=0; x<=2; x++) {
+        jQuery("#examOptions"+x).hide();
+    }
+    jQuery("#labelChoice").hide();
+}
 function clearText()
 {
-    jQuery("#examType").val("");
+    jQuery("#selectAnswer").val("Choose...");
     jQuery("#points").val("");
     jQuery("#question").val("");
     jQuery("#answer").val("");

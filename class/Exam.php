@@ -17,7 +17,6 @@ class Exam
     const EXAM_TYPE_ESSAY = 1;
     const EXAM_TYPE_BOOLEAN = 2;
     const EXAM_TYPE_MULTIPLE_CHOICE = 3;
-    const EXAM_TYPE_FILL_IN_THE_BLANK = 4;
 
     const TABLE_NAME = 'exams';
     const TABLE_NAME_QUESTIONS = 'exams_questions';
@@ -87,11 +86,14 @@ class Exam
                 eq.question,
                 eq.choices,
                 eq.answer,
-                eq.points
+                eq.points,
+                e.exam_type
             FROM
                 ".static::TABLE_NAME_QUESTIONS." eq
+            INNER JOIN
+                ".static::TABLE_NAME." e
             WHERE
-                exam_id = {$examID}
+                e.exam_id = {$examID}
         ";
         if (!empty($examQuestionID)) {
             $sql .= "
@@ -114,9 +116,6 @@ class Exam
                 case self::EXAM_TYPE_BOOLEAN:
                     $data[self::EXAM_TYPE_BOOLEAN] = "Boolean";
                     break;
-                case self::EXAM_TYPE_FILL_IN_THE_BLANK:
-                    $data[self::EXAM_TYPE_FILL_IN_THE_BLANK] = "Fill in the blank";
-                    break;
                 case self::EXAM_TYPE_MULTIPLE_CHOICE:
                     $data[self::EXAM_TYPE_MULTIPLE_CHOICE] = "Multiple Choice";
                     break;
@@ -125,7 +124,6 @@ class Exam
             $data = [
                 self::EXAM_TYPE_ESSAY => "Essay",
                 self::EXAM_TYPE_BOOLEAN => "Boolean",
-                self::EXAM_TYPE_FILL_IN_THE_BLANK => "Fill in the blank",
                 self::EXAM_TYPE_MULTIPLE_CHOICE => "Multiple Choice"
             ];
         }
