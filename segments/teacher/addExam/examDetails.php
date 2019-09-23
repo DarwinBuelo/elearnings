@@ -156,12 +156,13 @@ require 'segments/teacher/addExam/examList.php';
                                         <label class="input-group-text" for="lessonID">Lesson </label>
                                     </div>
                                     <select class="custom-select" id="lessonID" name="lessonID">
-                                        <option>Choose...</option>
                                         <?php
                                             $lessons = $course->getLessons();
                                             $html = null;
                                             foreach ($lessons as $lesson) {
-                                                $html .= "<option value='" . $lesson->getLessonID() . "'>" . $lesson->getTitle() . "</option>";
+                                                if (isset($lessonID) && $lessonID == $lesson->getLessonID()) {
+                                                    $html .= "<option value='" . $lesson->getLessonID() . "' selected>" . $lesson->getTitle() . "</option>";
+                                                }
                                             }
                                             print $html;
                                         ?>
@@ -357,7 +358,7 @@ function saveFunction()
      });
 }
 function exampTypeFunction()
-{alert(jQuery("#examType").val());
+{
     filterChooseQuestion();
     switch (jQuery("#examType").val()) {
         case "1":

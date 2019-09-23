@@ -2,8 +2,8 @@
 require 'init.php';
 $Outline->loadJS();
 
-$exam = Exam::getExams(1);
+$course = Course::load(5);
 
 //foreach($exam as $exams){
-    Util::debug($exam);
+    Util::debug($course->getLessons());
 //}
