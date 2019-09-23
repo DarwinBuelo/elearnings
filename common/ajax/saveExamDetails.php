@@ -1,6 +1,6 @@
 <?php
 $path = $_SERVER['DOCUMENT_ROOT'];
-require $path.'init.php';
+require $path.'/init.php';
 const TABLE_NAME = 'exams';
 const TABLE_NAME_QUESTIONS = 'exams_questions';
 $examID = Util::getParam('examID');

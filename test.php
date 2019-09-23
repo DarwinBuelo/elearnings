@@ -2,9 +2,8 @@
 require 'init.php';
 $Outline->loadJS();
 
-$Lessons = Lesson::LoadArray([23,26,27]);
+$exam = Exam::getExams(1);
 
-foreach($Lessons as $lesson){
-    $exams = $lesson->getExams();
-    Util::debug($exams);
-}
+//foreach($exam as $exams){
+    Util::debug($exam);
+//}

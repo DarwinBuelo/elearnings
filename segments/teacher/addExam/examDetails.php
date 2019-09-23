@@ -58,6 +58,11 @@ function hideContainer()
         jQuery("#examOptions1").hide();
         jQuery("#examOptions2").hide();
         jQuery("#labelChoice").hide();
+        jQuery("#choice0").hide()
+        jQuery("#choice1").hide()
+        jQuery("#choice2").hide()
+        jQuery("#choice3").hide()
+        jQuery("#labelEditChoice").hide();
     ';
     return $html;
 }
@@ -140,6 +145,8 @@ require 'segments/teacher/addExam/examList.php';
             <div class="modal-body" style="width: 65vw">
 
                 <form action="teacher.php?page=examDetails&cid=<?= $cid ?>" method="post">
+                    <input type="hidden" class="form-control" id="examID" value="<?= $eid; ?>">
+                    <input type="hidden" class="form-control" id="courseID" value="<?= $cid; ?>">
                     <div class="form-group" style="margin-left: 20px">
                         <div class="row">
                             <div class="column" style="width: 50%">
@@ -154,11 +161,7 @@ require 'segments/teacher/addExam/examList.php';
                                             $lessons = $course->getLessons();
                                             $html = null;
                                             foreach ($lessons as $lesson) {
-                                                if (isset($lessonID) && $lessonID == $lesson->getLessonID()) {
-                                                    $html .= "<option value='" . $lesson->getLessonID() . "' selected>" . $lesson->getTitle() . "</option>";
-                                                } else {
-                                                    $html .= "<option value='" . $lesson->getLessonID() . "'>" . $lesson->getTitle() . "</option>";
-                                                }
+                                                $html .= "<option value='" . $lesson->getLessonID() . "'>" . $lesson->getTitle() . "</option>";
                                             }
                                             print $html;
                                         ?>
@@ -216,7 +219,7 @@ require 'segments/teacher/addExam/examList.php';
                                     <input type="text" class="form-control" id="examOptions2" name=examOptions2">
                                 </div>
                             </div>
-                            <div class="column" style="margin-left: 20px">
+                            <div class="column" style="margin-left: 20px;">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="chooseQuestion">Questions</label>
@@ -241,7 +244,11 @@ require 'segments/teacher/addExam/examList.php';
                                     <input type="text" class="form-control" id="editAnswer" name="editAnswer" value="" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label for="answer">Choices</label>
+                                    <label for="answer">Points</label>
+                                    <input type="text" class="form-control" id="editPoints" name="editPoints" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="answer" id="labelEditChoice">Choices</label>
                                     <input type="text" class="form-control" id="choice0" name="choice0" disabled>
                                 </div>
                                 <div class="form-group">
@@ -252,10 +259,6 @@ require 'segments/teacher/addExam/examList.php';
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="choice3" name="choice3" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label for="answer">Points</label>
-                                    <input type="text" class="form-control" id="editPoints" name="editPoints" disabled>
                                 </div>
                             </div>
                         </div>
@@ -272,6 +275,8 @@ require 'segments/teacher/addExam/examList.php';
         </div>
     </div>
 <script type="text/javascript">
+var courseID = jQuery("#courseID").val();
+var examID = jQuery("#examID").val();
 function displayFunction()
 {
     jQuery.ajax({
@@ -279,13 +284,12 @@ function displayFunction()
        type:"post",
        url:"common/ajax/displayExamDetails.php",
        data:{
-           examID : <?= $eid; ?>,
+           examID : examID,
            examQuestionID : jQuery("#chooseQuestion").val()
        },
         dataType:'json',
        success: function (data) {
            var emailDetails = data[0];
-           //hide edit containers
            var choices = emailDetails.choices.split(", ");
            jQuery.each(choices, function(key, value){
                jQuery("#choice"+key).val(value);
@@ -331,7 +335,7 @@ function saveFunction()
             type:"post",
             url:"common/ajax/saveExamDetails.php",
             data:{
-                examID : <?= $eid; ?>,
+                examID : examID,
                 examType : jQuery("#examType").val(),
                 points : jQuery("#points").val(),
                 lessonID : jQuery("#lessonID").val(),
@@ -340,7 +344,7 @@ function saveFunction()
                 examType: jQuery("#examType").val(),
                 booleanAnswer : jQuery("#selectAnswer").val(),
                 choices : choices,
-                courseID : <?= $cid; ?>
+                courseID : courseID
             },
             dataType: "json",
             success: function (questionDetails) {
@@ -353,7 +357,8 @@ function saveFunction()
      });
 }
 function exampTypeFunction()
-{
+{alert(jQuery("#examType").val());
+    filterChooseQuestion();
     switch (jQuery("#examType").val()) {
         case "1":
             essayContainer();
@@ -373,28 +378,58 @@ function booleanContainer()
 {
     jQuery("#answerContainerSelect").show();
     jQuery("#answerContainerText").hide();
-    for (var x=0; x<=2; x++) {
-        jQuery("#examOptions"+x).hide();
+    for (var x=0; x<=3; x++) {
+        if (x <= 2) {
+            jQuery("#examOptions"+x).hide();
+        }
+        jQuery("#choice"+x).hide();
     }
     jQuery("#labelChoice").hide();
+    jQuery("#labelEditChoice").hide();
 }
 function multipleChoiceContainer()
 {
     jQuery("#answerContainerSelect").hide();
     jQuery("#answerContainerText").show();
     jQuery("#labelChoice").show();
-    for (var x=0; x<=2; x++) {
-        jQuery("#examOptions"+x).show();
+    for (var x=0; x<=3; x++) {
+        if (x <= 2) {
+            jQuery("#examOptions"+x).show();
+        }
+        jQuery("#choice"+x).show();
     }
+    jQuery("#labelEditChoice").show();
 }
 function essayContainer()
 {
     jQuery("#answerContainerSelect").hide();
     jQuery("#answerContainerText").hide();
-    for (var x=0; x<=2; x++) {
-        jQuery("#examOptions"+x).hide();
+    for (var x=0; x<=3; x++) {
+        if (x <= 2) {
+            jQuery("#examOptions"+x).hide();
+        }
+        jQuery("#choice"+x).hide();
     }
     jQuery("#labelChoice").hide();
+    jQuery("#labelEditChoice").hide();
+}
+function filterChooseQuestion()
+{
+    clearEditText();
+    jQuery.ajax({
+       cache: false,
+       type:"post",
+       url:"common/ajax/filterChooseQuestion.php",
+       data:{
+           examID : examID,
+           examType : jQuery("#examType").val()
+       },
+       success: function (selectOption) {
+           jQuery("#chooseQuestion").empty().append(selectOption);
+       },
+       error: function(data) {
+       }
+    });
 }
 function clearText()
 {
@@ -404,6 +439,14 @@ function clearText()
     jQuery("#answer").val("");
     for (var x=0; x<=2; x++) {
         jQuery("#examOptions"+x).val("");
+    }
+}
+function clearEditText()
+{
+    jQuery("#editAnswer").val("");
+    jQuery("#editPoints").val("");
+    for (var x=0; x<=3; x++) {
+        jQuery("#choice"+x).val("");
     }
 }
 </script>

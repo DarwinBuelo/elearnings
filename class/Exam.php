@@ -20,6 +20,7 @@ class Exam
 
     const TABLE_NAME = 'exams';
     const TABLE_NAME_QUESTIONS = 'exams_questions';
+    const TABLE_LESSON = 'lessons';
 
     public static function loadArray(array $eids = null, $archived = false)
     {
@@ -59,7 +60,7 @@ class Exam
                         e.duration,
                         e.exam_type,
                         e.lesson_id,
-                        e.points
+                        e.items
                    FROM
                         exams as e
                    WHERE
@@ -73,11 +74,38 @@ class Exam
         $exam->setDuration($data['duration']);
         $exam->setExamType($data['exam_type']);
         $exam->setLessonID($data['lesson_id']);
-        $exam->setPoints($data['points']);
+        $exam->setPoints($data['items']);
         return $exam;
     }
 
-    public static function getExamDetails($examID, $examQuestionID = null)
+    public static function getExams($courseID)
+    {
+        $sql = "
+            SELECT
+                e.exam_id,
+                e.items,
+                e.duration,
+                l.title
+            FROM
+                ".static::TABLE_NAME." e
+            INNER JOIN
+                ".static::TABLE_LESSON." l
+            ON
+                e.lesson_id = l.lesson_id
+            WHERE
+                TRUE
+        ";
+        if (!empty($courseID)) {
+            $sql .= "
+                AND
+                    e.course_id = {$courseID}
+            ";
+        }
+        $result = Dbcon::execute($sql);
+        return Dbcon::fetch_all_assoc($result);
+    }
+
+    public static function getExamDetails($examID, $examQuestionID = null, $examType = null, $lessonID = null)
     {
         $sql = "
             SELECT
@@ -87,7 +115,7 @@ class Exam
                 eq.choices,
                 eq.answer,
                 eq.points,
-                e.exam_type
+                eq.exam_type
             FROM
                 ".static::TABLE_NAME_QUESTIONS." eq
             INNER JOIN
@@ -99,6 +127,18 @@ class Exam
             $sql .= "
                 AND
                     eq.exams_questions_id = {$examQuestionID}
+            ";
+        }
+        if (!empty($examType)) {
+            $sql .= "
+                AND
+                    eq.exam_type = {$examType}
+            ";
+        }
+        if (!empty($lessonID)) {
+            $sql .= "
+                AND
+                    eq.lesson_id = {$lessonID}
             ";
         }
         $result = Dbcon::execute($sql);

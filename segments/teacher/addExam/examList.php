@@ -38,7 +38,6 @@ $lessons = $course->getLessons();
                         <tr>
                             <th>Exam ID</th>
                             <th>Lesson</th>
-                            <th>Type</th>
                             <th>Items</th>
                             <th>Duration</th>
                             <th>Options</th>
@@ -46,29 +45,23 @@ $lessons = $course->getLessons();
                         </thead>
                         <tbody>
                         <?php
-                        foreach ($lessons as $lesson) {
-                            $Exams = $lesson->getExams();
-                            if ($Exams) {
-                                $examList = Exam::getExamTypes();
-                                foreach ($Exams as $exam) {
-                                    //exams
-                                    $html = "<tr>";
-                                    $html .= "<td>" . $exam->getExamID() . "</td>";
-                                    $html .= "<td>" . $lesson->getTitle() . "</td>";
-                                    $html .= "<td>" . $examList[$exam->getExamType()] . "</td>";
-                                    $html .= "<td>" . $exam->getPoints() . "</td>";
-                                    $html .= "<td>" . $exam->getDuration() . " min</td>";
-                                    $html .= "<div class='btn-group'>";
-                                    $html .= "<td><a data-toggle='tooltip' title='Edit Exam' class='btn btn-success btn-sm' href='teacher.php?page=examDetails&cid={$course->getCourseID()}&task=edit&eid={$exam->getExamID()}'><i class='fa fa-edit'></i></a>";
-                                    $backLink = urlencode($_SERVER['PHP_SELF'] . "?page=" . Util::getParam('page') . "&cid=" . $cid);
-                                    $html .= "<a data-toggle='tooltip' title='Delete Exam' class='btn btn-danger btn-sm'href='teacher.php?page=examDetails&cid={$course->getCourseID()}&task=trash&eid={$exam->getExamID()}'><i class='fa fa-trash'></i></a>";
-                                    $html .= "</div>";
-
-                                    $html .= "</td>";
-                                    $html .= "</tr>";
-
-                                    print $html;
-                                }
+                        $Exams = Exam::getExams($cid);
+                        if ($Exams) {
+                            foreach ($Exams as $exam) {
+                                //exams
+                                $html = "<tr>";
+                                $html .= "<td>" . $exam['exam_id'] . "</td>";
+                                $html .= "<td>" . $exam['title'] . "</td>";
+                                $html .= "<td>" . $exam['items'] . "</td>";
+                                $html .= "<td>" . $exam['duration'] . " min</td>";
+                                $html .= "<div class='btn-group'>";
+                                $html .= "<td><a data-toggle='tooltip' title='Edit Exam' class='btn btn-success btn-sm' href='teacher.php?page=examDetails&cid={$cid}&task=edit&eid={$exam['exam_id']}'><i class='fa fa-edit'></i></a>";
+                                $backLink = urlencode($_SERVER['PHP_SELF'] . "?page=" . Util::getParam('page') . "&cid=" . $cid);
+                                $html .= "<a data-toggle='tooltip' title='Delete Exam' class='btn btn-danger btn-sm'href='teacher.php?page=examDetails&cid={$cid}&task=trash&eid={$exam['exam_id']}'><i class='fa fa-trash'></i></a>";
+                                $html .= "</div>";
+                                $html .= "</td>";
+                                $html .= "</tr>";
+                                print $html;
                             }
                         }
                         ?>
