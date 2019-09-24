@@ -18,6 +18,7 @@ if (Util::getParam('save')) {
         'exam_due' => Util::getParam('examDue')
     ];
     Dbcon::insert(TABLE_NAME, $examData);
+    unset($examData);
 } else {
     $examID = Util::getParam('examID');
     $question = Util::getParam('question');
