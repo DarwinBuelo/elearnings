@@ -58,7 +58,6 @@ class Exam
                         e.teacher_id,
                         e.date_created,
                         e.duration,
-                        e.exam_type,
                         e.lesson_id,
                         e.items
                    FROM
@@ -72,7 +71,6 @@ class Exam
         $exam->setTeacherID($data['teacher_id']);
         $exam->setCreatedDate($data['date_created']);
         $exam->setDuration($data['duration']);
-        $exam->setExamType($data['exam_type']);
         $exam->setLessonID($data['lesson_id']);
         $exam->setPoints($data['items']);
         return $exam;
@@ -92,6 +90,10 @@ class Exam
                 ".static::TABLE_LESSON." l
             ON
                 e.lesson_id = l.lesson_id
+            LEFT JOIN
+                ".static::TABLE_NAME_QUESTIONS." eq
+            ON
+                eq.exam_id = e.exam_id
             WHERE
                 TRUE
         ";
@@ -101,6 +103,10 @@ class Exam
                     e.course_id = {$courseID}
             ";
         }
+        $sql .= "
+            GROUP BY
+                e.exam_id
+        ";
         $result = Dbcon::execute($sql);
         return Dbcon::fetch_all_assoc($result);
     }
@@ -120,6 +126,8 @@ class Exam
                 ".static::TABLE_NAME_QUESTIONS." eq
             INNER JOIN
                 ".static::TABLE_NAME." e
+            ON
+                e.exam_id = eq.exam_id
             WHERE
                 e.exam_id = {$examID}
         ";
@@ -138,7 +146,7 @@ class Exam
         if (!empty($lessonID)) {
             $sql .= "
                 AND
-                    eq.lesson_id = {$lessonID}
+                    e.lesson_id = {$lessonID}
             ";
         }
         $result = Dbcon::execute($sql);

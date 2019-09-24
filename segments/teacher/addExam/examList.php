@@ -29,7 +29,7 @@ $lessons = $course->getLessons();
                 <div class="card-header">
                     <strong class="card-title">Exam List for the course "<?= $course->getCourseName() ?>" </strong>
                     <button type="button" class="btn btn-success float-right" data-toggle="modal"
-                            data-target="#ExamForm">Add Exam
+                            data-target="#AddExam">Add Exam
                     </button>
                 </div>
                 <div class="card-body">
