@@ -78,7 +78,7 @@ jQuery(document).ready(function () {
         });
     });
     //Add Exam Action
-    jQuery('#formAddExam').submit(function (e) {
+    jQuery('#formAddExam').submit(function () {
         jQuery.ajax({
             cache: false,
             type: "post",
