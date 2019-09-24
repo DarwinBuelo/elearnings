@@ -10,6 +10,7 @@ $sceditorJS = [
    ];
 $adminOutline->addCSS('lib/minified/themes/default.min.css');
 $adminOutline->addJS($sceditorJS);
+$adminOutline->addJS('common/js/examDetails.js');
 $adminOutline->header('Teacher Panel');
 
 $page = Util::getParam('page');
@@ -59,3 +60,4 @@ if ($user) {
 } else {
     Util::redirect('index.php');
 }
+//EOF

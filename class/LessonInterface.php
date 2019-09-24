@@ -112,7 +112,7 @@ class LessonInterface
                 FROM
                     exams
                 WHERE
-                    lesson_id = {$this->getLessonID()}";
+                    course_id = {$this->getCourseID()}";
         if (!$archived) {
             $query .= " AND remove = 0";
         }

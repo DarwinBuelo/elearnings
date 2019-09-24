@@ -1,0 +1,1 @@
+ALTER TABLE `exams_questions` ADD `exam_type` INT NOT NULL DEFAULT '1' AFTER `exam_id`;

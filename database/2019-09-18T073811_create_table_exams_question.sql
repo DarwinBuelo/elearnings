@@ -1,0 +1,1 @@
+CREATE TABLE `elearning`.`exams_questions` ( `exams_questions_id` INT NOT NULL AUTO_INCREMENT ,  `exam_id` INT NOT NULL ,  `question` TEXT NOT NULL ,  `choices` TEXT NOT NULL ,  `answer` TEXT NOT NULL ,  `points` INT NOT NULL ,    PRIMARY KEY  (`exams_questions_id`)) ENGINE = InnoDB;

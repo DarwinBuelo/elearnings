@@ -1,0 +1,1 @@
+ALTER TABLE `exams` CHANGE `points` `items` INT(11) NOT NULL;
