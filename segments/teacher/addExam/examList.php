@@ -38,6 +38,7 @@ $lessons = $course->getLessons();
                         <tr>
                             <th>Exam ID</th>
                             <th>Lesson</th>
+                            <th>Title</th>
                             <th>Items</th>
                             <th>Duration</th>
                             <th>Options</th>
@@ -52,6 +53,7 @@ $lessons = $course->getLessons();
                                 $html = "<tr>";
                                 $html .= "<td>" . $exam['exam_id'] . "</td>";
                                 $html .= "<td>" . $exam['title'] . "</td>";
+                                $html .= "<td>" . $exam['examTitle'] . "</td>";
                                 $html .= "<td>" . $exam['items'] . "</td>";
                                 $html .= "<td>" . $exam['duration'] . " min</td>";
                                 $html .= "<div class='btn-group'>";
