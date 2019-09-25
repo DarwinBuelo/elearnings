@@ -33,6 +33,6 @@ $lessons = $course->getLessons();
 </div>
 <script type="text/javascript">
     document.getElementById("submit").onclick = function () {
-        location.href = "segments/student/exam/examHtml.php";
+        location.href = "segments/student/exam/exam.php";
     };
 </script>
