@@ -3,7 +3,7 @@ function displayFunction()
     jQuery.ajax({
         cache: false,
         type: "post",
-        url: "common/ajax/displayExamDetails.php/",
+        url: "common/ajax/displayExamDetails.php",
         data: {
             examID: jQuery("#examID").val(),
             examQuestionID: jQuery("#chooseQuestion").val()
@@ -41,7 +41,7 @@ function editFunction()
         }
     });
 }
-jQuery(document).ready(function () {
+jQuery(window).load(function () {
     //Edit Exam Action
     jQuery('#formEditExam').submit(function (e) {
         e.preventDefault();
@@ -82,9 +82,9 @@ jQuery(document).ready(function () {
         jQuery.ajax({
             cache: false,
             type: "post",
-            url: "common/ajax/saveExamDetails.php/",
+            url: "common/ajax/saveExamDetails.php",
             data: {
-                lessonID: jQuery("#lessonID").val(),
+                lessonID: jQuery("#lessonIDEdit").val(),
                 save: 1,
                 teacherID: jQuery("#teacherID").val(),
                 duration: jQuery("#duration").val(),
@@ -169,7 +169,7 @@ function filterChooseQuestion()
     jQuery.ajax({
         cache: false,
         type: "post",
-        url: "common/ajax/filterChooseQuestion.php/",
+        url: "common/ajax/filterChooseQuestion.php",
         data: {
             examID: jQuery("#examID").val(),
             lessonID: jQuery("#lessonID").val(),
@@ -185,7 +185,7 @@ function filterChooseQuestion()
 function clearText()
 {
     jQuery("#selectAnswer").val("Choose...");
-    jQuery("#points").val("");
+    jQuery("#points").val("1");
     jQuery("#question").val("");
     jQuery("#answer").val("");
     for (var x = 0; x <= 2; x++) {

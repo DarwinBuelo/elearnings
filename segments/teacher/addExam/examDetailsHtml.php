@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="points">Points</label>
-                                    <input type="number" class="form-control" id="points" name="points">
+                                    <input type="number" class="form-control" id="points" name="points" value="1">
                                 </div>
                                 <div class="form-group" id="answerContainerSelect">
                                     <label for="selectAnswer">Correct Answer</label>
@@ -96,7 +96,7 @@
                                     <input type="text" class="form-control" id="examOptions2" name=examOptions2">
                                 </div>
                             </div>
-                            <div class="column" style="margin-left: 20px;">
+                            <div class="column" style="margin-left: 20px; width: 40%;">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="chooseQuestion">Questions</label>
@@ -162,9 +162,9 @@
                         <div class="input-group mb-3">
                             <input type="hidden" name="eid" value="<?= isset($eid) ? $eid : null ?>">
                             <div class="input-group-prepend">
-                                <label class="input-group-text" for="lessonID">Lesson </label>
+                                <label class="input-group-text" for="lessonIDEdit">Lesson </label>
                             </div>
-                            <select class="custom-select" id="lessonID" name="lessonID">
+                            <select class="custom-select" id="lessonIDEdit" name="lessonIDEdit">
                                 <option>Choose...</option>
                                 <?php
                                     $lessons = $course->getLessons();
