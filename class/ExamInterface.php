@@ -111,11 +111,11 @@ class ExamInterface
         return Dbcon::fetch_all_assoc($result);
     }
 
-    public static function isExamDate($lessonID)
+    public static function isExamDate($lessonID = null)
     {
         $sql = "
             SELECT
-                e.*
+                e.exam_id
             FROM
                 ".static::TABLE_NAME." e
             INNER JOIN
@@ -124,8 +124,14 @@ class ExamInterface
                e.lesson_id = l.lesson_id
             INNER JOIN
                 ".static::TABLE_NAME_QUESTIONS." eq
+            ON
+                e.exam_id = eq.exam_id
             WHERE
-                TRUE
+                e.exam_date
+            BETWEEN
+                e.exam_date AND now()
+            AND
+                now() < e.exam_due
         ";
         if (!empty($lessonID)) {
             $sql .= "
@@ -133,8 +139,15 @@ class ExamInterface
                     e.lesson_id = {$lessonID}
             ";
         }
+        $sql .= "
+            GROUP BY
+                e.exam_id
+        ";
         $result = Dbcon::execute($sql);
-        return Dbcon::fetch_all_assoc($result);
+        if (!empty(Dbcon::fetch_assoc($result)['exam_id'])) {
+            return true;
+        }
+        return false;
     }
 
     public static function getExamDetails($examID, $examQuestionID = null, $examType = null, $lessonID = null)
