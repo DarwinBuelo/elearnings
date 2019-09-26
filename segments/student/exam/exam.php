@@ -1,9 +1,12 @@
 <?php
 $path = $_SERVER['DOCUMENT_ROOT'];
-require_once($path.'init.php');
-$Outline->addCSS($path.'styles/contact.css');
-$Outline->addCSS($path.'styles/contact_responsive.css');
+require_once($path.'/init.php');
+$css = [
+    '/styles/contact_responsive.css',
+    '/styles/contact.css',
+    '/styles/examForm.css'
+];
+$Outline->addCSS($css);
+$Outline->header();
 require('examHtml.php');
-$Outline->addJS($path.'plugins/marker_with_label/marker_with_label.js');
-$Outline->addJS($path.'js/contact.js');
 //EOF
