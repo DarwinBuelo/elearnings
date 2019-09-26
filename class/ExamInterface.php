@@ -144,13 +144,11 @@ class ExamInterface
                 e.exam_id
         ";
         $result = Dbcon::execute($sql);
-        if (!empty(Dbcon::fetch_assoc($result)['exam_id'])) {
-            return true;
-        }
-        return false;
+        $return = Dbcon::fetch_assoc($result)['exam_id'];
+        return (!empty($return) ? $return : false);
     }
 
-    public static function getExamDetails($examID, $examQuestionID = null, $examType = null, $lessonID = null)
+    public static function getExamDetails($examID = null, $examQuestionID = null, $examType = null, $lessonID = null)
     {
         $sql = "
             SELECT
@@ -168,8 +166,14 @@ class ExamInterface
             ON
                 e.exam_id = eq.exam_id
             WHERE
-                e.exam_id = {$examID}
+                TRUE
         ";
+        if (!empty($examID)) {
+            $sql .= "
+                AND
+                    e.exam_id = {$examID}
+            ";
+        }
         if (!empty($examQuestionID)) {
             $sql .= "
                 AND
@@ -188,6 +192,10 @@ class ExamInterface
                     e.lesson_id = {$lessonID}
             ";
         }
+        $sql .= "
+            ORDER BY
+                eq.exam_type desc
+        ";
         $result = Dbcon::execute($sql);
         return Dbcon::fetch_all_assoc($result);
     }
