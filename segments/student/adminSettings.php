@@ -1,6 +1,5 @@
 <?php
 //set the layout of the admin panel
-
 $adminOutline = new Layout();
 // suffee admin default
 $css =[

@@ -43,7 +43,7 @@ $lessons = $course->getLessons();
             },
             dataType: "json",
             success: function (data) {
-                location.href = "segments/student/exam/exam.php";
+                location.href = "student.php?page=exam";
             },
             error: function (data) {
             }

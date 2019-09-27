@@ -11,7 +11,7 @@ function displayFunction()
         dataType: 'json',
         success: function (data) {
             var emailDetails = data[0];
-            var choices = emailDetails.choices.split(", ");
+            var choices = emailDetails.choices.split("//");
             jQuery.each(choices, function (key, value) {
                 jQuery("#choice" + key).val(value);
             });
