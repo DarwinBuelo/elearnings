@@ -1,8 +1,9 @@
-jQuery(document).ready(function() {
+jQuery(window).load(function() {
     var emailDetails;
     var choices = [];
     var index = 0;
     var item = 1;
+    var answer = [];
     jQuery("#finish").hide();
     jQuery.ajax({
         cache: false,
@@ -16,7 +17,7 @@ jQuery(document).ready(function() {
             examDetails = data;
             choices = examDetails[index].choices.split("//");
             jQuery("#question").html(item+") "+examDetails[index].question);
-            jQuery.each(choices, function(key, value){
+            jQuery.each(choices, function(key, value) {
                 jQuery("#choice" + key).html(value);
             });
             console.log(examDetails);
@@ -26,7 +27,9 @@ jQuery(document).ready(function() {
     });
     jQuery("#next").click(function(event){
         event.preventDefault();
-        alert(jQuery('input[name="radioChoice"]:checked').val());
+        var radioIndex = parseInt(jQuery('input[name="radioChoice"]:checked').val());
+        answer.push([examDetails[index].exams_questions_id, item, jQuery("#choice" + radioIndex).html()]);
+        console.log(answer[index]);
         if (index == Object.keys(examDetails).length) {
             jQuery("#finish").show();
         } else {

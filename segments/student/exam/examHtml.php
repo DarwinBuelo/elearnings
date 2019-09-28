@@ -12,16 +12,16 @@
                             <input type="hidden" id="hash" value="<?= $_SESSION['hash']; ?>">
                             <div><p class="col-6" id="question"></p></div>
                             <div>
-                                <input type="radio" name="radioChoice" id="radioChoice"><span id="choice0"></span>
+                                <input type="radio" name="radioChoice" id="radioChoice" value="0"><span id="choice0"></span>
                             </div>
                             <div>
-                                <input type="radio" name="radioChoice" id="radioChoice"><span id="choice1"></span>
+                                <input type="radio" name="radioChoice" id="radioChoice" value="1"><span id="choice1"></span>
                             </div>
                             <div>
-                                <input type="radio" name="radioChoice" id="radioChoice"><span id="choice2"></span>
+                                <input type="radio" name="radioChoice" id="radioChoice" value="2"><span id="choice2"></span>
                             </div>
                             <div>
-                                <input type="radio" name="radioChoice" id="radioChoice"><span id="choice3"></span>
+                                <input type="radio" name="radioChoice" id="radioChoice" value="3"><span id="choice3"></span>
                             </div>
                             <button type="submit" id="back">Back</button>
                             <button type="submit" id="next">Next</button>
