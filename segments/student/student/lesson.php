@@ -43,7 +43,11 @@ $lessons = $course->getLessons();
             },
             dataType: "json",
             success: function (data) {
-                location.href = "student.php?page=exam";
+                if (data == false) {
+                    alert('Already reached maximum attempts');
+                } else {
+                    location.href = "student.php?page=exam";
+                }
             },
             error: function (data) {
             }

@@ -6,27 +6,32 @@
             <div class="row fill_height">
                 <div class="col fill_height">
                     <div class="examForm">
-                    <form action="#" method="post" id="formExam">
-                        <div class="counter_form">
-                            <div class="counter_form_title">Question:</div>
-                            <input type="hidden" id="hash" value="<?= $_SESSION['hash']; ?>">
-                            <div><p class="col-6" id="question"></p></div>
+                    <form method="post" id="formExam">
+                        <div class="counter_form_title">Question:</div>
+                        <input type="hidden" id="hash" value="<?= $_SESSION['hash']; ?>">
+                        <div><p class="col-9" id="question"></p></div>
+                        <div id="booleanChoice">
                             <div>
                                 <input type="radio" name="radioChoice" id="radioChoice" value="0"><span id="choice0"></span>
                             </div>
                             <div>
                                 <input type="radio" name="radioChoice" id="radioChoice" value="1"><span id="choice1"></span>
                             </div>
+                        </div>
+                        <div id="multipleChoice">
                             <div>
                                 <input type="radio" name="radioChoice" id="radioChoice" value="2"><span id="choice2"></span>
                             </div>
                             <div>
                                 <input type="radio" name="radioChoice" id="radioChoice" value="3"><span id="choice3"></span>
                             </div>
-                            <button type="submit" id="back">Back</button>
-                            <button type="submit" id="next">Next</button>
-                            <button id="finish">Finish</button>
                         </div>
+                        <div id="essayChoice">
+                            <textarea id="essayAnswer" style="height: 20vh; width: 45vw;"></textarea>
+                        </div>
+<!--                        <button type="submit" id="back">Back</button>-->
+                        <button type="submit" id="next">Next</button>
+                        <button type="submit" id="finish">Finish</button>
                     </form>
                     </div>
                 </div>

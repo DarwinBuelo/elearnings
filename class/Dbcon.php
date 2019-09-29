@@ -40,15 +40,17 @@ class Dbcon
         $this->close();
     }
 
-    public static function update($table, array $data, array $where)
+    public static function update($table, $data, $where = [])
     {
         $sql = "UPDATE {$table} SET ";
+        $x = 1;
         foreach ($data as $key => $value) {
-            if ($key === array_key_last($data)) {
+            if ($x === count($data)) {
                 $sql .= " {$key} = '{$value}' ";
             } else {
                 $sql .= " {$key} = '{$value}', ";
             }
+            $x++;
         }
         $sql .= "WHERE true ";
         foreach ($where as $key => $value) {
@@ -90,7 +92,7 @@ class Dbcon
         }
     }
 
-    public function fetch_all_assoc($object)
+    public static function fetch_all_assoc($object)
     {
         //handle database object
         if (!empty($object)) {

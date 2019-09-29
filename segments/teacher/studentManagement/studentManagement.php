@@ -29,7 +29,6 @@ $Students = $User->getStudents();
                                             $html .= "<td>{$Student->getStudentID()}</td>";
                                             $html .= "<td><a href='teacher.php?page=studentProfile&sid={$Student->getStudentID()}'>{$Student->getStudentName()}</a></td>";
                                             $html .= "<td>{$CourseObj->getCourseName()}</td>";
-
                                             print $html;
                                         }
                                     }
