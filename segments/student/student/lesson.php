@@ -13,13 +13,18 @@ $lessons = $course->getLessons();
                 <div class="list-group list-group-flush mt-4">
 
                     <?php
-                    $html = null;
+                    $html = [];
                     foreach ($lessons as $lesson) {
-                        $html .= "<a class='list-group-item list-group-item-action' href='student.php?page=lessonDetails&lid={$lesson->getLessonID()}'>{$lesson->getTitle()}";
-                        $html .= "<h6 class='text-black-50'><i>{$lesson->getOverView()}</i></h6></a>";
-                        $html .= "<button class='btn btn-success' style='float: right;' id='submit'>Take Exam</button>";
+                        $html[] = "<a class='list-group-item list-group-item-action' href='student.php?page=lessonDetails&lid={$lesson->getLessonID()}'>{$lesson->getTitle()}";
+                        $html[] = "<h6 class='text-black-50'><i>{$lesson->getOverView()}</i></h6></a>";
+                        $examID = Exam::isExamDate($lesson->getLessonID());
+                        if (!empty($examID)) {
+                            $html[] = "<button class='btn btn-success' style='float: right;' value='".$examID."' id='submit'>Take Exam</button>";
+                        } else {
+                            $html[] = "<button class='btn btn-dark' style='float: right;' id='submit' disabled>Take Exam</button>";
+                        }
                     }
-                    echo $html;
+                    echo implode('', $html);
                     ?>
                 </div>
             </div>
@@ -29,6 +34,23 @@ $lessons = $course->getLessons();
 </div>
 <script type="text/javascript">
     document.getElementById("submit").onclick = function () {
-        location.href = "segments/student/exam/examHtml.php";
+        jQuery.ajax({
+            cache: false,
+            type: "post",
+            url: "common/ajax/examSession.php",
+            data: {
+                examID: jQuery("#submit").val()
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data == false) {
+                    alert('Already reached maximum attempts');
+                } else {
+                    location.href = "student.php?page=exam";
+                }
+            },
+            error: function (data) {
+            }
+        });
     };
 </script>

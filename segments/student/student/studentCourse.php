@@ -18,8 +18,8 @@ $courses = $user->getCoursesEnrolled();
                                     <div class="course">
                                         <div class="course_image text-center"><img src="images/upload/<?= $fImage; ?>" alt="" ></div>
                                         <div class="course_body">
-                                            <h3 class="course_title"><a
-                                                        href="course.php?courseID=<?= $Course->getCourseID(); ?>"><?= $Course->getCourseName(); ?></a>
+                                            <h3 class="course_title">
+                                                <a href="course.php?courseID=<?= $Course->getCourseID(); ?>"><?= $Course->getCourseName(); ?></a>
                                             </h3>
                                             <div class="course_teacher"><?= 'test' ?></div>
                                             <div class="course_text">

@@ -1,0 +1,9 @@
+.examForm {
+    background-color: grey;
+    width: 50vw;
+    margin: auto;
+    min-height: 500px;
+    position: fixed;
+    top: 61px;
+    left: 22vw; 
+}   

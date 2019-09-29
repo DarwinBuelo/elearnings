@@ -1,0 +1,1 @@
+ALTER TABLE `student_exam` ADD `start_time` DATETIME NOT NULL AFTER `exam_id`, ADD `end_time` DATETIME NOT NULL AFTER `start_time`;

@@ -9,6 +9,7 @@ $sceditorJS = [
 ];
 $adminOutline->addCSS('lib/minified/themes/default.min.css');
 $adminOutline->addJS($sceditorJS);
+$adminOutline->addJS('common/js/exam.js');
 $adminOutline->header('Student Panel');
 
 $page = Util::getParam('page');
@@ -35,6 +36,9 @@ if (isset($page)) {
             break;
         case 'lessonDetails':
             require 'segments/student/student/lessonDetails.php';
+            break;
+        case 'exam':
+            require 'segments/student/exam/exam.php';
             break;
         default:
             require 'segments/student/dashboard/dashboard.php';

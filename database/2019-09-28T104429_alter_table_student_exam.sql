@@ -1,0 +1,1 @@
+ALTER TABLE `student_exam` CHANGE `start_time` `start_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;

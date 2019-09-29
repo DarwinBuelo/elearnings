@@ -20,6 +20,8 @@ class ExamInterface
     const TABLE_NAME = 'exams';
     const TABLE_NAME_QUESTIONS = 'exams_questions';
     const TABLE_LESSON = 'lessons';
+    const TABLE_STUDENT_EXAM = 'student_exam';
+    const TABLE_STUDENT_EXAM_ANSWER = 'student_exam_answer';
 
     public static function loadArray(array $eids = null, $archived = false)
     {
@@ -111,11 +113,11 @@ class ExamInterface
         return Dbcon::fetch_all_assoc($result);
     }
 
-    public static function isExamDate($lessonID)
+    public static function isExamDate($lessonID = null)
     {
         $sql = "
             SELECT
-                e.*
+                e.exam_id
             FROM
                 ".static::TABLE_NAME." e
             INNER JOIN
@@ -124,8 +126,14 @@ class ExamInterface
                e.lesson_id = l.lesson_id
             INNER JOIN
                 ".static::TABLE_NAME_QUESTIONS." eq
+            ON
+                e.exam_id = eq.exam_id
             WHERE
-                TRUE
+                e.exam_date
+            BETWEEN
+                e.exam_date AND now()
+            AND
+                now() < e.exam_due
         ";
         if (!empty($lessonID)) {
             $sql .= "
@@ -133,11 +141,16 @@ class ExamInterface
                     e.lesson_id = {$lessonID}
             ";
         }
+        $sql .= "
+            GROUP BY
+                e.exam_id
+        ";
         $result = Dbcon::execute($sql);
-        return Dbcon::fetch_all_assoc($result);
+        $return = Dbcon::fetch_assoc($result)['exam_id'];
+        return (!empty($return) ? $return : false);
     }
 
-    public static function getExamDetails($examID, $examQuestionID = null, $examType = null, $lessonID = null)
+    public static function getExamDetails($examID = null, $examQuestionID = null, $examType = null, $lessonID = null)
     {
         $sql = "
             SELECT
@@ -155,8 +168,14 @@ class ExamInterface
             ON
                 e.exam_id = eq.exam_id
             WHERE
-                e.exam_id = {$examID}
+                TRUE
         ";
+        if (!empty($examID)) {
+            $sql .= "
+                AND
+                    e.exam_id = {$examID}
+            ";
+        }
         if (!empty($examQuestionID)) {
             $sql .= "
                 AND
@@ -175,8 +194,169 @@ class ExamInterface
                     e.lesson_id = {$lessonID}
             ";
         }
+        $sql .= "
+            ORDER BY
+                eq.exam_type desc
+        ";
         $result = Dbcon::execute($sql);
         return Dbcon::fetch_all_assoc($result);
+    }
+
+    public static function getScore($studentID = null)
+    {
+        $sql = "
+            SELECT
+                sum(eq.points) as score
+            FROM
+                ".self::TABLE_NAME_QUESTIONS." eq
+            INNER JOIN
+                ".self::TABLE_STUDENT_EXAM_ANSWER." ea
+            ON
+                ea.exams_questions_id = eq.exams_questions_id
+            INNER JOIN
+                ".self::TABLE_STUDENT_EXAM." se
+            ON
+                se.student_exam_id = ea.student_exam_id
+            WHERE
+                ea.status = 1
+         ";
+        if (!empty($studentID)) {
+            $sql .= "
+                AND
+                    se.student_id = {$studentID}
+            ";
+        }
+        $result = Dbcon::execute($sql);
+        $return = Dbcon::fetch_assoc($result)['score'];
+        return $return;
+    }
+
+    public static function getAttempts($studentID)
+    {
+        if (self::studentExist($studentID) == false) {
+            return true;
+        } else {
+            $sql = "
+                SELECT
+                    e.attempts
+                FROM
+                    ".self::TABLE_NAME." e
+                INNER JOIN
+                    ".self::TABLE_STUDENT_EXAM." se
+                ON
+                    e.exam_id = se.exam_id
+                WHERE
+                    se.student_id = {$studentID}
+                AND
+                    e.attempts >= se.attempts
+            ";
+            $result = Dbcon::execute($sql);
+            $return = Dbcon::fetch_assoc($result)['attempts'];
+            return (!empty($return) ? true : false);
+        }
+    }
+
+    public static function getPassingScore($examID)
+    {
+        $sql = "
+            SELECT
+                e.passing_score
+            FROM
+                ".self::TABLE_NAME." e
+            WHERE
+                exam_id = {$examID}
+        ";
+        $result = Dbcon::execute($sql);
+        return Dbcon::fetch_assoc($result)['passing_score'];
+    }
+
+    public static function resetExam($studentExamID)
+    {
+        Dbcon::delete(self::TABLE_STUDENT_EXAM_ANSWER, $studentExamID);
+    }
+
+    public static function studentExist($studentID)
+    {
+        $sql = "
+            SELECT
+                student_exam_id
+            FROM
+                ".self::TABLE_STUDENT_EXAM."
+            WHERE
+                student_id = {$studentID}
+        ";
+        $result = Dbcon::execute($sql);
+        $return = Dbcon::fetch_assoc($result)['student_exam_id'];
+        return (!empty($return) ? $return : false);
+    }
+
+    public static function incrementAttempts($studentExamID)
+    {
+        $sql = "
+            UPDATE
+                ".self::TABLE_STUDENT_EXAM."
+            SET
+                attempts = attempts + 1
+            WHERE
+                student_exam_id = {$studentExamID}
+        ";
+        Dbcon::execute($sql);
+    }
+
+    public static function getStudentAnalysis($studentID)
+    {
+        $sql = "
+            SELECT
+                se.student_exam_id,
+                se.student_id,
+                se.exam_id,
+                se.start_time,
+                se.end_time,
+                se.score,
+                se.attempts,
+                se.remarks,
+                l.title as lessonTitle,
+                e.title as examTitle,
+                e.items
+            FROM
+                ".self::TABLE_STUDENT_EXAM." se
+            INNER JOIN
+                ".self::TABLE_NAME." e
+            ON
+                e.exam_id = se.exam_id
+            INNER JOIN
+                ".self::TABLE_LESSON." l
+            ON
+                l.lesson_id = e.lesson_id
+            WHERE
+                se.student_id = {$studentID}
+        ";
+        $result = Dbcon::execute($sql);
+        return Dbcon::fetch_all_assoc($result);
+    }
+
+    public static function updateStudentExam($data, $where = [])
+    {
+        $sql = "
+            UPDATE
+                ".self::TABLE_STUDENT_EXAM."
+            SET
+                end_time = now(),
+        ";
+        $x = 1;
+        foreach ($data as $key => $value) {
+            if ($x === count($data)) {
+                $sql .= " {$key} = '{$value}' ";
+            } else {
+                $sql .= " {$key} = '{$value}', ";
+            }
+            $x++;
+        }
+        $sql .= "WHERE true ";
+        foreach ($where as $key => $value) {
+            $sql .= " AND {$key} = '{$value}'";
+        }
+        Dbcon::execute($sql);
     }
 
     public static function getExamTypes($examType = null)
@@ -196,7 +376,7 @@ class ExamInterface
             }
         } else {
             $data = [
-                self::EXAM_TYPE_ESSAY => "Essay",
+//                self::EXAM_TYPE_ESSAY => "Essay",
                 self::EXAM_TYPE_BOOLEAN => "Boolean",
                 self::EXAM_TYPE_MULTIPLE_CHOICE => "Multiple Choice"
             ];

@@ -27,7 +27,7 @@ if (Util::getParam('save')) {
     if ($examType != 1) {
         $answer = (!empty(Util::getParam('answer')) ? Util::getParam('answer') : Util::getParam('booleanAnswer'));
     }
-    $choices = ($examType == 3 ? implode(', ', Util::getParam('choices')) : '');
+    $choices = ($examType == 3 ? implode('//', Util::getParam('choices')) : '');
     $data = [
         'lesson_id' => Util::getParam('lessonID'),
         'exam_type' => Util::getParam('examType'),
