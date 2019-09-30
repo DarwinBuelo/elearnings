@@ -69,7 +69,6 @@ jQuery(window).load(function () {
             },
             dataType: "json",
             success: function (questionDetails) {
-                console.log(questionDetails);
                 jQuery("#chooseQuestion").append("<option value='" + questionDetails.examQuestionID + "'>" + questionDetails.question + "</option>");
                 clearText();
             },
@@ -89,7 +88,7 @@ jQuery(window).load(function () {
                 teacherID: jQuery("#teacherID").val(),
                 duration: jQuery("#duration").val(),
                 items: jQuery("#items").val(),
-                title: jQuery("#title").val(), //add
+                title: jQuery("#title").val(), 
                 attempts: jQuery("#attempts").val(),
                 passingScore: jQuery("#passingScore").val(),
                 examDate: jQuery("#examDate").val(),

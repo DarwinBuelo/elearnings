@@ -196,7 +196,7 @@ class ExamInterface
         }
         $sql .= "
             ORDER BY
-                eq.exam_type desc
+                RAND()
         ";
         $result = Dbcon::execute($sql);
         return Dbcon::fetch_all_assoc($result);
