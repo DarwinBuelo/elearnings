@@ -19,7 +19,7 @@
                             <label >Address</label>
                             <input type="text" class="counter_input" name="address" required>
                             <label >Contact No</label>
-                            <input type="text" class="counter_input" name="contact" required>
+                            <input type="number" class="counter_input" name="contact" required>
                             <label >Grade Level</label>
                             <input type="text" class="counter_input" name="gradeLevel">
                             <label >Birthday (dd/MM/yyyy)</label>
