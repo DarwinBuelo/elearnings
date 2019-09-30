@@ -2,5 +2,5 @@
 require 'init.php';
 $Outline->loadJS();
 
-$courses = Exam::getStudentAnalysis('20190917150904');
+$courses = Course::LoadArray();
 Util::debug($courses);
