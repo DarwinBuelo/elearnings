@@ -27,8 +27,6 @@ $courses = Course::LoadArray();
                         <div class="container">
                             <div class="row">
                                 <div class="col text-center">
-                                    <div class="home_slider_title"><?= $Course->getCourseName(); ?></div>
-                                    <div class="home_slider_subtitle">unleash every child's GENIUS</div>
                                     <div class="home_slider_form_container">
                                     </div>
                                 </div>

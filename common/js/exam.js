@@ -28,6 +28,10 @@ jQuery(window).load(function() {
             answer.push([examDetails[index].exams_questions_id, item, jQuery("#choice" + radioIndex).html(), examDetails[index].answer]);
             if (index == Object.keys(examDetails).length - 1) {
                 jQuery("#next").hide();
+                jQuery("#question").hide();
+                jQuery("#questionTitle").hide();
+                jQuery("#multipleChoice").hide();
+                jQuery("#booleanChoice").hide();
                 jQuery("#finish").show();
             } else {
                 index++;
@@ -61,6 +65,9 @@ jQuery(window).load(function() {
             },
             dataType: "json",
             success: function (result) {
+                if (result.score == null) {
+                    result.score = 0;
+                }
                 alert("Your Score is: "+result.score+"\nRemarks: "+result.remarks);
                 location.href = "student.php?page=course";
             },
@@ -105,6 +112,5 @@ jQuery(window).load(function() {
     {
         jQuery("#multipleChoice").hide();
         jQuery("#booleanChoice").hide();
-        jQuery("#essayChoice").show();
     }
 });

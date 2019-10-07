@@ -22,17 +22,22 @@ function displayFunction()
         }
     });
 }
-function editFunction()
-{
-    jQuery("form").on("submit", function (event) {
+jQuery(window).load(function () {
+    jQuery("#editQuestionContainer").hide();
+    //Edit Exam Question
+    jQuery('.btnEdit').on('click', function(event){
         event.preventDefault();
         if (jQuery("#editAnswer").prop("disabled") == true) {
+            jQuery("#editQuestion").innerHTML("testing");
+            jQuery("#editQuestionContainer").show();
             jQuery("#editAnswer").prop("disabled", false);
             jQuery("#editPoints").prop("disabled", false);
             for (var x = 0; x <= 3; x++) {
                 jQuery("#choice" + x).prop("disabled", false);
             }
         } else {
+            jQuery("#editQuestion").val("sdasd");
+            jQuery("#editQuestionContainer").hide();
             jQuery("#editAnswer").prop("disabled", true);
             jQuery("#editPoints").prop("disabled", true);
             for (var x = 0; x <= 3; x++) {
@@ -40,11 +45,10 @@ function editFunction()
             }
         }
     });
-}
-jQuery(window).load(function () {
     //Edit Exam Action
-    jQuery('#formEditExam').submit(function (e) {
+    jQuery('.btnSave').on('click', function(e){
         e.preventDefault();
+        jQuery("#editQuestionContainer").hide();
         var choices = [];
         var answer = jQuery("#answer").val();
         for (var x = 0; x <= 2; x++) {
@@ -69,8 +73,12 @@ jQuery(window).load(function () {
             },
             dataType: "json",
             success: function (questionDetails) {
-                jQuery("#chooseQuestion").append("<option value='" + questionDetails.examQuestionID + "'>" + questionDetails.question + "</option>");
-                clearText();
+                if (questionDetails.status == false) {
+                    alert("Maximum items is only "+questionDetails.items);
+                } else {
+                    jQuery("#chooseQuestion").append("<option value='" + questionDetails.examQuestionID + "'>" + questionDetails.question + "</option>");
+                    clearText();
+                }
             },
             error: function (data) {
             }
@@ -105,6 +113,11 @@ jQuery(window).load(function () {
 function exampTypeFunction()
 {
     filterChooseQuestion();
+    jQuery("#editAnswer").prop("disabled", true);
+    jQuery("#editPoints").prop("disabled", true);
+    for (var x = 0; x <= 3; x++) {
+        jQuery("#choice" + x).prop("disabled", true);
+    }
     switch (jQuery("#examType").val()) {
         case "1":
             essayContainer();
@@ -195,6 +208,7 @@ function clearEditText()
 {
     jQuery("#editAnswer").val("");
     jQuery("#editPoints").val("");
+    // jQuery("#editQuestion").val("");
     for (var x = 0; x <= 3; x++) {
         jQuery("#choice" + x).val("");
     }

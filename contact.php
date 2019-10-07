@@ -5,6 +5,7 @@ $Outline->addCSS('styles/contact.css');
 $Outline->addCSS('styles/contact_responsive.css');
 $Outline->header('Contact');
 $Outline->navigationBar('Contact');
+
 ?>
 <!-- Contact -->
 

@@ -31,28 +31,6 @@ $Outline->navigationBar('About');
 					</div>
 				</div>
 
-				<!-- About Item -->
-				<div class="col-lg-4 about_col about_col_middle">
-					<div class="about_item">
-						<div class="about_item_image"><img src="images/piagotsky2.jpg" alt=""></div>
-						<div class="about_item_title"><a href="#">Our Mission</a></div>
-						<div class="about_item_text">
-							<p>Temporary Mission.</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- About Item -->
-				<div class="col-lg-4 about_col about_col_right">
-					<div class="about_item">
-						<div class="about_item_image"><img src="images/piagotsky.jpg" alt=""></div>
-						<div class="about_item_title"><a href="#">Our Vision</a></div>
-						<div class="about_item_text">
-							<p>Temporary Vision.</p>
-						</div>
-					</div>
-				</div>
-
 			</div>
 		</div>
 	</div>

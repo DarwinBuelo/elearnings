@@ -18,8 +18,8 @@
                             <input type="text" class="counter_input" name="school">
                             <label >Address</label>
                             <input type="text" class="counter_input" name="address" required>
-                            <label >Contact No</label>
-                            <input type="number" class="counter_input" name="contact" required>
+                            <label >Contact No (Format: 63**********)</label>
+                            <input type="number" class="counter_input" name="contact" value="63" required>
                             <label >Grade Level</label>
                             <input type="text" class="counter_input" name="gradeLevel">
                             <label >Birthday (dd/MM/yyyy)</label>
@@ -44,16 +44,16 @@
                             <input type="text" class="counter_input" name="motherOccupation">
                             <label >Mother Office Address</label>
                             <input type="text" class="counter_input" name="motherOfficeAddress">
-                            <label >Mother Tel. No</label>
-                            <input type="text" class="counter_input" name="motherTelNo">
+                            <label >Mother Tel. No (Format: 63**********)</label>
+                            <input type="number" class="counter_input" name="motherTelNo" value="63">
                             <label >Father's Name</label>
                             <input type="text" class="counter_input" name="fathersName">
                             <label >Father Occupation</label>
                             <input type="text" class="counter_input" name="fatherOccupation">
                             <label >Father Office Address</label>
                             <input type="text" class="counter_input" name="fatherOfficeAddress">
-                            <label >Father Tel. No</label>
-                            <input type="text" class="counter_input" name="fatherTelNo">
+                            <label >Father Tel. N (Format: 63**********)o</label>
+                            +<input type="number" class="counter_input" name="fatherTelNo" value="63">
                             <label >No. of Siblings</label>
                             <input type="number" class="counter_input" name="noOfSiblings">
                             <label >Other Programs Being Attended In The City</label>

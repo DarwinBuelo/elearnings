@@ -41,6 +41,7 @@ $StudentAnalysis = Exam::getStudentAnalysis($sid);
                     <table id="courses" class="table table-striped table-bordered">
                         <thead>
                         <tr>
+                            <th>Date</th>
                             <th>Lesson</th>
                             <th>Exam Title</th>
                             <th>Items</th>
@@ -53,8 +54,10 @@ $StudentAnalysis = Exam::getStudentAnalysis($sid);
                         <?php
                         if (!empty($StudentAnalysis)) {
                             foreach ($StudentAnalysis as $details) {
+                                $startTime = Util::date($details['start_time']);
                                 $remarks = ($details['remarks'] == 1 ? 'Pass' : 'Failed');
                                 $html = "<tr>";
+                                $html .= "<td>{$startTime}</td>";
                                 $html .= "<td>{$details['lessonTitle']}</td>";
                                 $html .= "<td>{$details['examTitle']}</td>";
                                 $html .= "<td>{$details['items']}</td>";

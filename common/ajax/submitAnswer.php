@@ -8,6 +8,7 @@ require $path.'/init.php';
 $answer = Util::getParam('answer');
 $user = unserialize($_SESSION['user']);
 $userID = $user->getStudentID();
+$examID = $_SESSION['hash'];
 foreach ($answer as $value) {
     $status = ($value[2] == $value[3] ? 1 : 0);
     $data = [
@@ -19,7 +20,7 @@ foreach ($answer as $value) {
     ];
     Dbcon::insert(TABLE_EXAM_ANSWER, $data);
 }
-$score = Exam::getScore($userID);
+$score = Exam::getScore($userID, $examID);
 $passingSore = Exam::getPassingScore($_SESSION['hash']);
 $remarks = ($score >= $passingSore ? 1 : 0);
 $updateData = [
@@ -34,6 +35,6 @@ $result = [
     'score' => $score,
     'remarks' => $remarks
 ];
-Exam::updateStudentExam($updateData, $where);
+Exam::updateStudentExam($updateData, $where, $examID);
 echo json_encode($result);
 //EOF
