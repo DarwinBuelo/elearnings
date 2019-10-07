@@ -7,7 +7,7 @@
                 <div class="col fill_height">
                     <div class="examForm">
                     <form method="post" id="formExam">
-                        <div class="counter_form_title">Question:</div>
+                        <div class="counter_form_title" id="questionTitle">Question:</div>
                         <input type="hidden" id="hash" value="<?= $_SESSION['hash']; ?>">
                         <div><p class="col-9" id="question"></p></div>
                         <div id="booleanChoice">

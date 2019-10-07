@@ -8,8 +8,8 @@ $examID = Util::getParam('examID');
 $_SESSION['hash'] = $examID;
 $user = unserialize($_SESSION['user']);
 $userID = $user->getStudentID();
-$attempts = Exam::getAttempts($userID);
-$studentExamID = Exam::studentExist($userID);
+$attempts = Exam::getAttempts($userID, $examID);
+$studentExamID = Exam::studentExist($userID, $examID);
 if ($attempts == false) {
     $return = false;
 } else {

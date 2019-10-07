@@ -1,6 +1,5 @@
 <?php
 require 'init.php';
 $Outline->loadJS();
-
-$courses = Course::LoadArray();
-Util::debug($courses);
+$examID = Exam::studentExist(20190917150904, 14);
+Util::debug($examID);

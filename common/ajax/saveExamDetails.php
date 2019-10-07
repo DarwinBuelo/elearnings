@@ -23,36 +23,47 @@ if (Util::getParam('save')) {
     $examID = Util::getParam('examID');
     $question = Util::getParam('question');
     $examType = Util::getParam('examType');
-    $answer = '';
-    if ($examType != 1) {
-        $answer = (!empty(Util::getParam('answer')) ? Util::getParam('answer') : Util::getParam('booleanAnswer'));
+    $points = Util::getParam('points');
+    $examDetails = Exam::load($examID);
+    $currentPoints = (int) Exam::getTotalPoints($examID) + (int) $points;
+    if ((int) $currentPoints > (int) $examDetails->getPoints()) {
+        $push = [
+            'items' => $examDetails->getPoints(),
+            'status' => false
+        ];
+        echo json_encode($push);
+    } else {
+        $answer = '';
+        if ($examType != 1) {
+            $answer = (!empty(Util::getParam('answer')) ? Util::getParam('answer') : Util::getParam('booleanAnswer'));
+        }
+        $choices = ($examType == 3 ? implode('//', Util::getParam('choices')) : '');
+        $data = [
+            'lesson_id' => Util::getParam('lessonID'),
+            'exam_type' => Util::getParam('examType'),
+            'teacher_id' => $user->getID(),
+            'date_created' => date('Y-m-d'),
+            'course_id' => Util::getParam('courseID')
+        ];
+        if (empty($examID)) {
+            $examID = Dbcon::insert(TABLE_NAME, $data);
+        }
+        $dataQuestions = [
+            'exam_id' => $examID,
+            'question' => $question,
+            'choices' => $choices,
+            'answer' => $answer,
+            'exam_type' => $examType,
+            'points' => $points
+        ];
+        $examQuestionID = Dbcon::insert(TABLE_NAME_QUESTIONS, $dataQuestions);
+        $push = [
+            'examQuestionID' => $examQuestionID,
+            'question' => $question
+        ];
+        unset($dataQuestions);
+        unset($examQuestionID);
+        echo json_encode($push);
     }
-    $choices = ($examType == 3 ? implode('//', Util::getParam('choices')) : '');
-    $data = [
-        'lesson_id' => Util::getParam('lessonID'),
-        'exam_type' => Util::getParam('examType'),
-        'teacher_id' => $user->getID(),
-        'date_created' => date('Y-m-d'),
-        'course_id' => Util::getParam('courseID')
-    ];
-    if (empty($examID)) {
-        $examID = Dbcon::insert(TABLE_NAME, $data);
-    }
-    $dataQuestions = [
-        'exam_id' => $examID,
-        'question' => $question,
-        'choices' => $choices,
-        'answer' => $answer,
-        'exam_type' => $examType,
-        'points' => Util::getParam('points')
-    ];
-    $examQuestionID = Dbcon::insert(TABLE_NAME_QUESTIONS, $dataQuestions);
-    $push = [
-        'examQuestionID' => $examQuestionID,
-        'question' => $question
-    ];
-    unset($dataQuestions);
-    unset($examQuestionID);
-    echo json_encode($push);
 }
 //EOF

@@ -222,7 +222,6 @@ class Layout
             'about.php' => 'About',
             'courses.php' => 'Courses',
             'blog.php' => 'Blog',
-            '#' => 'Page',
             'contact.php' => 'Contact'
         ];
         $navigationBar = [];
@@ -300,7 +299,7 @@ class Layout
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
 							<div class="logo_container">
-								<a href="#">
+								<a href="https://login.i-ready.com/">
 									<div class="logo_text">Pia<span>Gotsky</span></div>
 								</a>
 							</div>

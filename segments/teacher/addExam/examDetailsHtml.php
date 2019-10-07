@@ -105,6 +105,10 @@
                                         <option>Choose...</option>
                                     </select>
                                 </div>
+                                <div class="form-group" id="editQuestionContainer">
+                                    <label for="editQuestion">Edit Question</label>
+                                    <textarea type="text" class="form-control" id="editQuestion" name="editQuestion"></textarea>
+                                </div>
                                 <div class="input-group mb-3" id="editAnswerContainer">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="lessonID">Answer</label>
@@ -133,8 +137,8 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <!--<button class="btn btn-primary" onclick="editFunction()" name="btnEdit">Edit</button>-->
-                            <button type="submit" class="btn btn-success">Save</button>
+                            <button class="btn btn-primary btnEdit" name="btnEdit">Edit</button>
+                            <button type="submit" class="btn btn-success btnSave">Save</button>
                         </div>
                     </div>
                 </form>

@@ -77,6 +77,20 @@ class ExamInterface
         return $exam;
     }
 
+    public static function getTotalPoints($examID)
+    {
+        $sql = "
+            SELECT
+                sum(eq.points) as totalPoints
+            FROM
+                ".self::TABLE_NAME_QUESTIONS." eq
+            WHERE
+                eq.exam_id = {$examID}
+        ";
+        $result = Dbcon::execute($sql);
+        return Dbcon::fetch_assoc($result)['totalPoints'];
+    }
+
     public static function getExams($courseID)
     {
         $sql = "
@@ -97,7 +111,7 @@ class ExamInterface
             ON
                 eq.exam_id = e.exam_id
             WHERE
-                TRUE
+                e.remove = 0
         ";
         if (!empty($courseID)) {
             $sql .= "
@@ -202,7 +216,7 @@ class ExamInterface
         return Dbcon::fetch_all_assoc($result);
     }
 
-    public static function getScore($studentID = null)
+    public static function getScore($studentID = null, $examID)
     {
         $sql = "
             SELECT
@@ -219,6 +233,8 @@ class ExamInterface
                 se.student_exam_id = ea.student_exam_id
             WHERE
                 ea.status = 1
+            AND
+                se.exam_id = {$examID}
          ";
         if (!empty($studentID)) {
             $sql .= "
@@ -231,9 +247,9 @@ class ExamInterface
         return $return;
     }
 
-    public static function getAttempts($studentID)
+    public static function getAttempts($studentID, $examID)
     {
-        if (self::studentExist($studentID) == false) {
+        if (self::studentExist($studentID, $examID) == false) {
             return true;
         } else {
             $sql = "
@@ -248,7 +264,9 @@ class ExamInterface
                 WHERE
                     se.student_id = {$studentID}
                 AND
-                    e.attempts >= se.attempts
+                    e.exam_id = {$examID}
+                AND
+                    e.attempts > se.attempts
             ";
             $result = Dbcon::execute($sql);
             $return = Dbcon::fetch_assoc($result)['attempts'];
@@ -275,7 +293,7 @@ class ExamInterface
         Dbcon::delete(self::TABLE_STUDENT_EXAM_ANSWER, $studentExamID);
     }
 
-    public static function studentExist($studentID)
+    public static function studentExist($studentID, $examID)
     {
         $sql = "
             SELECT
@@ -284,6 +302,8 @@ class ExamInterface
                 ".self::TABLE_STUDENT_EXAM."
             WHERE
                 student_id = {$studentID}
+            AND
+                exam_id = {$examID}
         ";
         $result = Dbcon::execute($sql);
         $return = Dbcon::fetch_assoc($result)['student_exam_id'];
@@ -335,7 +355,7 @@ class ExamInterface
         return Dbcon::fetch_all_assoc($result);
     }
 
-    public static function updateStudentExam($data, $where = [])
+    public static function updateStudentExam($data, $where = [], $examID)
     {
         $sql = "
             UPDATE
@@ -352,9 +372,15 @@ class ExamInterface
             }
             $x++;
         }
-        $sql .= "WHERE true ";
+        $sql .= "
+            WHERE
+                exam_id = {$examID}
+        ";
         foreach ($where as $key => $value) {
-            $sql .= " AND {$key} = '{$value}'";
+            $sql .= " 
+                AND 
+                    {$key} = '{$value}'
+            ";
         }
         Dbcon::execute($sql);
     }
