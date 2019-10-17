@@ -19,6 +19,9 @@
                     <a href="/teacher.php?page=studentManagement">
                         <i class="menu-icon fa fa-user"></i>Students
                     </a>
+                    <a href="/teacher.php?page=uploadFiles">
+                        <i class="menu-icon fa fa-user"></i>Upload Files
+                    </a>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
