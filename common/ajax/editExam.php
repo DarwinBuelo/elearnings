@@ -5,10 +5,9 @@ const TABLE_NAME = 'exams';
 const TABLE_NAME_QUESTIONS = 'exams_questions';
 
 $question = Util::getParam('editQuestion');
+$examType = Util::getParam('examType');
 $choices = Util::getParam('editChoices');
-if (!empty($choices)) {
-    $choices = implode('//', $choices);
-}
+$choices = ($examType == 3 ? implode('//', $choices) : '');
 $answer = Util::getParam('editAnswer');
 $points = Util::getParam('editPoints');
 $examQuestionID = Util::getParam('examQuestionID');
