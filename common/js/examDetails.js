@@ -11,6 +11,7 @@ function displayFunction()
         dataType: 'json',
         success: function (data) {
             var emailDetails = data[0];
+            jQuery("#editQuestion").val(emailDetails.question);
             var choices = emailDetails.choices.split("//");
             jQuery.each(choices, function (key, value) {
                 jQuery("#choice" + key).val(value);
@@ -28,21 +29,9 @@ jQuery(window).load(function () {
     jQuery('.btnEdit').on('click', function(event){
         event.preventDefault();
         if (jQuery("#editAnswer").prop("disabled") == true) {
-            jQuery("#editQuestion").innerHTML("testing");
-            jQuery("#editQuestionContainer").show();
-            jQuery("#editAnswer").prop("disabled", false);
-            jQuery("#editPoints").prop("disabled", false);
-            for (var x = 0; x <= 3; x++) {
-                jQuery("#choice" + x).prop("disabled", false);
-            }
+            enable();
         } else {
-            jQuery("#editQuestion").val("sdasd");
-            jQuery("#editQuestionContainer").hide();
-            jQuery("#editAnswer").prop("disabled", true);
-            jQuery("#editPoints").prop("disabled", true);
-            for (var x = 0; x <= 3; x++) {
-                jQuery("#choice" + x).prop("disabled", true);
-            }
+            disable();
         }
     });
     //Edit Exam Action
@@ -50,15 +39,28 @@ jQuery(window).load(function () {
         e.preventDefault();
         jQuery("#editQuestionContainer").hide();
         var choices = [];
+        var editChoices = [];
+        var url = "";
         var answer = jQuery("#answer").val();
+        var dataType = "";
         for (var x = 0; x <= 2; x++) {
             choices.push(jQuery("#examOptions" + x).val());
+        }
+        for (var x = 0; x <= 3; x++) {
+            editChoices.push(jQuery("#choice" + x).val());
+        }
+        if (jQuery("#editAnswer").prop("disabled") == false) {
+            url = "common/ajax/editExam.php";
+            dataType = "html";
+        } else {
+            url = "common/ajax/saveExamDetails.php";
+            dataType = "json";
         }
         choices.push(answer);
         jQuery.ajax({
             cache: false,
             type: "post",
-            url: "common/ajax/saveExamDetails.php",
+            url: url,
             data: {
                 examID: jQuery("#examID").val(),
                 examType: jQuery("#examType").val(),
@@ -69,15 +71,29 @@ jQuery(window).load(function () {
                 examType: jQuery("#examType").val(),
                 booleanAnswer: jQuery("#selectAnswer").val(),
                 choices: choices,
-                courseID: jQuery("#courseID").val()
+                courseID: jQuery("#courseID").val(),
+                editChoices: editChoices,
+                editAnswer: jQuery("#editAnswer").val(),
+                editPoints: jQuery("#editPoints").val(),
+                editQuestion: jQuery("#editQuestion").val(),
+                examQuestionID: jQuery("#chooseQuestion").val()
             },
-            dataType: "json",
+            dataType: dataType,
             success: function (questionDetails) {
-                if (questionDetails.status == false) {
-                    alert("Maximum items is only "+questionDetails.items);
+                if (dataType == "json") {
+                    if (questionDetails.status == false) {
+                        alert("Maximum items is only "+questionDetails.items);
+                    } else {
+                        if (questionDetails === false) {
+                            alert("Please insert answer");
+                        } else {
+                            jQuery("#chooseQuestion").append("<option value='" + questionDetails.examQuestionID + "'>" + questionDetails.question + "</option>");
+                            clearText();
+                        }
+                    }
                 } else {
-                    jQuery("#chooseQuestion").append("<option value='" + questionDetails.examQuestionID + "'>" + questionDetails.question + "</option>");
-                    clearText();
+                    disable();
+                    jQuery("#chooseQuestion").empty().append(questionDetails);
                 }
             },
             error: function (data) {
@@ -109,6 +125,26 @@ jQuery(window).load(function () {
             }
         });
     });
+
+    function disable()
+    {
+        jQuery("#editQuestionContainer").hide();
+        jQuery("#editAnswer").prop("disabled", true);
+        jQuery("#editPoints").prop("disabled", true);
+        for (var x = 0; x <= 3; x++) {
+            jQuery("#choice" + x).prop("disabled", true);
+        }
+    }
+
+    function enable()
+    {
+        jQuery("#editQuestionContainer").show();
+        jQuery("#editAnswer").prop("disabled", false);
+        jQuery("#editPoints").prop("disabled", false);
+        for (var x = 0; x <= 3; x++) {
+            jQuery("#choice" + x).prop("disabled", false);
+        }
+    }
 });
 function exampTypeFunction()
 {
