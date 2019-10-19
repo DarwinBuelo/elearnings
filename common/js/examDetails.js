@@ -80,13 +80,16 @@ jQuery(window).load(function () {
             },
             dataType: dataType,
             success: function (questionDetails) {
-                console.log(questionDetails);
                 if (dataType == "json") {
                     if (questionDetails.status == false) {
                         alert("Maximum items is only "+questionDetails.items);
                     } else {
-                        jQuery("#chooseQuestion").append("<option value='" + questionDetails.examQuestionID + "'>" + questionDetails.question + "</option>");
-                        clearText();
+                        if (questionDetails === false) {
+                            alert("Please insert answer");
+                        } else {
+                            jQuery("#chooseQuestion").append("<option value='" + questionDetails.examQuestionID + "'>" + questionDetails.question + "</option>");
+                            clearText();
+                        }
                     }
                 } else {
                     disable();
