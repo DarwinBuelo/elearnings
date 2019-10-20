@@ -22,14 +22,17 @@ if (Util::getParam('task')) {
             foreach($FilesObj as $File){
                 $html .="<div class='col-md-3 m-1 bg-flat-color-3'>";
                 $html .= "<div class='row'>";
-                $html .= "<div class='col-md-12 mt-2' style='max-height: 300px ; min-height: 300px'>";
+                $html .= "<div class='col-md-12 mt-2' style='max-height: 250px ; min-height: 250px'>";
                 if($File->getType() == "video"){
                     $html .= "<video style='width: 100% ' controls><source src='/public/video/".$File->getName()."' type='video/mp4'><video>";
                 }else{
-                    $html .= "<i>Document Icon</i>";
+                    $html .= "<img id='pdfPreview' data-id='".$File->getUploadedFileID()."' src='/images/doc.png'>";
                 }
                 $html .= "</div>";
+                $html .= "</div>";
                 $html .= "<div class='row'>";
+                $html .= "<div class='col-md-12 m-2 text-center'>";
+                $html .= "Filename : " . $File->getName();
                 $html .= "</div>";
                 $html .= "</div>";
                 $html .="</div>";

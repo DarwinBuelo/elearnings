@@ -1,0 +1,1 @@
+ALTER TABLE `uploaded_file`  ADD `owner_id` INT NOT NULL  AFTER `date_added`;
