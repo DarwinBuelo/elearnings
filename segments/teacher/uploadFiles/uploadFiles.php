@@ -21,7 +21,17 @@ if (Util::getParam('task')) {
             $html  ="";
             foreach($FilesObj as $File){
                 $html .="<div class='col-md-3 m-1 bg-flat-color-3'>";
-                $html .= "test";
+                $html .= "<div class='row'>";
+                $html .= "<div class='col-md-12 mt-2' style='max-height: 300px ; min-height: 300px'>";
+                if($File->getType() == "video"){
+                    $html .= "<video style='width: 100% ' controls><source src='/public/video/".$File->getName()."' type='video/mp4'><video>";
+                }else{
+                    $html .= "<i>Document Icon</i>";
+                }
+                $html .= "</div>";
+                $html .= "<div class='row'>";
+                $html .= "</div>";
+                $html .= "</div>";
                 $html .="</div>";
             }
             echo $html;
