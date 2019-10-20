@@ -33,7 +33,7 @@ if (Util::getParam('save')) {
         ];
         echo json_encode($push);
     } else {
-        $answer = Util::getParam('answer');
+        $answer = (!empty(Util::getParam('answer')) ? Util::getParam('answer') : Util::getParam('booleanAnswer'));
         if (!empty($answer)) {
             if ($examType != 1) {
                 $answer = (!empty(Util::getParam('answer')) ? $answer : Util::getParam('booleanAnswer'));
