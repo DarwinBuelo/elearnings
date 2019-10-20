@@ -1,10 +1,8 @@
 <?php
+
+// please Increase the max upload size of the php.ini to 200M
 $task = Util::getParam('task');
-echo "task";
 
-
-$pdfLocation = '/public/pdf';
-$videoLocation = 'public/video';
 $videoExt = ['mp4', 'avi'];
 $docsExt = ['pdf'];
 $acceptedFileExt = array_merge($videoExt, $docsExt);
@@ -15,11 +13,10 @@ if (in_array($ext, $acceptedFileExt)) {
     if (in_array($ext, $videoExt)) {
         $fileClass = 'video';
         $path = 'public/video';
-    } elseif (in_array($ext, $fileExt)) {
+    } elseif (in_array($ext, $acceptedFileExt)) {
         $fileClass = 'docs';
-        $path = '/public/pdf';
+        $path = 'public/pdf';
     }
-
     if (isset($path)) {
         $Uploader = new Upload($fileToUpload);
         if ($fileClass == 'video') {
@@ -27,17 +24,17 @@ if (in_array($ext, $acceptedFileExt)) {
         } elseif ($fileClass == 'docs') {
             $Uploader->file_new_name_body = "Doc";
         }
-
         if ($Uploader->uploaded) {
             $Uploader->Process($path);
-            if ($videoUp->processed) {
+            if ($Uploader->processed) {
                 //upload success
-                $file = new FileManager($Uploader->file_dst_name,$fileClass);
+                echo  $Uploader->file_dst_name;
+                $file = FileManager::CreateFile($Uploader->file_dst_name,$fileClass);
             } else {
-                echo 'error : '.$videoUp->log;
+                echo 'error : '.$Uploader->log;
             }
         }
     }
 } else {
-    echo 'unssupported file format';
+    echo 'unsupported file format';
 }

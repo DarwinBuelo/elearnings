@@ -15,14 +15,23 @@ if (Util::getParam('task')) {
 
 <!-- List of uploaded Files -->
 <div class="row bg-white">
-    <div class="col-md-12">
-        This will be the list of files on the folders
+    <div class="col-md-12 text-center align-content-center">
+        <?php
+            $FilesObj = FileManager::LoadArray();
+            $html  ="";
+            foreach($FilesObj as $File){
+                $html .="<div class='col-md-3 m-1 bg-flat-color-3'>";
+                $html .= "test";
+                $html .="</div>";
+            }
+            echo $html;
+        ?>
     </div>
 </div>
 
-<div class="modal myModal" tabindex="-1" role="dialog" >
+<div class="modal myModal" tabindex="-1" role="dialog" style="background: #0000007a">
     <div class="modal-dialog" role="document">
-        <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>?page=uploadFiles" enctype="multipart/form-data">
+        <form id="uploadModalForm" method="post" action="<?= $_SERVER['PHP_SELF']; ?>?page=uploadFiles" enctype="multipart/form-data">
             <input type="hidden" name="task" value="true">
             <div class="modal-content">
                 <div class="modal-header">
@@ -52,6 +61,7 @@ if (Util::getParam('task')) {
 
         // modal hide
         jQuery('[id=uploadTriggerModalClose]').click(function(){
+            jQuery('#uploadModalForm').trigger("reset");
             jQuery('.modal').fadeOut();
         });
 

@@ -9,17 +9,21 @@ class FileManager
     protected $type;
     protected $dateAdded;
 
-    function __construct($fileName,$type){
+    public static function CreateFile($fileName,$type){
         $data = ['name'=>$fileName, 'type'=>$type];
-        $id  = DBcon::insert(static::TABLE_NAME,$data);
+        $id  = DBcon::insert(self::TABLE_NAME ,$data);
         if($id){
-            $this->setUploadedFileID($id);
-            $this->setName($fileName);
-            $this->setType($type);
-            $this->setDateAdded(date('Y-m-d H:i:s'));
+            $new = new static();
+            $new->setUploadedFileID($id);
+            $new->setName($fileName);
+            $new->setType($type);
+            $new->setDateAdded(date('Y-m-d H:i:s'));
+            return $new;
         }
-        
+        return false;
     }
+
+
 
     public static function LoadArray(array $fileIDs = null)
     {
