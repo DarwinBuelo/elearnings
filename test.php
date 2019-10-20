@@ -1,5 +1,5 @@
 <?php
 require 'init.php';
-$Outline->loadJS();
-$examID = Exam::studentExist(20190917150904, 14);
-Util::debug($examID);
+
+$file = FileManager::Load(8);
+Util::debug($file->getOwnersName());

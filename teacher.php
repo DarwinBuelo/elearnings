@@ -50,6 +50,9 @@ if ($user) {
                 case 'studentProfile':
                     require 'segments/teacher/studentManagement/studentProfile.php';
                     break;
+                case 'uploadFiles':
+                    require 'segments/teacher/uploadFiles/uploadFiles.php';
+                    break;
                 default:
                     require 'segments/teacher/dashboard/dashboard.php';
                     break;
