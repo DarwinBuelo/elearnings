@@ -25,6 +25,7 @@ class Lesson extends LessonInterface
             '~\[url\]((?:ftp|https?)://[^"><]*?)\[/url\]~s',
             '~\[img width=(.*?) height=(.*?)\](https?://[^"><]*?\.(?:jpg|jpeg|gif|png|bmp))\[/img\]~s',
             '~\[img\](https?://[^"><]*?\.(?:jpg|jpeg|gif|png|bmp))\[/img\]~s',
+            '~\[youtube\](.*?)\[/youtube\]~s',
             '~\[font=([^"><]*?)\](.*?)\[/font\]~s',
             '~\[hr]~s',
              '~\[right\](.*?)\[/right\]~s',
@@ -43,6 +44,7 @@ class Lesson extends LessonInterface
             '<a href="$1">$1</a>',
             '<img width="$1" height="$2" src="$3" alt="" />',
             '<img src="$1" alt="" />',
+            '<iframe width="420" height="315" src="https://www.youtube.com/embed/$1?wmode=opaque" ></iframe>',
             '<font face="$1">$2</font>',
             '<hr>',
             '<div align="right">$1</div>'
