@@ -22,6 +22,7 @@ class ExamInterface
     const TABLE_LESSON = 'lessons';
     const TABLE_STUDENT_EXAM = 'student_exam';
     const TABLE_STUDENT_EXAM_ANSWER = 'student_exam_answer';
+    const TABLE_REGISTERED_USER = 'registered_user';
 
     public static function loadArray(array $eids = null, $archived = false)
     {
@@ -337,7 +338,8 @@ class ExamInterface
                 se.remarks,
                 l.title as lessonTitle,
                 e.title as examTitle,
-                e.items
+                e.items,
+                ru.contact_no
             FROM
                 ".self::TABLE_STUDENT_EXAM." se
             INNER JOIN
@@ -348,6 +350,10 @@ class ExamInterface
                 ".self::TABLE_LESSON." l
             ON
                 l.lesson_id = e.lesson_id
+            INNER JOIN
+                ".self::TABLE_REGISTERED_USER." ru
+            ON
+                ru.student_id = se.student_id
             WHERE
                 se.student_id = {$studentID}
         ";

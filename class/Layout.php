@@ -221,7 +221,8 @@ class Layout
             'index.php' => 'Home',
             'about.php' => 'About',
             'courses.php' => 'Courses',
-            'blog.php' => 'Blog',
+            'blog.php' => 'Gallery',
+            'https://login.i-ready.com/' => 'i-Ready',
             'contact.php' => 'Contact'
         ];
         $navigationBar = [];
@@ -274,7 +275,7 @@ class Layout
 									<li><div class="question">Have any questions?</div></li>
 									<li>
 										<i class="fa fa-phone" aria-hidden="true"></i>
-										<div>742-6741</div>
+										<div>742-6741 / 09189355105 / 09275071406</div>
 									</li>
 									<li>
 										<i class="fa fa-envelope-o" aria-hidden="true"></i>
@@ -299,7 +300,7 @@ class Layout
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
 							<div class="logo_container">
-								<a href="https://login.i-ready.com/">
+								<a href="#">
 									<div class="logo_text">Pia<span>Gotsky</span></div>
 								</a>
 							</div>

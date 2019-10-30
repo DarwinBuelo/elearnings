@@ -60,8 +60,8 @@
                             <input type="text" class="counter_input" name="otherProgram">
                             <label >Suggestions</label>
                             <textarea style="height: 20vh;" class="counter_input" name="suggestions"> </textarea>
-                            <label >Others</label>
-                            <input type="text" class="counter_input" name="others">
+                            <label >How did you find us?</label>
+                            <textarea style="height: 20vh;" class="counter_input" name="others"> </textarea>
                         <button type="submit" name="register" class="counter_form_button">submit now</button>
                         </div>
                     </form>
