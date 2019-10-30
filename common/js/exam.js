@@ -36,8 +36,8 @@ jQuery(window).load(function() {
             } else {
                 index++;
                 item++;
+                displayQuestion();
             }
-            displayQuestion();
             jQuery("input:radio").attr("checked", false);
         }
     });

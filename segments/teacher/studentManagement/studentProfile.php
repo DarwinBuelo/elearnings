@@ -48,6 +48,7 @@ $StudentAnalysis = Exam::getStudentAnalysis($sid);
                             <th>Score</th>
                             <th>Remarks</th>
                             <th>Attempt/s</th>
+                            <th>Contact No</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -64,6 +65,7 @@ $StudentAnalysis = Exam::getStudentAnalysis($sid);
                                 $html .= "<td>{$details['score']}</td>";
                                 $html .= "<td>{$remarks}</td>";
                                 $html .= "<td>{$details['attempts']}</td>";
+                                $html .= "<td>{$details['contact_no']}</td>";
                                 print $html;
                             }
                         } else {
