@@ -22,6 +22,7 @@ $StudentAnalysis = Exam::getStudentAnalysis($sid);
                         <li><p><span class="fa fa-address-book" style="width:30px;"></span><?= $Student->getAddress()?></p></li>
                         <li><p><span class="fa fa-graduation-cap" style="width:30px;"></span><?= $Student->getSchool()?></p></li>
                         <li><p><span class="fa fa-child" style="width:30px;"></span><?= $Student->getAge()?> yrs old</p></li>
+                        <li><p><span class="fa fa-phone" style="width:30px;"></span><?= $Student->getContactNo()?></p></li>
                     </ul>
                     <hr>
                     <div class="col-sm-5 col-xs-6 tital " >Date Of Joining: <?= Util::date($Student->getDate())?></div>
@@ -48,7 +49,6 @@ $StudentAnalysis = Exam::getStudentAnalysis($sid);
                             <th>Score</th>
                             <th>Remarks</th>
                             <th>Attempt/s</th>
-                            <th>Contact No</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -65,7 +65,6 @@ $StudentAnalysis = Exam::getStudentAnalysis($sid);
                                 $html .= "<td>{$details['score']}</td>";
                                 $html .= "<td>{$remarks}</td>";
                                 $html .= "<td>{$details['attempts']}</td>";
-                                $html .= "<td>{$details['contact_no']}</td>";
                                 print $html;
                             }
                         } else {
