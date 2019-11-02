@@ -43,58 +43,17 @@ if(isset($user)&& !empty($user)){
             }else{
                 $_SESSION['message'][$openHash] = ['result'=>'failed','message'=>'Error in Enrolling to a course'];
             }
+        case 'exportData':
+            $sid = Util::getParam('sid');
+            $data = unserialize($_SESSION['ExportData'][$sid]);
+            unset($_SESSION['ExportData'][$sid] );
+            $filename = date('YmdHis');
+            $file = fopen("public/{$filename}.csv", 'w');
+            foreach ($data as $row){
+                fputcsv($file,$row);
+            }
+            fclose($file);
+            echo "public/{$filename}.csv";
+            break;
     }
 }
-
-
-
-/**
- *
- *
- *
- * $videoUp = new Upload($_FILES['file-0']);
-$videoUp->file_new_name_body = "dclcwqVid";
-$title = $_POST['title'];
-$linkToContent = $_POST['linkto'];
-
-//get the id of the word link to the video
-$linkList = $c->select('content','title',$linkToContent);
-
-$linkContentId =$linkList[0]['id'];
-
-$thumb = new Upload($_POST['thumb']);
-$thumb->file_new_name_body = 'thumb';
-
-if($videoUp->uploaded){
-if($thumb->uploaded){
-$videoUp->Process('media/video');
-$thumb->Process('media/video/thumbnail');
-if($videoUp->processed){
-if($thumb->processed){
-$date = date("Y/m/d");
-$sql="INSERT INTO videocontent
-(linkToContent,title,file,thumb,created_date) VALUES
-('".$linkContentId."','".$title."','".$videoUp->file_dst_name."','".$thumb->file_dst_name."','".$date."')";
-
-return $c->execute($sql);
-
-}else{
-echo 'error: '.$thumb->log;
-}
-
-}else{
-echo 'error : '. $videoUp->log;
-}
-}
-}
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- */
