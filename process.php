@@ -126,7 +126,7 @@ if(isset($user)&& !empty($user)){
 
             }
             fclose($file);
-            echo "public/{$filename}.csv";
+            echo "public/{$filename}StudentDetails.csv";
             break;
     }
 }
