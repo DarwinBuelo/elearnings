@@ -45,7 +45,7 @@ if(isset($user)&& !empty($user)){
         case 'exportData':
             $sid = Util::getParam('sid');
             $data = unserialize($_SESSION['ExportData'][$sid]);
-            unset($_SESSION['ExportData'][$sid] );
+
             $filename = date('YmdHis');
             $file = fopen("public/{$filename}.csv", 'w');
             foreach ($data as $row){
@@ -56,7 +56,7 @@ if(isset($user)&& !empty($user)){
             break;
         case 'exportDataStudentDetails':
             $data = unserialize($_SESSION['ExportData']['studentDetails']);
-            unset($_SESSION['ExportData']['studentDetails'] );
+
             $filename = date('YmdHis');
             $file = fopen("public/{$filename}StudentDetails.csv", 'w');
             $csvHeader = [

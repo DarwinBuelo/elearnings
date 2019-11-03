@@ -66,7 +66,7 @@ $_SESSION['ExportData']['studentDetails'] = serialize($Students);
                         'task': 'exportDataStudentDetails',
                     },
                     success: function (response) {
-                        // window.open(response, '_blank');
+                        window.open(response, '_blank');
                         console.log('success ' + response);
                     },
                     error: function (response) {
