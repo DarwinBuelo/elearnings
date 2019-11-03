@@ -33,7 +33,6 @@ if(isset($user)&& !empty($user)){
             }
             break;
         case 'enrollToCourse':
-
             $cid = Util::getParam('cid');
             $uid = $user->getStudentID();
             $openHash = hash('ripemd160', Util::dateNow());
@@ -51,6 +50,80 @@ if(isset($user)&& !empty($user)){
             $file = fopen("public/{$filename}.csv", 'w');
             foreach ($data as $row){
                 fputcsv($file,$row);
+            }
+            fclose($file);
+            echo "public/{$filename}.csv";
+            break;
+        case 'exportDataStudentDetails':
+            $data = unserialize($_SESSION['ExportData']['studentDetails']);
+            unset($_SESSION['ExportData']['studentDetails'] );
+            $filename = date('YmdHis');
+            $file = fopen("public/{$filename}StudentDetails.csv", 'w');
+            $csvHeader = [
+                'Student ID',
+                'Student Name',
+                'School',
+                'Address',
+                'Contact No.',
+                'Grade Level',
+                'Birthday',
+                'Age',
+                'Email',
+                'Allergies',
+                'Program',
+                'Mother\'s Name',
+                'Mother\'s Occupation',
+                'Mother\'s Office',
+                'Mother\'s Tel No.',
+                'Father\'s Name',
+                'Father\'s Occupation',
+                'Father\'s Office Address',
+                'Father\'s Tel No',
+                'No. Of siblings',
+                'Siblings Name',
+                'Sibling Age',
+                'Sibling Grade Level',
+                'Sibling School',
+                'Other Programs Attended',
+                'Suggestions',
+                'Others',
+                'Status'
+            ];
+            fputcsv($file,$csvHeader);
+            foreach ($data as $item){
+                foreach($item as $row){
+                    $csvData = [
+                        $row->getStudentID(),
+                        $row->getStudentName(),
+                        $row->getSchool(),
+                        $row->getAddress(),
+                        $row->getContactNo(),
+                        $row->getGradeLevel(),
+                        $row->getBirthday(),
+                        $row->getAge(),
+                        $row->getEmail(),
+                        $row->getAllergies(),
+                        $row->getProgram(),
+                        $row->getMotherName(),
+                        $row->getMotherOccupation(),
+                        $row->getMotherOfficeAddress(),
+                        $row->getMotherTelNo(),
+                        $row->getFatherName(),
+                        $row->getFatherOccupation(),
+                        $row->getFatherOfficeAddress(),
+                        $row->getFatherTelNo(),
+                        $row->getNoOfSiblings(),
+                        $row->getSiblingAge(),
+                        $row->getSiblingNames(),
+                        $row->getSiblingGradeLevel(),
+                        $row->getSiblingSchool(),
+                        $row->getOtherProgramsAttended(),
+                        $row->getSuggestions(),
+                        $row->getOthers()
+                    ];
+                    fputcsv($file,$csvData);
+                }
+
             }
             fclose($file);
             echo "public/{$filename}.csv";

@@ -117,7 +117,6 @@ $StudentAnalysis = Exam::getStudentAnalysis($sid);
                     'sid' : <?= $sid ?>
                 },
                 success: function(response){
-                    window.open(response, '_blank');
                     console.log('success '+ response);
                 },
                 error : function (response){
