@@ -1,0 +1,1 @@
+ALTER TABLE `courses` ADD `time_to` TIME NOT NULL AFTER `time_from`;

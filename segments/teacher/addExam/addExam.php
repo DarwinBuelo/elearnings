@@ -4,13 +4,17 @@
  * page=courseList
  *
  */
-$submit            = Util::getParam('submit');
-$cid               = Util::getParam('cid');
-$courseName        = Util::getParam('course_name');
+$submit = Util::getParam('submit');
+$cid = Util::getParam('cid');
+$courseName = Util::getParam('course_name');
 $courseDescription = Util::getParam('course_desc');
-$courseCode        = Util::getParam('course_code');
-$units             = Util::getParam('units');
-$task              = Util::getParam('task');
+$courseCode = Util::getParam('course_code');
+$units = Util::getParam('units');
+$task = Util::getParam('task');
+$timeTo = Util::getParam('timeTo');
+$timeFrom = Util::getParam('timeFrom');
+$scheduleDate = Util::getParam('scheduleDate');
+$scheduleDate = is_array($scheduleDate) ? implode(', ', $scheduleDate) : $scheduleDate;
 $message           = null;
 $path ='images/upload';
 //switch between task
@@ -49,6 +53,9 @@ if (isset($submit) && !empty($submit)) {
         $course->setCourseCode($courseCode);
         $course->setUnits($units);
         $course->setCreatorID($user->getID());
+        $course->setScheduleDate($scheduleDate);
+        $course->setTimeTo($timeTo);
+        $course->setTimeFrom($timeFrom);
 
         $videoUp                     = new Upload($_FILES['image']);
         $videoUp->file_new_name_body = "testFile";
@@ -70,6 +77,9 @@ if (isset($submit) && !empty($submit)) {
             $courseDescription = null;
             $courseCode        = null;
             $units             = null;
+            $scheduleDate      = null;
+            $timeTo            = null;
+            $timeFrom          = null;
             $message           = ['result' => 'success', 'message' => 'Successfuly saved'];
         } else {
             $message = ['result' => 'error', 'message' => 'Failed save course'];
@@ -95,6 +105,9 @@ if (isset($submit) && !empty($submit)) {
             'course_code' => $courseCode,
             'units' => $units,
             'creator' => $user->getID(),
+            'time_from' => $timeFrom,
+            'time_to' => $timeTo,
+            'schedule_day' => $scheduleDate,
             'feature_image' => isset($fImage) ? $fImage : null,
         ];
         $result = Course::addCourse($data);
@@ -104,6 +117,9 @@ if (isset($submit) && !empty($submit)) {
             $courseDescription = null;
             $courseCode        = null;
             $units             = null;
+            $scheduleDate      = null;
+            $timeTo            = null;
+            $timeFrom          = null;
             $message           = ['result' => 'success', 'message' => 'Successfully added a course '];
         } else {
             $message = ['result' => 'error', 'message' => 'Failed added a course'];

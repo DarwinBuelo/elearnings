@@ -1,4 +1,14 @@
-
+<?php
+$week = [
+    'Sunday',
+    'Thursday',
+    'Monday',
+    'Friday',
+    'Tuesday',
+    'Saturday',
+    'Wednesday'
+];
+?>
 <!-- Modal -->
 <div class="modal fade" id="AddCourseDetails" tabindex="-1" role="dialog" aria-labelledby="AddCourseDetails"
      aria-hidden="true">
@@ -38,12 +48,30 @@
                         <input type="number" class="form-control" id="units" name="units"
                                value="<?= isset($courseUnits) ? intval($courseUnits) : null ?>" required>
                     </div>
-
+                    <label for="Sunday">Schedule Date</label>
+                    <div class="form-group">
+                    <?php
+                        foreach ($week as $day) { ?>
+                            <div class="form-group col-6">
+                                <input type='checkbox' class='form-control col-3' name='scheduleDate[]' id='scheduleDate[]' value='<?= $day; ?>'><?= $day; ?>
+                            </div>
+                    <?php } ?>
+                        <div class="form-group col-6">
+                            <input type='checkbox' class='form-control col-3' id="checkAll" name="checkAll">Check All
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="timeFrom">From</label>
+                        <input type="time" class="form-control" id="timeFrom" name="timeFrom" required>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="timeTo">To</label>
+                        <input type="time" class="form-control" id="timeTo" name="timeTo" required>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary" name="submit" value="save">Save</button>
                     </div>
-
                 </div>
             </form>
         </div>
@@ -94,6 +122,10 @@ jQuery(document).ready(function() {
     label_default: "Choose File",   // Default: Choose File
     label_selected: "Change File",  // Default: Change File
     no_label: false                 // Default: false
+  });
+
+  jQuery("#checkAll").click(function () {
+      jQuery('input:checkbox').not(this).prop('checked', this.checked);
   });
 });
 </script>

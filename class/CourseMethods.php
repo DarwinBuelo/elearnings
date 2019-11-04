@@ -77,6 +77,9 @@ class CourseMethods extends CourseInterface
         $new->setDesc($data['course_desc']);
         $new->setUnits($data['units']);
         $new->setCreatorID($data['creator']);
+        $new->setTimeFrom($data['time_from']);
+        $new->setTimeTo($data['time_to']);
+        $new->setScheduleDate($data['schedule_day']);
         $new->setFeatureImage($data['feature_image']);
         $new->archive = $data['remove'] == 0 ? true : false;
         return $new;
