@@ -19,11 +19,6 @@ $js = [
     'lib/sufee-admin-dashboard-master/vendors/jquery/dist/jquery.min.js',
     'lib/sufee-admin-dashboard-master/vendors/popper.js/dist/umd/popper.min.js',
     'lib/sufee-admin-dashboard-master/vendors/bootstrap/dist/js/bootstrap.min.js',
-    'lib/sufee-admin-dashboard-master/vendors/chart.js/dist/Chart.bundle.min.js',
-    'lib/sufee-admin-dashboard-master/vendors/jqvmap/dist/jqvmap.min.css',
-    'lib/sufee-admin-dashboard-master/assets/js/dashboard.js',
-    'lib/sufee-admin-dashboard-master/assets/js/main.js',
-    'lib/sufee-admin-dashboard-master/vendors/datatables.net/js/jquery.dataTables.min.js',
 ];
 
 $dataTables = [
@@ -40,6 +35,7 @@ $dataTables = [
     'lib/sufee-admin-dashboard-master/assets/js/init-scripts/data-table/datatables-init.js',
     'js/validator.js',
     'js/uploadPreview.js',
+    'lib/sufee-admin-dashboard-master/vendors/chart.js/dist/Chart.js',
 ];
 
 $js = array_merge($js,$dataTables);

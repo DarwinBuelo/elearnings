@@ -3,12 +3,19 @@ $cid = Util::getParam('cid');
 if (!empty($cid)) {
     $course = Course::load($cid, $user->getID());
     ?>
+
     <div class="row">
         <div class="col-md-12 d-inline-flex p-3">
             <div class="justify-content-center align-items-center">
                 <h4 class=""><?= ucfirst($course->getCourseName()) ?> - Details</h4>
             </div>
         </div>
+            <div class="col-md-6">
+               
+            </div>
+            <div class="col-md-6">
+                <canvas id="passfailChart"></canvas>
+            </div>
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header"><h4>List of Lessons</h4></div>
@@ -47,6 +54,33 @@ if (!empty($cid)) {
     </div>
     <script>
         jQuery('#lessons').DataTable();
+
+        var ctx = document.getElementById( "passfailChart" );
+        ctx.height = 200;
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Pass", "Fail"],
+                datasets: [{
+                    label: '# of Students',
+                    data: [12, 19],
+                    backgroundColor: [
+                        '#4267b2',
+                        '#ff8282'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
     </script>
     <?php
 
