@@ -5,6 +5,7 @@ class CourseInterface
 {
 
     const EXAMS_TABLE = 'exams';
+    const TABLE_STUDENT_EXAM = 'student_exam';
 
     public $courseID;
     public $courseName;
@@ -14,6 +15,9 @@ class CourseInterface
     public $creatorID;
     public $featureImage;
     public $archive;
+    public $timeTo;
+    public $timeFrom;
+    public $scheduleDate;
 
 
 
@@ -27,6 +31,9 @@ class CourseInterface
             'course_desc' => $this->getDesc(),
             'units'       => $this->getUnits(),
             'creator'     => $this->getCreatorID(),
+            'time_from'   => $this->getTimeFrom(),
+            'time_to'     => $this->getTimeTo(),
+            'schedule_day'=> $this->getScheduleDate(),
             'feature_image'=> $this->getFeatureImage()
         ];
         $where = ['course_id'=> $this->getCourseID()];
@@ -62,6 +69,27 @@ class CourseInterface
         return $data[0];
     }
 
+    public static function getRemarksCount($courseID, $remarks)
+    {
+        $sql = "
+            SELECT
+                count(*)
+            FROM
+                ".self::TABLE_STUDENT_EXAM." se
+            INNER JOIN
+                ".self::EXAMS_TABLE." e
+            ON
+                se.exam_id = e.exam_id
+            WHERE
+                e.course_id = {$courseID}
+            AND 
+                se.remarks = {$remarks}
+        ";
+        $result = DBcon::execute($sql);
+        $data = DBcon::fetch_array($result);
+        return (int) $data[0];
+    }
+
     public function getStudents(){
         $sql = "SELECT * FROM student_course WHERE course_id ={$this->getCourseID()}";
         $result =  DBcon::execute($sql);
@@ -85,6 +113,35 @@ class CourseInterface
         return $this->archive;
     }
 
+    public function setTimeFrom($timeFrom)
+    {
+        $this->timeFrom = $timeFrom;
+    }
+
+    public function getTimeFrom()
+    {
+        return $this->timeFrom;
+    }
+
+    public function setTimeTo($timeTo)
+    {
+        $this->timeTo = $timeTo;
+    }
+
+    public function getTimeTo()
+    {
+        return $this->timeTo;
+    }
+
+    public function setScheduleDate($date)
+    {
+        $this->scheduleDate = $date;
+    }
+
+    public function getScheduleDate()
+    {
+        return $this->scheduleDate;
+    }
 
     public function getCourseID()
     {

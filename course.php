@@ -10,6 +10,7 @@ $courseID = Util::getParam('courseID');
 $Course =  Course::load($courseID);
 $teacher = $Course->getCreatorDetails();
 $lessons = $Course->getLessons();
+$schedule = explode(', ',$Course->getScheduleDate());
 ?>
 <!-- Course -->
 
@@ -52,6 +53,7 @@ $lessons = $Course->getLessons();
 							<div class="tabs d-flex flex-row align-items-center justify-content-start">
 								<div class="tab active">description</div>
 								<div class="tab">curriculum</div>
+                                <div class="tab">schedule</div>
 							</div>
 							<div class="tab_panels">
 
@@ -117,6 +119,26 @@ $lessons = $Course->getLessons();
 										</div>
 									</div>
 								</div>
+
+                                <!-- Schedule -->
+                                <div class="tab_panel tab_panel_3">
+                                    <div class="tab_panel_title">Time</div>
+                                    <div class="tab_panel_content">
+                                        <div class="tab_panel_text">
+                                            <p><?= Util::timeFormat($Course->getTimeFrom()).' - '.Util::timeFormat($Course->getTimeTo()); ?></p>
+                                        </div>
+                                        <div class="tab_panel_section">
+                                            <div class="tab_panel_subtitle">Schedule Date</div>
+                                            <ul class="tab_panel_bullets">
+                                                <?php
+                                                foreach ($schedule as $value) {
+                                                        echo "<li>{$value}</li>";
+                                                    }
+                                                ?>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
 
 							</div>
 						</div>

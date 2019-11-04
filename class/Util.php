@@ -35,6 +35,12 @@ class Util
         return $formated;
     }
 
+    public static function timeFormat($time)
+    {
+        $format = date('h:i A', strtotime($time));
+        return $format;
+    }
+
     public static function debug($data){
         echo "<pre>";
         var_dump($data);
