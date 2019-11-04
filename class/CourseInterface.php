@@ -69,6 +69,11 @@ class CourseInterface
         return $data[0];
     }
 
+    /**
+     * @param $courseID
+     * @param $remarks 1 = pass / 0 = fail
+     * @return int
+     */
     public static function getRemarksCount($courseID, $remarks)
     {
         $sql = "

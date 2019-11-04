@@ -11,7 +11,7 @@ if (!empty($cid)) {
             </div>
         </div>
             <div class="col-md-6">
-               
+
             </div>
             <div class="col-md-6">
                 <canvas id="passfailChart"></canvas>
@@ -63,7 +63,7 @@ if (!empty($cid)) {
                 labels: ["Pass", "Fail"],
                 datasets: [{
                     label: '# of Students',
-                    data: [12, 19],
+                    data: [<?= Course::getRemarksCount($cid,1) ?>, <?= Course::getRemarksCount($cid,0) ?>],
                     backgroundColor: [
                         '#4267b2',
                         '#ff8282'
