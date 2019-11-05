@@ -36,7 +36,8 @@ $css = [
     'plugins/OwlCarousel2-2.2.1/owl.theme.default.css',
     'plugins/OwlCarousel2-2.2.1/animate.css',
     'styles/main_styles.css',
-    'styles/uploadImageStyle.css'
+    'styles/uploadImageStyle.css',
+    'styles/modal.css',
 ];
 $js = [
     'js/jquery-3.2.1.min.js',

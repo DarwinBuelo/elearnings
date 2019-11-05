@@ -4,6 +4,7 @@
 $adminOutline = new Layout();
 // suffee admin default
 $css =[
+    'styles/modal.css',
     'lib/sufee-admin-dashboard-master/vendors/bootstrap/dist/css/bootstrap.min.css',
     'lib/sufee-admin-dashboard-master/vendors/font-awesome/css/font-awesome.min.css',
     'lib/sufee-admin-dashboard-master/vendors/themify-icons/css/themify-icons.css',

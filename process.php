@@ -143,5 +143,14 @@ if (isset($user) && !empty($user)) {
             }
             Util::redirect($_SERVER['HTTP_REFERER']);
             break;
+        case 'editImage':
+            $id = Util::getParam('imageID');
+            $desc = Util::getParam('desc');
+            Dbcon::update(Gallery::TABLE_NAME,['description' => $desc ],['image_id' => $id] );
+            break;
+        case 'deleteImage':
+            $id = Util::getParam('imageID');
+            Dbcon::update(Gallery::TABLE_NAME,['remove'=>'1'],['image_id'=>$id]);
+            break;
     }
 }
