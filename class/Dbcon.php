@@ -74,9 +74,10 @@ class Dbcon
         try {
             self::connect();
             mysqli_query(self::$conn, $query);
+            Util::debug($query);
             return mysqli_insert_id(self::$conn);
         } catch (Exception $e) {
-            self::$error = $e;
+            self::$error = mysqli_error(self::$conn);
             return false;
         }
     }

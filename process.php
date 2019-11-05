@@ -2,12 +2,11 @@
 /**
  *  Will handle all the process on the system
  */
-
 require 'init.php';
 
 $task = Util::getParam('task');
 $user = unserialize($_SESSION['user']);
-if(isset($user)&& !empty($user)){
+if (isset($user) && !empty($user)) {
     switch ($task) {
         case 'logout':
             session_destroy();
@@ -15,20 +14,20 @@ if(isset($user)&& !empty($user)){
             break;
 
         case 'delCourse':
-            if($user->getRoleID() == Role::ROLE_TEACHER ){
+            if ($user->getRoleID() == Role::ROLE_TEACHER) {
                 $cid = Util::getParam('cid');
                 $backLink = Util::getParam('backLink');
-                $where =['course_id '=>$cid];
-                Dbcon::delete('courses',$where);
+                $where = ['course_id ' => $cid];
+                Dbcon::delete('courses', $where);
                 Util::redirect($backLink);
             }
             break;
         case 'delLesson':
-            if($user->getRoleID() == Role::ROLE_TEACHER || $user->getRoleID() == Role::ROLE_ADMIN){
+            if ($user->getRoleID() == Role::ROLE_TEACHER || $user->getRoleID() == Role::ROLE_ADMIN) {
                 $lid = Util::getParam('lid');
                 $backLink = Util::getParam('backLink');
-                $where =['lesson_id '=>$lid];
-                Dbcon::delete('lessons',$where);
+                $where = ['lesson_id ' => $lid];
+                Dbcon::delete('lessons', $where);
                 Util::redirect($backLink);
             }
             break;
@@ -36,11 +35,11 @@ if(isset($user)&& !empty($user)){
             $cid = Util::getParam('cid');
             $uid = $user->getStudentID();
             $openHash = hash('ripemd160', Util::dateNow());
-            if(Course::EnrollTo($cid,$uid)){
-                $_SESSION['message'][$openHash] = ['result'=>'success','message'=>'Successfully Enrolled to a course'];
-                Util::redirect('student.php?message='.$openHash);
-            }else{
-                $_SESSION['message'][$openHash] = ['result'=>'failed','message'=>'Error in Enrolling to a course'];
+            if (Course::EnrollTo($cid, $uid)) {
+                $_SESSION['message'][$openHash] = ['result' => 'success', 'message' => 'Successfully Enrolled to a course'];
+                Util::redirect('student.php?message=' . $openHash);
+            } else {
+                $_SESSION['message'][$openHash] = ['result' => 'failed', 'message' => 'Error in Enrolling to a course'];
             }
         case 'exportData':
             $sid = Util::getParam('sid');
@@ -48,8 +47,8 @@ if(isset($user)&& !empty($user)){
 
             $filename = date('YmdHis');
             $file = fopen("public/{$filename}.csv", 'w');
-            foreach ($data as $row){
-                fputcsv($file,$row);
+            foreach ($data as $row) {
+                fputcsv($file, $row);
             }
             fclose($file);
             echo "public/{$filename}.csv";
@@ -89,9 +88,9 @@ if(isset($user)&& !empty($user)){
                 'Others',
                 'Status'
             ];
-            fputcsv($file,$csvHeader);
-            foreach ($data as $item){
-                foreach($item as $row){
+            fputcsv($file, $csvHeader);
+            foreach ($data as $item) {
+                foreach ($item as $row) {
                     $csvData = [
                         $row->getStudentID(),
                         $row->getStudentName(),
@@ -121,12 +120,28 @@ if(isset($user)&& !empty($user)){
                         $row->getSuggestions(),
                         $row->getOthers()
                     ];
-                    fputcsv($file,$csvData);
+                    fputcsv($file, $csvData);
                 }
-
             }
             fclose($file);
             echo "public/{$filename}StudentDetails.csv";
+            break;
+        case 'uploadGallery':
+            $path = 'images/gallery';
+            Util::debug($_FILES);
+            $fileToUpload = $_FILES['imageToUpload'];
+            $Uploader = new Upload($fileToUpload);
+            if ($Uploader->uploaded) {
+                $Uploader->Process($path);
+                if ($Uploader->processed) {
+                    $dataToInsert = ['filename' => $Uploader->file_dst_name, 'description' => Util::getParam('description'), 'remove' => 0];
+                    Dbcon::insert(Gallery::TABLE_NAME, $dataToInsert);
+                    echo 'file Uploaded';
+                } else {
+                    echo 'error : ' . $Uploader->log;
+                }
+            }
+            Util::redirect($_SERVER['HTTP_REFERER']);
             break;
     }
 }
