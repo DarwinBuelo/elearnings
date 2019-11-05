@@ -5,6 +5,7 @@ $Outline->addCSS('styles/blog.css');
 $Outline->addCSS('styles/blog_responsive.css');
 $Outline->header('Blog');
 $Outline->navigationBar('Blog');
+
 ?>
 <!-- Blog -->
 
@@ -14,23 +15,29 @@ $Outline->navigationBar('Blog');
             <div class="col">
                 <div class="blog_post_container">
 
-                    <!-- Blog Post -->
-                    <div class="blog_post trans_200">
-                        <div class="blog_post_image"><img src="images/piagotsky.jpg" alt=""></div>
-                        <div class="blog_post_body">
-                            <div class="blog_post_title"><a href="#">Here’s What You Need to Know About Piagotsky</a></div>
-                            <div class="blog_post_meta">
-                                <ul>
-                                    <li><a href="#">admin</a></li>
-                                    <li><a href="#">August 11, 2019</a></li>
-                                </ul>
-                            </div>
-                            <div class="blog_post_text">
-                                <p>-----------</p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                    // get the files
+                    $html = '';
+                    $files = Gallery::getImages();
 
+                    if (count($files) > 0) {
+                        foreach ($files as $file) {
+                            ?>
+
+                            <!-- Blog Post -->
+                            <div class="blog_post trans_200">
+                                <div class="blog_post_image"><img src="images/gallery/<?= $file['filename'] ?>" alt=""></div>
+                                <div class="blog_post_body">
+
+                                    <div class="blog_post_text">
+                                        <p><?= $file['description'] ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </div>

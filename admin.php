@@ -41,6 +41,9 @@ if ($user) {
                 case 'addExam':
                     require 'segments/admin/course/course.php';
                     break;
+                case 'uploadGallery':
+                    require 'segments/admin/gallery/gallery.php';
+                    break;
                 default:
                     require 'segments/admin/dashboard/dashboard.php';
                     break;
