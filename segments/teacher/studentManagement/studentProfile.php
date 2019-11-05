@@ -83,7 +83,7 @@ $StudentAnalysis = Exam::getStudentAnalysis($sid);
                                     $remarks,
                                     $details['attempts']
                                 ];
-                                $html = "<tr>";
+                                $html = "<tr id='details' data-id='".$details['exam_id'] ."'>";
                                 $html .= "<td>{$startTime}</td>";
                                 $html .= "<td>{$details['lessonTitle']}</td>";
                                 $html .= "<td>{$details['examTitle']}</td>";
@@ -105,6 +105,10 @@ $StudentAnalysis = Exam::getStudentAnalysis($sid);
         </div>
     </div>
 </div>
+
+<?php
+    require 'segments/teacher/studentManagement/graph.php';
+?>
 
 <script>
     jQuery(document).ready(function(){
