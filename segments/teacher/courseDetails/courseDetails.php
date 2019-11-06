@@ -10,12 +10,6 @@ if (!empty($cid)) {
                 <h4 class=""><?= ucfirst($course->getCourseName()) ?> - Details</h4>
             </div>
         </div>
-            <div class="col-md-6">
-
-            </div>
-            <div class="col-md-6">
-                <canvas id="passfailChart"></canvas>
-            </div>
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header"><h4>List of Lessons</h4></div>
@@ -55,32 +49,6 @@ if (!empty($cid)) {
     <script>
         jQuery('#lessons').DataTable();
 
-        var ctx = document.getElementById( "passfailChart" );
-        ctx.height = 200;
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Pass", "Fail"],
-                datasets: [{
-                    label: '# of Students',
-                    data: [<?= Course::getRemarksCount($cid,1) ?>, <?= Course::getRemarksCount($cid,0) ?>],
-                    backgroundColor: [
-                        '#4267b2',
-                        '#ff8282'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
     </script>
     <?php
 
