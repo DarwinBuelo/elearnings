@@ -13,67 +13,81 @@
 </div>
 
 <script>
-    
+
 
     jQuery(document).ready(function () {
         // just close the modal
         jQuery('#btnClose').click(function () {
             jQuery('#graph').fadeOut();
         });
-        
-        jQuery('[id=details]').click(function(){
+
+        jQuery('[id=details]').click(function () {
+            reset();
             jQuery.ajax({
                 url: 'process.php',
                 method: 'post',
-                data : {
-                   task : 'getDetailsExam',
-                   examID: jQuery(this).data('id'),
-                   studentID : <?= $sid?>
+                data: {
+                    task: 'getDetailsExam',
+                    examID: jQuery(this).data('id'),
+                    studentID: <?= $sid ?>
                 },
-                success: function(response){
-                    $data = JSON.parse(response);
-                    createGraph($data);
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    if (data.length > 0) {
+                        createGraph(data);
+                        jQuery('#graph').fadeIn();
+                    } else {
+                        alert('No Exam yet');
+                    }
                 },
-                error : function(response){
+                error: function (response) {
                     console.log(response);
                 }
             });
-            jQuery('#graph').fadeIn();
         });
 
     });
-    
-    function createGraph(data){
-    var ctx = document.getElementById("progressGraph");
-    var lbl = [];
-    var scores = [];
+
+    var lbl = [0];
+    var scores = [0];
     count = 0;
-    data.forEach(function(value){
-        lbl.push(count += 1);
-        scores.push(value.score);
-    });
-    
-    ctx.height = 200;
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: lbl,
-            datasets: [{
-                    label: 'Scores',
-                    data: scores,
-                    backgroundColor: '#4267b2',
-                    borderWidth: 1
-                }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
+    function reset() {
+        lbl = [];
+        scores = [];
+        count = 0;
+    }
+
+    function createGraph(data) {
+        reset();
+        var ctx = document.getElementById("progressGraph");
+        count = 0;
+        
+        data.forEach(function (value) {
+            lbl.push(count += 1);
+            scores.push(value.score);
+        });
+
+        ctx.height = 200;
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: lbl,
+                datasets: [{
+                        label: 'Scores',
+                        data: scores,
+                        backgroundColor: '#4267b2',
+                        borderWidth: 1
                     }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                }
             }
-        }
-    });
+        });
     }
 </script>
