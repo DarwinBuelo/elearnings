@@ -28,8 +28,10 @@ $lessons = $course->getLessons();
             <div class="card">
                 <div class="card-header">
                     <strong class="card-title">Exam List for the course "<?= $course->getCourseName() ?>" </strong>
-                    <button type="button" class="btn btn-success float-right" data-toggle="modal"
+                    <button type="button" class="btn btn-success float-right"  data-toggle="modal"
                             data-target="#AddExam">Add Exam
+                    </button>
+                    <button type="button" class="btn btn-primary float-right"  id="analytics" >Analytics
                     </button>
                 </div>
                 <div class="card-body">
@@ -47,9 +49,15 @@ $lessons = $course->getLessons();
                         <tbody>
                         <?php
                         $Exams = Exam::getExams($cid);
+                        $examTitle = [];
+                        $pass = [];
+                        $fail = [];
                         if ($Exams) {
                             foreach ($Exams as $exam) {
                                 //exams
+                                $pass[] = Exam::getRemarksCount($exam['exam_id'],1);
+                                $fail[] = Exam::getRemarksCount($exam['exam_id'],0);
+                                $examTitle[]=  $exam['examTitle'];
                                 $html = "<tr>";
                                 $html .= "<td>" . $exam['exam_id'] . "</td>";
                                 $html .= "<td>" . $exam['title'] . "</td>";
@@ -77,3 +85,7 @@ $lessons = $course->getLessons();
 <script>
     jQuery('#exams').DataTable();
 </script>
+
+<?php
+
+require_once 'segments/teacher/addExam/graph.php';

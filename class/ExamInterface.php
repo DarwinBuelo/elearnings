@@ -53,6 +53,27 @@ class ExamInterface
 
     }
 
+     public static function getRemarksCount($eid,$remarks)
+    {
+        $sql = "
+            SELECT
+                count(*)
+            FROM
+                ".self::TABLE_STUDENT_EXAM." se
+            INNER JOIN
+                ".self::TABLE_NAME." e
+            ON
+                se.exam_id = e.exam_id
+            WHERE
+               e.exam_id= {$eid}
+            AND
+                se.remarks = {$remarks}
+        ";
+        $result = DBcon::execute($sql);
+        $data = DBcon::fetch_array($result);
+        return (int) $data[0];
+    }
+
     public static function load($eid)
     {
         $query = "SELECT
