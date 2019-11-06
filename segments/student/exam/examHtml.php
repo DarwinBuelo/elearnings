@@ -31,11 +31,15 @@
                         </div>
 <!--                        <button type="submit" id="back">Back</button>-->
                         <button type="submit" id="next">Next</button>
-                        <button type="submit" id="finish" class="finish">Finish</button>
+                        
                     </form>
+                        <button type="button" id="finish" class="finish">Finish</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="common/js/exam.js">
+   
+</script>

@@ -9,7 +9,6 @@ $sceditorJS = [
 ];
 $adminOutline->addCSS('lib/minified/themes/default.min.css');
 $adminOutline->addJS($sceditorJS);
-$adminOutline->addJS('common/js/exam.js');
 $adminOutline->header('Student Panel');
 
 $page = Util::getParam('page');

@@ -54,12 +54,13 @@ jQuery(document).ready(function() {
     //     });
     //     jQuery("input:radio").attr("checked", false);
     // });
-    jQuery(".finish").click(function(event) {
+    jQuery("#finish").click(function(event) {
         event.preventDefault();
+        event.stopPropagation();
         jQuery.ajax({
             cache: false,
             type: "post",
-            url: "common/ajax/submitAnswer.php/",
+            url: "common/ajax/submitAnswer.php",
             data: {
                 answer : answer
             },
@@ -75,6 +76,7 @@ jQuery(document).ready(function() {
             }
         });
     });
+    
 
     function displayQuestion()
     {
