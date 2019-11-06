@@ -31,7 +31,7 @@
                         </div>
 <!--                        <button type="submit" id="back">Back</button>-->
                         <button type="submit" id="next">Next</button>
-                        <button type="submit" id="finish">Finish</button>
+                        <button type="submit" id="finish" class="finish">Finish</button>
                     </form>
                     </div>
                 </div>

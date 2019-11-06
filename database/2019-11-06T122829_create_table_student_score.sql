@@ -1,0 +1,1 @@
+CREATE TABLE `elearning`.`student_score` ( `student_score_id` INT NOT NULL AUTO_INCREMENT ,  `student_exam_id` INT NOT NULL ,  `attempt` INT NOT NULL ,  `score` INT NOT NULL ,  `remarks` INT NOT NULL ,    PRIMARY KEY  (`student_score_id`));
