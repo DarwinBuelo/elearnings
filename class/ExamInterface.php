@@ -275,6 +275,20 @@ class ExamInterface
         }
     }
 
+    public static function getStudentAttempts($studentExamID)
+    {
+        $sql = "
+            SELECT
+                attempts
+            FROM
+                ".self::TABLE_STUDENT_EXAM."
+            WHERE
+                student_exam_id = {$studentExamID}
+        ";
+        $result = Dbcon::execute($sql);
+        return Dbcon::fetch_assoc($result)['attempts'];
+    }
+
     public static function getPassingScore($examID)
     {
         $sql = "

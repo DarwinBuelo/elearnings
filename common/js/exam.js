@@ -1,4 +1,4 @@
-jQuery(window).load(function() {
+jQuery(document).ready(function() {
     var emailDetails;
     var choices = [];
     var index = 0;
@@ -54,12 +54,12 @@ jQuery(window).load(function() {
     //     });
     //     jQuery("input:radio").attr("checked", false);
     // });
-    jQuery("#finish").click(function(event) {
+    jQuery(".finish").click(function(event) {
         event.preventDefault();
         jQuery.ajax({
             cache: false,
             type: "post",
-            url: "common/ajax/submitAnswer.php",
+            url: "common/ajax/submitAnswer.php/",
             data: {
                 answer : answer
             },

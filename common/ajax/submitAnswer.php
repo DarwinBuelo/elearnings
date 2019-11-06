@@ -2,6 +2,7 @@
 
 const TABLE_EXAM_ANSWER = 'student_exam_answer';
 const TABLE_STUDENT_EXAM = 'student_exam';
+const TABLE_STUDENT_SCORE = 'student_score';
 
 $path = $_SERVER['DOCUMENT_ROOT'];
 require $path.'/init.php';
@@ -23,6 +24,8 @@ foreach ($answer as $value) {
 $score = Exam::getScore($userID, $examID);
 $passingSore = Exam::getPassingScore($_SESSION['hash']);
 $remarks = ($score >= $passingSore ? 1 : 0);
+$studentExamID = $_SESSION['studentExamID'];
+$attempt = Exam::getStudentAttempts($studentExamID);
 $updateData = [
     'score' => $score,
     'remarks' => $remarks
@@ -36,5 +39,12 @@ $result = [
     'remarks' => $remarks
 ];
 Exam::updateStudentExam($updateData, $where, $examID);
+$data = [
+    'student_exam_id' => $studentExamID,
+    'attempt' => $attempt,
+    'score' => $score,
+    'remarks' => $remarks
+];
+Dbcon::insert(TABLE_STUDENT_SCORE, $data);
 echo json_encode($result);
 //EOF
