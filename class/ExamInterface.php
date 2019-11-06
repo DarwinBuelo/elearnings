@@ -375,6 +375,28 @@ class ExamInterface
         return Dbcon::fetch_all_assoc($result);
     }
 
+    public static function getStudentGraph($examID, $studentID)
+    {
+        $sql = "
+            SELECT
+                se.exam_id,
+                sc.attempt,
+                sc.score
+            FROM
+                student_score sc
+            INNER JOIN
+                student_exam se
+            ON
+                se.student_exam_id = sc.student_exam_id
+            WHERE
+                se.exam_id = {$examID}
+            AND
+                student_id = {$studentID}
+        ";
+        $result = Dbcon::execute($sql);
+        return Dbcon::fetch_all_assoc($result);
+    }
+
     public static function updateStudentExam($data, $where = [], $examID)
     {
         $sql = "
