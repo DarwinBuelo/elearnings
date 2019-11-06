@@ -152,5 +152,10 @@ if (isset($user) && !empty($user)) {
             $id = Util::getParam('imageID');
             Dbcon::update(Gallery::TABLE_NAME,['remove'=>'1'],['image_id'=>$id]);
             break;
+        case 'getDetailsExam':
+            $examID = Util::getParam('examID');
+            $studentId = Util::getParam('studentID');
+            echo json_encode(Exam::getStudentGraph($examID,$studentId));
+            break;
     }
 }

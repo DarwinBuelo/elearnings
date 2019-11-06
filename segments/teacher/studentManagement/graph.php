@@ -13,15 +13,54 @@
 </div>
 
 <script>
+    
+
+    jQuery(document).ready(function () {
+        // just close the modal
+        jQuery('#btnClose').click(function () {
+            jQuery('#graph').fadeOut();
+        });
+        
+        jQuery('[id=details]').click(function(){
+            jQuery.ajax({
+                url: 'process.php',
+                method: 'post',
+                data : {
+                   task : 'getDetailsExam',
+                   examID: jQuery(this).data('id'),
+                   studentID : <?= $sid?>
+                },
+                success: function(response){
+                    $data = JSON.parse(response);
+                    createGraph($data);
+                },
+                error : function(response){
+                    console.log(response);
+                }
+            });
+            jQuery('#graph').fadeIn();
+        });
+
+    });
+    
+    function createGraph(data){
     var ctx = document.getElementById("progressGraph");
+    var lbl = [];
+    var scores = [];
+    count = 0;
+    data.forEach(function(value){
+        lbl.push(count += 1);
+        scores.push(value.score);
+    });
+    
     ctx.height = 200;
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["1st", "2nd", "3rd", "4th"],
+            labels: lbl,
             datasets: [{
                     label: 'Scores',
-                    data: [30, 44],
+                    data: scores,
                     backgroundColor: '#4267b2',
                     borderWidth: 1
                 }]
@@ -36,18 +75,5 @@
             }
         }
     });
-
-    jQuery(document).ready(function () {
-        // just close the modal
-        jQuery('#btnClose').click(function () {
-            jQuery('#graph').fadeOut();
-        });
-        
-        jQuery('[id=details]').click(function(){
-            console.log(jQuery(this).data('id'));
-            // ajax request the datails
-            jQuery('#graph').fadeIn();
-        });
-
-    });
+    }
 </script>

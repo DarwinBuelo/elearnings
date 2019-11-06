@@ -83,7 +83,7 @@ $StudentAnalysis = Exam::getStudentAnalysis($sid);
                                     $remarks,
                                     $details['attempts']
                                 ];
-                                $html = "<tr id='details' data-id='".$details['exam_id'] ."'>";
+                                $html = "<tr id='details' data-id='".$details['exam_id'] ." '>";
                                 $html .= "<td>{$startTime}</td>";
                                 $html .= "<td>{$details['lessonTitle']}</td>";
                                 $html .= "<td>{$details['examTitle']}</td>";
