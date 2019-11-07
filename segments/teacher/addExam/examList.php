@@ -55,8 +55,8 @@ $lessons = $course->getLessons();
                         if ($Exams) {
                             foreach ($Exams as $exam) {
                                 //exams
-                                $pass[] = Exam::getRemarksCount($exam['exam_id'],1);
-                                $fail[] = Exam::getRemarksCount($exam['exam_id'],0);
+                                $pass[] =empty(Exam::getRemarksCount($exam['exam_id'],1)) ? 0 : Exam::getRemarksCount($exam['exam_id'],0) ;
+                                $fail[] = empty(Exam::getRemarksCount($exam['exam_id'],0)) ? 0 : Exam::getRemarksCount($exam['exam_id'],0) ;
                                 $examTitle[]=  $exam['examTitle'];
                                 $html = "<tr>";
                                 $html .= "<td>" . $exam['exam_id'] . "</td>";

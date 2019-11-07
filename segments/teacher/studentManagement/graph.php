@@ -50,7 +50,7 @@
 
     var lbl = [0];
     var scores = [0];
-    count = 0;
+    var count = 0;
     function reset() {
         lbl = [];
         scores = [];
@@ -60,8 +60,6 @@
     function createGraph(data) {
         reset();
         var ctx = document.getElementById("progressGraph");
-        count = 0;
-        
         data.forEach(function (value) {
             lbl.push(count += 1);
             scores.push(value.score);
