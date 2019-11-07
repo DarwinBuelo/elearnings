@@ -50,7 +50,14 @@
             title: {
                 display: true,
                 text: 'Course Exams'
-            }
+            },
+            scales: {
+                    yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                }
         }
     });
 
