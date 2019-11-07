@@ -60,7 +60,7 @@ $lessons = $course->getLessons();
                                 $examTitle[]=  $exam['examTitle'];
                                 $html = "<tr>";
                                 $html .= "<td>" . $exam['exam_id'] . "</td>";
-                                $html .= "<td>" . $exam['title'] . "</td>";
+                                $html .= "<td id='passfail' data-id='". $exam['exam_id'] ."'>" . $exam['title'] . "</td>";
                                 $html .= "<td>" . $exam['examTitle'] . "</td>";
                                 $html .= "<td>" . $exam['items'] . "</td>";
                                 $html .= "<td>" . $exam['duration'] . " min</td>";
@@ -89,3 +89,4 @@ $lessons = $course->getLessons();
 <?php
 
 require_once 'segments/teacher/addExam/graph.php';
+require_once 'segments/teacher/addExam/passfail.php';

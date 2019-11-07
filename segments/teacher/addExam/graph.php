@@ -28,7 +28,7 @@
     var ctx = document.getElementById("progressGraph");
     ctx.height = 200;
     var labels = <?= json_encode($examTitle) ?>;
-    var pass =[];
+    var pass = [];
     var fail = [];
     new Chart(ctx, {
         type: 'bar',
@@ -52,12 +52,12 @@
                 text: 'Course Exams'
             },
             scales: {
-                    yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                }
+                yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+            }
         }
     });
 

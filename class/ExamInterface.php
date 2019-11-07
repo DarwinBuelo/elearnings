@@ -23,6 +23,27 @@ class ExamInterface
     const TABLE_STUDENT_EXAM = 'student_exam';
     const TABLE_STUDENT_EXAM_ANSWER = 'student_exam_answer';
     const TABLE_REGISTERED_USER = 'registered_user';
+    
+    public static function getExamPassFail($eid){
+        $sql = '
+            SELECT
+                e.exam_id,
+                e.score,
+                e.remarks,
+                ru.student_name
+            FROM
+                student_exam as e
+            LEFT JOIN
+                registered_user as ru
+            USING
+                (student_id)
+            WHERE
+                e.exam_id = '.$eid;
+        
+        $obj = DBcon::execute($sql);
+        
+        return DBcon::fetch_all_assoc($obj);
+    }
 
     public static function loadArray(array $eids = null, $archived = false)
     {

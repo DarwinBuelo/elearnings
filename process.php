@@ -157,5 +157,27 @@ if (isset($user) && !empty($user)) {
             $studentId = Util::getParam('studentID');
             echo json_encode(Exam::getStudentGraph($examID,$studentId));
             break;
+        case 'getExamDetailsPassFail';
+            $eid =  Util::getParam('eid');
+            $result = Exam::getExamPassFail($eid);
+            if(!empty($result)){
+                $html = '<table id="studentExamList" class="table table-striped table-bordered">';
+                $html .= '<thead><tr><th>Student</th><th>Remarks</th><th>Score</th></tr></thead><tbody>';
+                foreach($result as $row){
+                    $remarks = $row['remarks'] == 0 ? "Fail":"Pass";
+                    $html .= '<tr>';
+                    $html .= '<td>'.$row['student_name'].'</td>';
+                    $html .= '<td>'. $remarks  .'</td>';
+                    $html .= '<td>'.$row['score'].'</td>';
+                    $html .= '</tr>';
+                }
+                $html .= '</tbody></table>';
+            }
+            else{
+                $html = "No Record Found";
+            }
+            echo $html;
+            
+            break;
     }
 }
